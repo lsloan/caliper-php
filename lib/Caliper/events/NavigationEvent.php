@@ -15,9 +15,9 @@ class NavigationEvent extends Event {
     }
 
     public function jsonSerialize() {
-        return array_merge(parent::jsonSerialize(), [
+        return array_filter(array_merge(parent::jsonSerialize(), [
             'navigatedFrom' => $this->getNavigatedFrom(),
-        ]);
+        ]), JsonUtil::keepOnlyNonemptyNonnull());
     }
 
     /** @return DigitalResource navigatedFrom */

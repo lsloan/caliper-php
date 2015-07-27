@@ -13,9 +13,9 @@ class TrueFalseResponse extends Response {
     }
 
     public function jsonSerialize() {
-        return array_merge(parent::jsonSerialize(), [
+        return array_filter(array_merge(parent::jsonSerialize(), [
             'value' => $this->getValue(),
-        ]);
+        ]), JsonUtil::keepOnlyNonemptyNonnull());
     }
 
     /** @return string value */

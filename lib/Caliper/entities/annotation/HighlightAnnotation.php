@@ -17,10 +17,10 @@ class HighlightAnnotation extends Annotation {
     }
 
     public function jsonSerialize() {
-        return array_merge(parent::jsonSerialize(), [
+        return array_filter(array_merge(parent::jsonSerialize(), [
             'selection' => $this->getSelection(),
             'selectionText' => $this->getSelectionText()
-        ]);
+        ]), JsonUtil::keepOnlyNonemptyNonnull());
     }
 
     /**

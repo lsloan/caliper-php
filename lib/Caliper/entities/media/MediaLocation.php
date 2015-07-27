@@ -13,9 +13,9 @@ class MediaLocation extends DigitalResource implements Targetable {
     }
 
     public function jsonSerialize() {
-        return array_merge(parent::jsonSerialize(), [
+        return array_filter(array_merge(parent::jsonSerialize(), [
             'currentTime' => $this->getCurrentTime(),
-        ]);
+        ]), JsonUtil::keepOnlyNonemptyNonnull());
     }
 
     /** @return long currentTime (seconds) */

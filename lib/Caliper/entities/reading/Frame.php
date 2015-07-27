@@ -12,9 +12,9 @@ class Frame extends DigitalResource implements Targetable {
     }
 
     public function jsonSerialize() {
-        return array_merge(parent::jsonSerialize(), [
+        return array_filter(array_merge(parent::jsonSerialize(), [
             'index' => $this->getIndex(),
-        ]);
+        ]), JsonUtil::keepOnlyNonemptyNonnull());
     }
 
     /** @return int index */

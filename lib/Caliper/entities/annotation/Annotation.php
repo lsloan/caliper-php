@@ -20,11 +20,11 @@ abstract class Annotation extends Entity implements Generatable {
     }
 
     public function jsonSerialize() {
-        return array_merge(parent::jsonSerialize(), [
+        return array_filter(array_merge(parent::jsonSerialize(), [
             'annotated' => (!is_null($this->getAnnotated()))
                 ? $this->getAnnotated()->getId()
                 : null,
-        ]);
+        ]), JsonUtil::keepOnlyNonemptyNonnull());
     }
 
     /** @return DigitalResource annotated */

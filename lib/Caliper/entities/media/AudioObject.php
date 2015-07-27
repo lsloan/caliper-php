@@ -19,12 +19,12 @@ class AudioObject extends MediaObject implements schemadotorg\AudioObject {
     }
 
     public function jsonSerialize() {
-        return array_merge(parent::jsonSerialize(), [
+        return array_filter(array_merge(parent::jsonSerialize(), [
             'volumeMin' => $this->getVolumeMin(),
             'volumeMax' => $this->getVolumeMax(),
             'volumeLevel' => $this->getVolumeLevel(),
             'muted' => $this->getMuted(),
-        ]);
+        ]), JsonUtil::keepOnlyNonemptyNonnull());
     }
 
     /** @return string volumeMin */

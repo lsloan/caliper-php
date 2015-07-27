@@ -38,7 +38,7 @@ abstract class Event extends ClassUtil implements JsonSerializable {
     }
 
     public function jsonSerialize() {
-        return [
+        return array_filter([
             '@context' => $this->getContext(),
             '@type' => $this->getType(),
             'actor' => $this->getActor(),
@@ -55,7 +55,7 @@ abstract class Event extends ClassUtil implements JsonSerializable {
             'federatedSession' => (!is_null($this->getFederatedSession()))
                 ? $this->getFederatedSession()->getId()
                 : null,
-        ];
+        ], JsonUtil::keepOnlyNonemptyNonnull());
     }
 
     /** @return Context context */

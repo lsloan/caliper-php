@@ -42,14 +42,14 @@ class DigitalResource extends Entity implements CreativeWork, Targetable {
     }
 
     public function jsonSerialize() {
-        return array_merge(parent::jsonSerialize(), [
+        return array_filter(array_merge(parent::jsonSerialize(), [
             'objectType' => $this->getObjectTypes(),
             'alignedLearningObjective' => $this->getAlignedLearningObjectives(),
             'keywords' => $this->getKeywords(),
             'isPartOf' => $this->getIsPartOf(),
             'datePublished' => TimestampUtil::formatTimeISO8601MillisUTC($this->getDatePublished()),
             'version' => $this->getVersion(),
-        ]);
+        ]), JsonUtil::keepOnlyNonemptyNonnull() );
     }
 
     /** @return string[] objectTypes */

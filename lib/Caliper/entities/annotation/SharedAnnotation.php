@@ -12,9 +12,9 @@ class SharedAnnotation extends Annotation {
     }
 
     public function jsonSerialize() {
-        return array_merge(parent::jsonSerialize(), [
+        return array_filter(array_merge(parent::jsonSerialize(), [
             'withAgents' => $this->getWithAgents(),
-        ]);
+        ]), JsonUtil::keepOnlyNonemptyNonnull());
     }
 
     /** @return \foaf\Agent[] withAgents */
