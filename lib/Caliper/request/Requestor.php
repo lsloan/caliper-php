@@ -1,4 +1,5 @@
 <?php
+require_once 'Caliper/util/JsonUtil.php';
 
 abstract class Requestor {
     /**

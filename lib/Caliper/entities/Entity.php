@@ -2,7 +2,6 @@
 require_once 'Caliper/entities/schemadotorg/Thing.php';
 require_once 'Caliper/util/ClassUtil.php';
 require_once 'Caliper/util/TimestampUtil.php';
-require_once 'Caliper/util/JsonUtil.php';
 
 abstract class Entity extends ClassUtil implements JsonSerializable, Thing {
     /** @var string */
