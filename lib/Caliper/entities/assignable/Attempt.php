@@ -26,7 +26,7 @@ class Attempt extends Entity implements Generatable {
     }
 
     public function jsonSerialize() {
-        return array_filter(array_merge(parent::jsonSerialize(), [
+        return array_merge(parent::jsonSerialize(), [
             'assignable' => (!is_null($this->getAssignable()))
                 ? $this->getAssignable()->getId()
                 : null,
@@ -37,7 +37,7 @@ class Attempt extends Entity implements Generatable {
             'startedAtTime' => TimestampUtil::formatTimeISO8601MillisUTC($this->getStartedAtTime()),
             'endedAtTime' => TimestampUtil::formatTimeISO8601MillisUTC($this->getEndedAtTime()),
             'duration' => $this->getDurationFormatted(),
-        ]), JsonUtil::keepOnlyNonemptyNonnull());
+        ]);
     }
 
     /** @return DigitalResource assignable */

@@ -11,9 +11,9 @@ abstract class MediaObject extends DigitalResource implements schemadotorg\Media
     }
 
     public function jsonSerialize() {
-        return array_filter(array_merge(parent::jsonSerialize(), [
+        return array_merge(parent::jsonSerialize(), [
             'duration' => $this->getDuration(),
-        ]), JsonUtil::keepOnlyNonemptyNonnull());
+        ]);
     }
 
     /** @return long duration (seconds) */

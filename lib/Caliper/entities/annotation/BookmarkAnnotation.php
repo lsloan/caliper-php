@@ -12,9 +12,9 @@ class BookmarkAnnotation extends Annotation {
     }
 
     public function jsonSerialize() {
-        return array_filter(array_merge(parent::jsonSerialize(), [
+        return array_merge(parent::jsonSerialize(), [
             'bookmarkNotes' => $this->getBookmarkNotes(),
-        ]), JsonUtil::keepOnlyNonemptyNonnull());
+        ]);
     }
 
     /** @return string bookmarkNotes */

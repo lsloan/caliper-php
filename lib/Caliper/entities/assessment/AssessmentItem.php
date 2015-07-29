@@ -12,9 +12,9 @@ class AssessmentItem extends AssignableDigitalResource {
     }
 
     public function jsonSerialize() {
-        return array_filter(array_merge(parent::jsonSerialize(), [
+        return array_merge(parent::jsonSerialize(), [
             'isTimeDependent' => $this->getIsTimeDependent(),
-        ]), JsonUtil::keepOnlyNonemptyNonnull());
+        ]);
     }
 
     /** @return bool isTimeDependent */

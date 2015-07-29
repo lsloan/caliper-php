@@ -23,7 +23,7 @@ abstract class Response extends Entity implements Generatable {
     }
 
     public function jsonSerialize() {
-        return array_filter(array_merge(parent::jsonSerialize(), [
+        return array_merge(parent::jsonSerialize(), [
             'actor' => (!is_null($this->getActor()))
                 ? $this->getActor()->getId()
                 : null,
@@ -34,7 +34,7 @@ abstract class Response extends Entity implements Generatable {
             'duration' => $this->getDuration(),
             'endedAtTime' => TimestampUtil::formatTimeISO8601MillisUTC($this->getEndedAtTime()),
             'startedAtTime' => TimestampUtil::formatTimeISO8601MillisUTC($this->getStartedAtTime()),
-        ]), JsonUtil::keepOnlyNonemptyNonnull());
+        ]);
     }
 
     /** @return DigitalResource assignable */

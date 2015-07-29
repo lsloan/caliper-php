@@ -19,7 +19,7 @@ class Membership extends Entity implements w3c\Membership {
     }
 
     public function jsonSerialize() {
-        return array_filter(array_merge(parent::jsonSerialize(), [
+        return array_merge(parent::jsonSerialize(), [
             'member' => (!is_null($this->getMember()))
                 ? $this->getMember()->getId()
                 : null,
@@ -28,7 +28,7 @@ class Membership extends Entity implements w3c\Membership {
                 : null,
             'roles' => $this->getRoles(),
             'status' => $this->getStatus(),
-        ]), JsonUtil::keepOnlyNonemptyNonnull());
+        ]);
     }
 
     /** @return Person member */

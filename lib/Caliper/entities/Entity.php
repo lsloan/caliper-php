@@ -28,7 +28,7 @@ abstract class Entity extends ClassUtil implements JsonSerializable, Thing {
     }
 
     public function jsonSerialize() {
-        return array_filter([
+        return [
             '@id' => $this->getId(),
             '@context' => $this->getContext(),
             '@type' => $this->getType(),
@@ -37,7 +37,7 @@ abstract class Entity extends ClassUtil implements JsonSerializable, Thing {
             'extensions' => (object) $this->getExtensions(),
             'dateCreated' => TimestampUtil::formatTimeISO8601MillisUTC($this->getDateCreated()),
             'dateModified' => TimestampUtil::formatTimeISO8601MillisUTC($this->getDateModified()),
-        ], JsonUtil::keepOnlyNonemptyNonnull());
+        ];
     }
 
     /** @return string id */

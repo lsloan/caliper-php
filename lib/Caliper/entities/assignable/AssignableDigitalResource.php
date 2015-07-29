@@ -26,7 +26,7 @@ class AssignableDigitalResource extends DigitalResource implements Assignable {
     }
 
     public function jsonSerialize() {
-        return array_filter(array_merge(parent::jsonSerialize(), [
+        return array_merge(parent::jsonSerialize(), [
             'dateToActivate' => TimestampUtil::formatTimeISO8601MillisUTC($this->getDateToActivate()),
             'dateToShow' => TimestampUtil::formatTimeISO8601MillisUTC($this->getDateToShow()),
             'dateToStartOn' => TimestampUtil::formatTimeISO8601MillisUTC($this->getDateToStartOn()),
@@ -34,7 +34,7 @@ class AssignableDigitalResource extends DigitalResource implements Assignable {
             'maxAttempts' => $this->getMaxAttempts(),
             'maxSubmits' => $this->getMaxSubmits(),
             'maxScore' => $this->getMaxScore(),
-        ]), JsonUtil::keepOnlyNonemptyNonnull());
+        ]);
     }
 
     /** @return DateTime dateToActivate */

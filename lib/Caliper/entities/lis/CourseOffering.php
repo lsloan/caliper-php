@@ -16,11 +16,11 @@ class CourseOffering extends Entity implements Course {
     }
 
     public function jsonSerialize() {
-        return array_filter(array_merge(parent::jsonSerialize(), [
+        return array_merge(parent::jsonSerialize(), [
             'courseNumber' => $this->getCourseNumber(),
             'academicSession' => $this->getAcademicSession(),
             'subOrganizationOf' => $this->getSubOrganizationOf(),
-        ]), JsonUtil::keepOnlyNonemptyNonnull());
+        ]);
     }
 
     /** @return string courseNumber */

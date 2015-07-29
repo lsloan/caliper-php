@@ -12,9 +12,9 @@ class Group extends Entity implements w3c\Organization {
     }
 
     public function jsonSerialize() {
-        return array_filter(array_merge(parent::jsonSerialize(), [
+        return array_merge(parent::jsonSerialize(), [
             'subOrganizationOf' => $this->getSubOrganizationOf(),
-        ]), JsonUtil::keepOnlyNonemptyNonnull());
+        ]);
     }
 
     /** @return Course subOrganizationOf */
