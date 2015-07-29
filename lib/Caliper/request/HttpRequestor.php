@@ -1,9 +1,9 @@
 <?php
 require_once 'Caliper/Sensor.php';
 require_once 'Caliper/request/Envelope.php';
-require_once 'Caliper/request/EventStoreRequestor.php';
+require_once 'Caliper/request/Requestor.php';
 
-class HttpRequestor extends EventStoreRequestor {
+class HttpRequestor extends Requestor {
     private $options;
 
     /**
@@ -40,11 +40,8 @@ class HttpRequestor extends EventStoreRequestor {
             }
         }
 
-        $envelope = (new Envelope())
-            ->setSensorId($sensor)
-            ->setData($items);
-
-        $payload = json_encode($envelope, $this->getOptions()->getJsonEncodeOptions());
+        $envelope = $this->createEnvelope($sensor, new DateTime(), $items);
+        $payload = $this->serializeData($envelope);
 
         $headers = [
             'Content-Type' => 'application/json',
@@ -121,5 +118,18 @@ class HttpRequestor extends EventStoreRequestor {
     public function setOptions($options) {
         $this->options = $options;
         return $this;
+    }
+
+    /**
+     * @param object $data
+     * @param $include
+     * @return string
+     */
+    public function serializeData($data, Options $options = null) {
+        if (is_null($options)) {
+            $options = $this->getOptions();
+        }
+
+        return parent::serializeData($data, $options);
     }
 }
