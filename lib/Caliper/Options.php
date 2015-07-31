@@ -1,6 +1,5 @@
 <?php
 require_once 'Caliper/Defaults.php';
-require_once 'Caliper/util/JsonInclude.php';
 
 class Options {
     /** @var string */
@@ -13,8 +12,8 @@ class Options {
     private $socketTimeout;
     /** @var int */
     private $connectionRequestTimeout;
-    /** @var JsonInclude */
-    private $jsonInclude;
+    /** @var callable */
+    private $jsonFilter;
     /** @var int */
     private $jsonEncodeOptions;
     /** @var bool */
@@ -23,7 +22,7 @@ class Options {
     public function __construct() {
         $this->setHost(Defaults::HOST)
             ->setJsonEncodeOptions(Defaults::JSON_ENCODE_OPTIONS)
-            ->setJsonInclude(Defaults::JSON_INCLUDE)
+            ->setJsonFilter(Defaults::JSON_FILTER)
             ->setDebug(Defaults::DEBUG)
             ->setConnectionTimeout(Defaults::CONNECTION_TIMEOUT);
     }
@@ -130,21 +129,21 @@ class Options {
         return $this;
     }
 
-    /** @return JsonInclude */
-    public function getJsonInclude() {
-        return $this->jsonInclude;
+    /** @return callable */
+    public function getJsonFilter() {
+        return $this->jsonFilter;
     }
 
     /**
-     * @param JsonInclude|mixed $jsonInclude
+     * @param callable|null $jsonFilter
      * @return $this
      */
-    public function setJsonInclude($jsonInclude) {
-        if (!($jsonInclude instanceof JsonInclude)) {
-            $jsonInclude = new JsonInclude($jsonInclude);
+    public function setJsonFilter($jsonFilter) {
+        if (!is_null($jsonFilter) && !is_callable($jsonFilter)) {
+            throw new InvalidArgumentException(__METHOD__ . ': callable or null expected');
         }
 
-        $this->jsonInclude = $jsonInclude;
+        $this->jsonFilter = $jsonFilter;
         return $this;
     }
 
