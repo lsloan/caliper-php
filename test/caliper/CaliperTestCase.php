@@ -16,10 +16,29 @@ require_once realpath(CALIPER_LIB_PATH . '/../test/caliper/TestTimes.php');
 require_once realpath(CALIPER_LIB_PATH . '/../test/util/TestUtilities.php');
 
 class CaliperTestCase extends PHPUnit_Framework_TestCase {
-    /** @var object */
-    private $testObject;
     /** @var string */
     protected $fixtureFilename;
+    /** @var object */
+    private $testObject;
+
+    function setUp() {
+        parent::setUp();
+        date_default_timezone_set('UTC');
+    }
+
+    function testObjectSerializesToJson() {
+        $testOptions = (new Options())
+            ->setJsonFilter(JsonPlus::isNonemptyNonnull());
+
+        $testRequestor = new HttpRequestor($testOptions);
+
+        $testJson = $testRequestor->serializeData($this->getTestObject());
+        $testFixtureFilePath = realpath(CALIPER_LIB_PATH . $this->getFixtureFilename());
+
+        TestUtilities::saveFormattedFixtureAndOutputJson($testFixtureFilePath, $testJson, get_called_class());
+
+        $this->assertJsonStringEqualsJsonFile($testFixtureFilePath, $testJson);
+    }
 
     /** @return object */
     public function getTestObject() {
@@ -47,24 +66,5 @@ class CaliperTestCase extends PHPUnit_Framework_TestCase {
     public function setFixtureFilename($fixtureFilename) {
         $this->fixtureFilename = $fixtureFilename;
         return $this;
-    }
-
-    function setUp() {
-        parent::setUp();
-        date_default_timezone_set('UTC');
-    }
-
-    function testObjectSerializesToJson() {
-        $testOptions = (new Options())
-            ->setJsonInclude(JsonInclude::NON_EMPTY);
-
-        $testRequestor = new HttpRequestor($testOptions);
-
-        $testJson = $testRequestor->serializeData($this->getTestObject());
-        $testFixtureFilePath = realpath(CALIPER_LIB_PATH . $this->getFixtureFilename());
-
-        TestUtilities::saveFormattedFixtureAndOutputJson($testFixtureFilePath, $testJson, get_called_class());
-
-        $this->assertJsonStringEqualsJsonFile($testFixtureFilePath, $testJson);
     }
 }
