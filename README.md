@@ -24,7 +24,7 @@ git clone https://github.com/IMSGlobal/caliper-php.git
 Then, add the following to your PHP script:
 
 ```
-require_once '/path/to/caliper-php/lib/CaliperSensor.php';
+require_once '/path/to/caliper-php/lib/Caliper/Sensor.php';
 ```
 
 Now you're ready to initialize Caliper and send an event as follows:
