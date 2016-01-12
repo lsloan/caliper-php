@@ -5,6 +5,8 @@ require_once 'Caliper/util/JsonInclude.php';
 class Options {
     /** @var string */
     private $host;
+    /** @var string[] */
+    private $httpHeaders;
     /** @var string */
     private $apiKey;
     /** @var int */
@@ -22,6 +24,7 @@ class Options {
 
     public function __construct() {
         $this->setHost(Defaults::HOST)
+            ->setHttpHeaders([])
             ->setJsonEncodeOptions(Defaults::JSON_ENCODE_OPTIONS)
             ->setJsonInclude(Defaults::JSON_INCLUDE)
             ->setDebug(Defaults::DEBUG)
@@ -43,6 +46,26 @@ class Options {
         }
 
         $this->host = $host;
+        return $this;
+    }
+
+    /** @return string[] */
+    public function getHttpHeaders() {
+        return $this->httpHeaders;
+    }
+
+    /**
+     * @param string[] $httpHeaders
+     * @return $this|Options
+     */
+    public function setHttpHeaders($httpHeaders) {
+        if ($httpHeaders == null) {
+            $httpHeaders = [];
+        } elseif (!is_array($httpHeaders)) {
+            $httpHeaders = [$httpHeaders];
+        }
+
+        $this->httpHeaders = $httpHeaders;
         return $this;
     }
 

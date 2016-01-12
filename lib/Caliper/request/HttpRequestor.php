@@ -43,10 +43,10 @@ class HttpRequestor extends Requestor {
         $envelope = $this->createEnvelope($sensor, new DateTime(), $items);
         $payload = $this->serializeData($envelope);
 
-        $headers = [
+        $headers = array_merge($this->getOptions()->getHttpHeaders(), [
             'Content-Type' => 'application/json',
             'Authorization' => $this->getOptions()->getApiKey(),
-        ];
+        ]);
 
         if (extension_loaded('http')) {
             $message = new \http\Message();
