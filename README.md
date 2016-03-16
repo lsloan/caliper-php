@@ -1,13 +1,7 @@
 caliper-php
 ================
-NOTE: THESE MATERIALS ARE FOR IMS CONTRIBUTING MEMBERS ONLY. THEY MAY NOT BE RELEASED UNTIL APPROVED BY IMS GLOBAL.
 
-caliper-php is a php client for [Caliper](http://www.imsglobal.org) that provides an implementation of the Caliper Sensor API.
-
-## Documentation
-
-## IMPORTANT INFORMATION:
-Access to this draft code is reserved for IMS Contributing Members who are active participants of the IMS Learning Analytics Task Force.  Dissemination of this code to outside parties is strictly prohibited. By accessing these materials you agree to abide by these rules. This code is in draft format and will change substantially. 
+caliper-php is a php client for [Caliper](http://www.imsglobal.org) that provides an implementation of the Caliper SensorAPI™.
 
 ## Getting Started
 
@@ -30,7 +24,7 @@ git clone https://github.com/IMSGlobal/caliper-php.git
 Then, add the following to your PHP script:
 
 ```
-require_once '/path/to/caliper-php/lib/CaliperSensor.php';
+require_once '/path/to/caliper-php/lib/Caliper/Sensor.php';
 ```
 
 Now you're ready to initialize Caliper and send an event as follows:
@@ -63,6 +57,9 @@ examples/tools/testListener.sh [optional_port]
 
 That will start a simple PHP web server (on port 8000 by default) that listens for POST requests and dumps the raw contents to the terminal.  If you run this in one terminal window and the example program in another terminal window, you will see the request received in the first window.
 
+## Documentation
+Documentation is available at [http://www.imsglobal.org/caliper](https://www.imsglobal.org/caliper).
+
 ## Credits
 
 A very special thank you to each of the developers that contributed to this project:
@@ -71,7 +68,7 @@ A very special thank you to each of the developers that contributed to this proj
 * balachandiran.v / Yoganand-htc
 * Lance E Sloan (lsloan at umich dot edu), University of Michigan
 
-©2014 IMS Global Learning Consortium, Inc. All Rights Reserved.
-Trademark Information- http://www.imsglobal.org/copyright.html
+©2015 IMS Global Learning Consortium, Inc. All Rights Reserved.
+Trademark Information - http://www.imsglobal.org/copyright.html
 
-For license information contact, info@imsglobal.org
+For license information contact, info@imsglobal.org and read the LICENSE file contained in the repository.
