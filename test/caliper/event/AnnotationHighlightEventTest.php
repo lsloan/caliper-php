@@ -17,7 +17,7 @@ class AnnotationHighlightEventTest extends CaliperTestCase {
             ->setAction(new Action(Action::HIGHLIGHTED))
             ->setObject(TestReadingEntities::makeFrame1())
             ->setGenerated(TestAnnotationEntities::makeHighlightAnnotation())
-            ->setStartedAtTime(TestTimes::startedTime())
+            ->setEventTime(TestTimes::startedTime())
             ->setEdApp(TestAgentEntities::makeReadingApplication())
             ->setGroup(TestLisEntities::makeGroup())
             ->setMembership(TestLisEntities::makeMembership())) ;

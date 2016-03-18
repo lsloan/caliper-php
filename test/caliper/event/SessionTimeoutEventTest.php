@@ -12,16 +12,16 @@ class SessionTimeoutEventTest extends CaliperTestCase {
 
         $this->setFixtureFilename('/../../caliper-common-fixtures/src/test/resources/fixtures/caliperSessionTimeoutEvent.json');
 
-        $this->setTestObject((new SessionEvent())
-            ->setActor(TestAgentEntities::makeReadingApplication())
-            ->setAction(new Action(Action::TIMED_OUT))
-            ->setObject(TestSessionEntities::makeSession()
-                ->setEndedAtTime(TestTimes::endedTime())
-                ->setDuration(TestTimes::durationSeconds()))
-            ->setEdApp(TestAgentEntities::makeReadingApplication())
-            ->setGroup(TestLisEntities::makeGroup())
-            ->setStartedAtTime(TestTimes::startedTime())
-            ->setEndedAtTime(TestTimes::endedTime())
-            ->setDuration(TestTimes::durationSeconds()));
+        $this->setTestObject(
+            (new SessionEvent())
+                ->setActor(TestAgentEntities::makeReadingApplication())
+                ->setAction(new Action(Action::TIMED_OUT))
+                ->setObject(TestSessionEntities::makeSession()
+                    ->setEndedAtTime(TestTimes::endedTime())
+                    ->setDuration(TestTimes::durationSeconds()))
+                ->setEdApp(TestAgentEntities::makeReadingApplication())
+                ->setGroup(TestLisEntities::makeGroup())
+                ->setEventTime(TestTimes::startedTime())
+        );
     }
 }
