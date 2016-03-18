@@ -1,5 +1,5 @@
 <?php
-require_once 'Caliper/util/JsonPlus.php';
+require_once 'Caliper/util/JsonUtil.php';
 
 abstract class Requestor {
     /**
@@ -37,9 +37,12 @@ abstract class Requestor {
     public function serializeData($data, Options $options) {
         $dataForEncoding = $data;
 
-        return JsonPlus::jsonEncode($dataForEncoding, [
-            $options->getJsonEncodeOptions(),
-            $options->getJsonFilter()
-        ]);
+        $jsonInclude = $options->getJsonInclude();
+
+        if ($jsonInclude && ($jsonInclude->getValue() !== JsonInclude::ALWAYS)) {
+            $dataForEncoding = JsonUtil::preserialize($dataForEncoding, $options);
+        }
+
+        return json_encode($dataForEncoding, $options->getJsonEncodeOptions());
     }
 }

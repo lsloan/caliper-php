@@ -1,9 +1,29 @@
 <?php
 abstract class BasicEnum implements JsonSerializable {
+    const DEFAULT_KEY = '__default';
     private static $constCacheArray = NULL;
     private $value;
 
     public function __construct($value = null) {
+        $errorMessage = null;
+
+        if (is_null($value)) {
+            $constants = @self::getConstants();
+            if (array_key_exists(self::DEFAULT_KEY, $constants)) {
+                $value = $constants[self::DEFAULT_KEY];
+            } else {
+                $errorMessage = 'No "' . self::DEFAULT_KEY . '" value.';
+            }
+        } elseif (!self::isValidValue($value)) {
+            $errorMessage = 'Invalid value.';
+        }
+
+        if (!is_null($errorMessage)) {
+            throw new InvalidArgumentException(get_called_class() . '::' . __FUNCTION__ .
+                ': ' . $errorMessage . ' Valid values: ' .
+                join(', ', array_keys(self::getConstants())));
+        }
+
         $this->value = $value;
     }
 
@@ -15,8 +35,11 @@ abstract class BasicEnum implements JsonSerializable {
         return $this->value;
     }
 
+    /**
+     * @return array
+     */
     private static function getConstants() {
-        if (self::$constCacheArray == NULL) {
+        if (self::$constCacheArray == null) {
             self::$constCacheArray = [];
         }
         $calledClass = get_called_class();
