@@ -10,7 +10,7 @@ class AnnotationBookmarkedEventTest extends CaliperTestCase {
 	function setUp() {
         parent::setUp();
 
-        $this->setFixtureFilename('/../../caliper-common-fixtures/src/test/resources/fixtures/caliperBookmarkAnnotationEvent.json');
+        $this->setFixtureFilename('/../../caliper-common-fixtures/src/test/resources/fixtures/caliperEventAnnotationBookmarked.json');
 
         $this->setTestObject((new AnnotationEvent())
             ->setActor(TestAgentEntities::makePerson())
