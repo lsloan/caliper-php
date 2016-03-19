@@ -7,10 +7,11 @@ require_once 'Caliper/actions/Action.php';
  * @requires PHP 5.4
  */
 class AnnotationBookmarkedEventTest extends CaliperTestCase {
-	function setUp() {
+    function setUp() {
         parent::setUp();
 
-        $this->setFixtureFilename('/../../caliper-common-fixtures/src/test/resources/fixtures/caliperEventAnnotationBookmarked.json');
+        $eventAction = str_replace('EventTest', null, __CLASS__);
+        $this->setFixtureFilename('/../../caliper-common-fixtures/src/test/resources/fixtures/caliperEvent' . $eventAction . '.json');
 
         $this->setTestObject((new AnnotationEvent())
             ->setActor(TestAgentEntities::makePerson())
@@ -21,5 +22,5 @@ class AnnotationBookmarkedEventTest extends CaliperTestCase {
             ->setEdApp(TestAgentEntities::makeReadingApplication())
             ->setGroup(TestLisEntities::makeGroup())
             ->setMembership(TestLisEntities::makeMembership()));
-	}
+    }
 }
