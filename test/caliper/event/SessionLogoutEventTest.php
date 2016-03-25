@@ -6,7 +6,7 @@ require_once 'Caliper/actions/Action.php';
 /**
  * @requires PHP 5.4
  */
-class SessionLogoutEventTest extends CaliperTestCase{
+class SessionLogoutEventTest extends CaliperTestCase {
     function setUp() {
         parent::setUp();
 

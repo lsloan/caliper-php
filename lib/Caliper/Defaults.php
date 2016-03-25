@@ -4,7 +4,6 @@ require_once 'Caliper/util/JsonInclude.php';
 
 class Defaults extends BasicEnum {
     const
-        __default = '',
         HOST = 'http://example.org/',
         CONNECTION_REQUEST_TIMEOUT = 10000,
         CONNECTION_TIMEOUT = 10000,

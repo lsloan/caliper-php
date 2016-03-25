@@ -6,13 +6,12 @@ abstract class Requestor {
      * @param Sensor $sensor
      * @param DateTime $sendTime
      * @param Entity|Event|Entity[]|Event[] $data
-
      * @return Envelope
      */
     public function createEnvelope(Sensor $sensor, DateTime $sendTime, $data) {
         return (new Envelope())
             ->setSensorId($sensor)
-            ->getSendTime($sendTime)
+            ->setSendTime($sendTime)
             ->setData($data);
     }
 
@@ -38,7 +37,9 @@ abstract class Requestor {
     public function serializeData($data, Options $options) {
         $dataForEncoding = $data;
 
-        if ($options->getJsonInclude()->getValue() !== JsonInclude::ALWAYS) {
+        $jsonInclude = $options->getJsonInclude();
+
+        if ($jsonInclude && ($jsonInclude->getValue() !== JsonInclude::ALWAYS)) {
             $dataForEncoding = JsonUtil::preserialize($dataForEncoding, $options);
         }
 

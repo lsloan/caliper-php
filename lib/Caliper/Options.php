@@ -136,10 +136,10 @@ class Options {
     }
 
     /**
-     * @param JsonInclude|mixed $jsonInclude
+     * @param JsonInclude|null $jsonInclude
      * @return $this
      */
-    public function setJsonInclude($jsonInclude) {
+    public function setJsonInclude($jsonInclude = null) {
         if (!($jsonInclude instanceof JsonInclude)) {
             $jsonInclude = new JsonInclude($jsonInclude);
         }
