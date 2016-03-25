@@ -160,11 +160,11 @@ abstract class Event extends ClassUtil implements JsonSerializable {
     }
 
     /**
-     * @param DateTime $startedAtTime
+     * @param DateTime $eventTime
      * @return $this|Event
      */
-    public function setEventTime(DateTime $startedAtTime) {
-        $this->eventTime = $startedAtTime;
+    public function setEventTime(DateTime $eventTime) {
+        $this->eventTime = $eventTime;
         return $this;
     }
 

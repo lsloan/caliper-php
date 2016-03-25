@@ -12,18 +12,16 @@ class SessionLogoutEventTest extends CaliperTestCase {
 
         $this->setFixtureFilename('/../../caliper-common-fixtures/src/test/resources/fixtures/caliperSessionLogoutEvent.json');
 
-        $this->setTestObject(
-            (new SessionEvent())
-                ->setActor(TestAgentEntities::makePerson())
-                ->setMembership(TestLisEntities::makeMembership())
-                ->setAction(new Action(Action::LOGGED_OUT))
-                ->setObject(TestAgentEntities::makeReadingApplication())
-                ->setTarget(TestSessionEntities::makeSession()
-                    ->setEndedAtTime(TestTimes::endedTime())
-                    ->setDuration(TestTimes::durationSeconds()))
-                ->setEdApp(TestAgentEntities::makeReadingApplication())
-                ->setGroup(TestLisEntities::makeGroup())
-                ->setEventTime(TestTimes::startedTime())
-        );
+        $this->setTestObject((new SessionEvent())
+            ->setActor(TestAgentEntities::makePerson())
+            ->setMembership(TestLisEntities::makeMembership())
+            ->setAction(new Action(Action::LOGGED_OUT))
+            ->setObject(TestAgentEntities::makeReadingApplication())
+            ->setTarget(TestSessionEntities::makeSession()
+                ->setEndedAtTime(TestTimes::endedTime())
+                ->setDuration(TestTimes::durationSeconds()))
+            ->setEdApp(TestAgentEntities::makeReadingApplication())
+            ->setGroup(TestLisEntities::makeGroup())
+            ->setEventTime(TestTimes::startedTime()));
     }
 }
