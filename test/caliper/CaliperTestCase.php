@@ -29,7 +29,7 @@ class CaliperTestCase extends PHPUnit_Framework_TestCase {
     function testObjectSerializesToJson() {
         $testOptions = (
         (new Options())
-            ->setJsonInclude(JsonInclude::ALWAYS) // For use with old fixtures that contain nulls and empties
+            //->setJsonInclude(JsonInclude::ALWAYS) // For use with old fixtures that contain nulls and empties
         );
 
         $testRequestor = new HttpRequestor($testOptions);
