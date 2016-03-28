@@ -69,7 +69,7 @@ class SessionEventSampleApp {
             ->setObject($eventObj)
             ->setTarget($targetObj)
             ->setGenerated($generatedObj)
-            ->setStartedAtTime($sessionStartTime);
+            ->setEventTime($sessionStartTime);
 
         $this->sessionEvent = $sessionEvent;
     }
@@ -80,6 +80,7 @@ $sensor = new Sensor('id');
 $options = (new Options())
     ->setApiKey('org.imsglobal.caliper.php.apikey')
     ->setDebug(true)
+    ->setJsonInclude(JsonInclude::NON_EMPTY)
     ->setHost('http://localhost:8000/');
 
 $sensor->registerClient('http', new Client('clientId', $options));
