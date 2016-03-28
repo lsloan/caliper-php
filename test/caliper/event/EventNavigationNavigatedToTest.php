@@ -5,7 +5,7 @@ require_once 'Caliper/events/NavigationEvent.php';
 /**
  * @requires PHP 5.4
  */
-class EventNavigationTest extends CaliperTestCase {
+class EventNavigationNavigatedToTest extends CaliperTestCase {
     function setUp() {
         parent::setUp();
 

@@ -6,15 +6,15 @@ require_once 'Caliper/actions/Action.php';
 /**
  * @requires PHP 5.4
  */
-class EventAnnotationHighlightTest extends CaliperTestCase {
+class EventAnnotationTaggedTest extends CaliperTestCase {
     function setUp() {
         parent::setUp();
 
         $this->setTestObject((new AnnotationEvent())
             ->setActor(TestAgentEntities::makePerson())
-            ->setAction(new Action(Action::HIGHLIGHTED))
-            ->setObject(TestReadingEntities::makeFrame1())
-            ->setGenerated(TestAnnotationEntities::makeHighlightAnnotation())
+            ->setAction(new Action(Action::TAGGED))
+            ->setObject(TestReadingEntities::makeFrame4())
+            ->setGenerated(TestAnnotationEntities::makeTagAnnotation())
             ->setEventTime(TestTimes::startedTime())
             ->setEdApp(TestAgentEntities::makeReadingApplication())
             ->setGroup(TestLisEntities::makeGroup())

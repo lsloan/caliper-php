@@ -6,17 +6,16 @@ require_once 'Caliper/actions/Action.php';
 /**
  * @requires PHP 5.4
  */
-class EventSessionLoginTest extends CaliperTestCase {
+class EventSessionTimedOutTest extends CaliperTestCase {
     function setUp() {
         parent::setUp();
 
         $this->setTestObject((new SessionEvent())
-            ->setActor(TestAgentEntities::makePerson())
-            ->setMembership(TestLisEntities::makeMembership())
-            ->setAction(new Action(Action::LOGGED_IN))
-            ->setObject(TestAgentEntities::makeReadingApplication())
-            ->setTarget(TestReadingEntities::makeFrame1())
-            ->setGenerated(TestSessionEntities::makeSession())
+            ->setActor(TestAgentEntities::makeReadingApplication())
+            ->setAction(new Action(Action::TIMED_OUT))
+            ->setObject(TestSessionEntities::makeSession()
+                ->setEndedAtTime(TestTimes::endedTime())
+                ->setDuration(TestTimes::durationSeconds()))
             ->setEdApp(TestAgentEntities::makeReadingApplication())
             ->setGroup(TestLisEntities::makeGroup())
             ->setEventTime(TestTimes::startedTime()));
