@@ -5,11 +5,9 @@ require_once 'Caliper/events/NavigationEvent.php';
 /**
  * @requires PHP 5.4
  */
-class NavigationEventTest extends CaliperTestCase {
-    function  setUp() {
+class EventNavigationNavigatedToTest extends CaliperTestCase {
+    function setUp() {
         parent::setUp();
-
-        $this->setFixtureFilename('/../../caliper-common-fixtures/src/test/resources/fixtures/caliperNavigationEvent.json');
 
         $this->setTestObject((new NavigationEvent())
             ->setActor(TestAgentEntities::makePerson())

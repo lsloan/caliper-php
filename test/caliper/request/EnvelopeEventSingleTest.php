@@ -5,11 +5,9 @@ require_once 'Caliper/events/NavigationEvent.php';
 /**
  * @requires PHP 5.4
  */
-class HttpRequestorTest extends CaliperTestCase {
+class EnvelopeEventSingleTest extends CaliperTestCase {
     function setUp() {
         parent::setUp();
-
-        $this->setFixtureFilename('/../../caliper-common-fixtures/src/test/resources/fixtures/eventStorePayload.json');
 
         $this->setTestObject(TestRequests::makeEnvelope()
             ->setData((new NavigationEvent())

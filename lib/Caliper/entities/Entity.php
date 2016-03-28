@@ -29,7 +29,6 @@ abstract class Entity extends ClassUtil implements JsonSerializable, Thing {
     public function jsonSerialize() {
         return [
             '@id' => $this->getId(),
-            '@context' => $this->getContext(),
             '@type' => $this->getType(),
             'name' => $this->getName(),
             'description' => $this->getDescription(),

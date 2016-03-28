@@ -6,11 +6,9 @@ require_once 'Caliper/actions/Action.php';
 /**
  * @requires PHP 5.4
  */
-class AnnotationHighlightEventTest extends CaliperTestCase {
+class EventAnnotationHighlightedTest extends CaliperTestCase {
     function setUp() {
         parent::setUp();
-
-        $this->setFixtureFilename('/../../caliper-common-fixtures/src/test/resources/fixtures/caliperHighlightAnnotationEvent.json');
 
         $this->setTestObject((new AnnotationEvent())
             ->setActor(TestAgentEntities::makePerson())
