@@ -1,5 +1,6 @@
 <?php
 require_once realpath(dirname(__FILE__) . '/../../lib/Caliper/Sensor.php');
+require_once 'Caliper/Options.php';
 require_once realpath(CALIPER_LIB_PATH . '/../test/caliper/TestAgentEntities.php');
 require_once realpath(CALIPER_LIB_PATH . '/../test/caliper/TestAnnotationEntities.php');
 require_once realpath(CALIPER_LIB_PATH . '/../test/caliper/TestAssessmentEntities.php');
@@ -15,12 +16,12 @@ require_once realpath(CALIPER_LIB_PATH . '/../test/caliper/TestTimes.php');
 require_once realpath(CALIPER_LIB_PATH . '/../test/util/TestUtilities.php');
 
 class CaliperTestCase extends PHPUnit_Framework_TestCase {
-    /** @var object */
-    private $testObject;
     /** @var string */
     protected $fixtureDirectoryPath;
     /** @var string */
     protected $fixtureFilename;
+    /** @var object */
+    private $testObject;
 
     /** @return string */
     public function getFixtureDirectoryPath() {
@@ -92,7 +93,14 @@ class CaliperTestCase extends PHPUnit_Framework_TestCase {
     }
 
     function testObjectSerializesToJson() {
-        $testJson = json_encode($this->getTestObject(), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+        $testOptions = (
+        (new Options())
+            ->setJsonInclude(JsonInclude::NON_EMPTY)
+        );
+
+        $testRequestor = new HttpRequestor($testOptions);
+
+        $testJson = $testRequestor->serializeData($this->getTestObject());
         $testFixtureFilePath = $this->getFixtureFilename();
 
         if ($testFixtureFilePath === false) {
