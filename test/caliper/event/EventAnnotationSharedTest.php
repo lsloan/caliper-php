@@ -6,11 +6,9 @@ require_once 'Caliper/actions/Action.php';
 /**
  * @requires PHP 5.4
  */
-class AnnotationSharedEventTest extends CaliperTestCase {
-	function setUp() {
+class EventAnnotationSharedTest extends CaliperTestCase {
+    function setUp() {
         parent::setUp();
-
-        $this->setFixtureFilename('/../../caliper-common-fixtures/src/test/resources/fixtures/caliperSharedAnnotationEvent.json');
 
         $this->setTestObject((new AnnotationEvent())
             ->setActor(TestAgentEntities::makePerson())
@@ -21,5 +19,5 @@ class AnnotationSharedEventTest extends CaliperTestCase {
             ->setEdApp(TestAgentEntities::makeReadingApplication())
             ->setGroup(TestLisEntities::makeGroup())
             ->setMembership(TestLisEntities::makeMembership()));
-	}
+    }
 }

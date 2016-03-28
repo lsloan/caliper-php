@@ -6,17 +6,15 @@ require_once 'Caliper/actions/Action.php';
 /**
  * @requires PHP 5.4
  */
-class AssessmentItemCompletedEventTest extends CaliperTestCase {
+class EventAssessmentItemStartedTest extends CaliperTestCase {
     function setUp() {
         parent::setUp();
 
-        $this->setFixtureFilename('/../../caliper-common-fixtures/src/test/resources/fixtures/caliperAssessmentItemCompletedEvent.json');
-
         $this->setTestObject((new AssessmentItemEvent())
             ->setActor(TestAgentEntities::makePerson())
-            ->setAction(new Action(Action::COMPLETED))
+            ->setAction(new Action(Action::STARTED))
             ->setObject(TestAssessmentEntities::makeAssessmentItem())
-            ->setGenerated(TestResponseEntities::makeFillinBlankResponse())
+            ->setGenerated(TestAssignableEntities::makeItemAttempt())
             ->setEventTime(TestTimes::startedTime())
             ->setEdApp(TestAgentEntities::makeAssessmentApplication())
             ->setGroup(TestLisEntities::makeGroup())

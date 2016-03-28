@@ -6,11 +6,9 @@ require_once 'Caliper/actions/Action.php';
 /**
  * @requires PHP 5.4
  */
-class MediaPausedEventTest extends CaliperTestCase {
-	function setUp() {
+class EventMediaPausedTest extends CaliperTestCase {
+    function setUp() {
         parent::setUp();
-
-        $this->setFixtureFilename('/../../caliper-common-fixtures/src/test/resources/fixtures/caliperMediaEvent.json');
 
         $this->setTestObject((new MediaEvent())
             ->setActor(TestAgentEntities::makePerson())
@@ -21,5 +19,5 @@ class MediaPausedEventTest extends CaliperTestCase {
             ->setEdApp(TestAgentEntities::makeMediaApplication())
             ->setGroup(TestLisEntities::makeGroup())
             ->setEventTime(TestTimes::startedTime()));
-	}
+    }
 }

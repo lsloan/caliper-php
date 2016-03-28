@@ -6,11 +6,9 @@ require_once 'Caliper/actions/Action.php';
 /**
  * @requires PHP 5.4
  */
-class OutcomeGradedEventTest extends CaliperTestCase {
+class EventOutcomeGradedTest extends CaliperTestCase {
     function setUp() {
         parent::setUp();
-
-        $this->setFixtureFilename('/../../caliper-common-fixtures/src/test/resources/fixtures/caliperAssessmentOutcomeEvent.json');
 
         $this->setTestObject((new OutcomeEvent())
             ->setActor(TestAgentEntities::makePerson())
