@@ -8,7 +8,7 @@ class Defaults extends BasicEnum {
         CONNECTION_REQUEST_TIMEOUT = 10000,
         CONNECTION_TIMEOUT = 10000,
         SOCKET_TIMEOUT = 10000,
-        JSON_INCLUDE = JsonInclude::ALWAYS,
+        JSON_INCLUDE = JsonInclude::NON_EMPTY,
         JSON_ENCODE_OPTIONS = JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES,
         DEBUG = false;
 }

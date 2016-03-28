@@ -93,10 +93,7 @@ class CaliperTestCase extends PHPUnit_Framework_TestCase {
     }
 
     function testObjectSerializesToJson() {
-        $testOptions = (
-        (new Options())
-            ->setJsonInclude(JsonInclude::NON_EMPTY)
-        );
+        $testOptions = new Options();
 
         $testRequestor = new HttpRequestor($testOptions);
 
