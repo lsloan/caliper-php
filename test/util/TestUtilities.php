@@ -13,7 +13,11 @@ class TestUtilities {
             file_put_contents(realpath($outputDir) . DIRECTORY_SEPARATOR . $filenamePrefix . '_output.json',
                 $caliperJson);
 
-            $fixtureJson = file_get_contents($fixtureFilePath);
+            try {
+                $fixtureJson = file_get_contents($fixtureFilePath);
+            } catch (Exception $ex) {
+                throw new PHPUnit_Runner_Exception("Error getting contents of '$fixtureFilePath'");
+            }
 
             $jsonObjects = json_decode($fixtureJson);
 
