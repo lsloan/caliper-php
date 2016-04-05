@@ -29,7 +29,7 @@ class CaliperTestCase extends PHPUnit_Framework_TestCase {
     private $testObject = null;
     /** @var string */
     private $calledClass = false;
-    /** @var bool|string Path to output directory, from PHPUNIT_OUTPUT_DIR environment variable */
+    /** @var string Path to output directory, from PHPUNIT_OUTPUT_DIR environment variable */
     private $outputDirectoryPath = false;
     /** @var bool Only failures save files to output directory, from PHPUNIT_OUTPUT_ONLY_FAILURES
      * environment variable */
@@ -89,7 +89,7 @@ class CaliperTestCase extends PHPUnit_Framework_TestCase {
      * @return $this
      */
     public function setFixtureDirectoryPath($fixtureDirectoryPath) {
-        $this->fixtureDirectoryPath = $fixtureDirectoryPath;
+        $this->fixtureDirectoryPath = strval($fixtureDirectoryPath);
         return $this;
     }
 
@@ -104,7 +104,7 @@ class CaliperTestCase extends PHPUnit_Framework_TestCase {
      * @return $this
      */
     public function setCalledClass($calledClass) {
-        $this->calledClass = $calledClass;
+        $this->calledClass = strval($calledClass);
         return $this;
     }
 
@@ -161,7 +161,7 @@ class CaliperTestCase extends PHPUnit_Framework_TestCase {
      * @return $this
      */
     public function setFixtureFilePath($fixtureFilePath) {
-        $this->fixtureFilePath = $fixtureFilePath;
+        $this->fixtureFilePath = strval($fixtureFilePath);
         return $this;
     }
 
