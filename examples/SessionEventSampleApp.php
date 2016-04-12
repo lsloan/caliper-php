@@ -1,15 +1,17 @@
 <?php
-require_once realpath(dirname(__FILE__) . '/../lib/Caliper/Sensor.php');
-require_once 'Caliper/entities/reading/EPubVolume.php';
-require_once 'Caliper/entities/reading/EPubSubChapter.php';
-require_once 'Caliper/entities/reading/Frame.php';
-require_once 'Caliper/entities/agent/Person.php';
-require_once 'Caliper/entities/agent/SoftwareApplication.php';
-require_once 'Caliper/entities/session/Session.php';
-require_once 'Caliper/events/SessionEvent.php';
-require_once 'Caliper/actions/Action.php';
-require_once 'Caliper/entities/EntityType.php';
-require_once 'Caliper/Options.php';
+
+require_once '../autoload.php';
+
+use \IMSGlobal\Caliper\Sensor;
+use \IMSGlobal\Caliper\Options;
+use \IMSGlobal\Caliper\Client;
+use \IMSGlobal\Caliper\entities\agent\Person;
+use \IMSGlobal\Caliper\entities\agent\SoftwareApplication;
+use \IMSGlobal\Caliper\entities\reading\EPubVolume;
+use \IMSGlobal\Caliper\entities\reading\Frame;
+use \IMSGlobal\Caliper\entities\session\Session;
+use \IMSGlobal\Caliper\events\SessionEvent;
+use \IMSGlobal\Caliper\actions\Action;
 
 class SessionEventSampleApp {
     /** @var SessionEvent */
@@ -48,7 +50,7 @@ class SessionEventSampleApp {
             ->setDateModified($modifiedTime)
             ->setVersion('1st ed.');
 
-		$targetObj = new Frame('https://example.com/viewer/book/1138#epubcfi(/4/3/1)');
+        $targetObj = new Frame('https://example.com/viewer/book/1138#epubcfi(/4/3/1)');
         $targetObj->setName('The Resurgence of Evil')
             ->setDateCreated($createdTime)
             ->setDateModified($modifiedTime)
@@ -69,7 +71,7 @@ class SessionEventSampleApp {
             ->setObject($eventObj)
             ->setTarget($targetObj)
             ->setGenerated($generatedObj)
-            ->setStartedAtTime($sessionStartTime);
+            ->setEventTime($sessionStartTime);
 
         $this->sessionEvent = $sessionEvent;
     }
