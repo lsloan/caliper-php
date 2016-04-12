@@ -1,6 +1,4 @@
 <?php
-require_once 'Caliper/entities/media/MediaLocation.php';
-require_once 'Caliper/entities/media/VideoObject.php';
 
 class TestMediaEntities {
     public static function videoId() {
@@ -8,14 +6,14 @@ class TestMediaEntities {
     }
 
     public static function makeMediaLocation() {
-        return (new MediaLocation(TestMediaEntities::videoId()))
+        return (new IMSGlobal\Caliper\entities\media\MediaLocation(TestMediaEntities::videoId()))
             ->setDateCreated(TestTimes::createdTime())
             ->setCurrentTime(710)
             ->setVersion('1.0');
     }
 
     public static function makeVideoObject() {
-        return (new VideoObject(TestMediaEntities::videoId()))
+        return (new IMSGlobal\Caliper\entities\media\VideoObject(TestMediaEntities::videoId()))
             ->setName('American Revolution - Key Figures Video')
             ->setAlignedLearningObjectives(TestEntities::makeLearningObjective())
             ->setDateCreated(TestTimes::createdTime())

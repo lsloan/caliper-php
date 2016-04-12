@@ -1,5 +1,8 @@
 <?php
-require_once realpath(dirname(__FILE__) . '/../../lib/Caliper/Sensor.php');
+require_once 'C:\Users\svickers\htdocs\caliper2\vendor\autoload.php';
+
+define('CALIPER_LIB_PATH', realpath(dirname(__FILE__) . '/..'));
+set_include_path(get_include_path() . PATH_SEPARATOR . CALIPER_LIB_PATH);
 require_once realpath(CALIPER_LIB_PATH . '/../test/caliper/TestAgentEntities.php');
 require_once realpath(CALIPER_LIB_PATH . '/../test/caliper/TestAnnotationEntities.php');
 require_once realpath(CALIPER_LIB_PATH . '/../test/caliper/TestAssessmentEntities.php');
@@ -56,7 +59,6 @@ class CaliperTestCase extends PHPUnit_Framework_TestCase {
     function testObjectSerializesToJson() {
         $testJson = json_encode($this->getTestObject(), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
         $testFixtureFilePath = realpath(CALIPER_LIB_PATH . $this->getFixtureFilename());
-
         TestUtilities::saveFormattedFixtureAndOutputJson($testFixtureFilePath, $testJson, get_called_class());
 
         $this->assertJsonStringEqualsJsonFile($testFixtureFilePath, $testJson);

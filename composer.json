@@ -1,16 +1,26 @@
 {
-  "name": "caliper-php",
-  "description": "Caliper PHP Library",
-  "keywords": ["caliper"],
-  "homepage": "http://www.imsglobal.org",
-  "license": "IMS",
-  "require": {
-    "php": ">=5.3"
-  },
-  "require-dev": {
-    "phpunit/phpunit": "4.6.*"
-  },
-  "autoload": {
-    "files": ["lib/Caliper/Sensor.php"]
-  }
+    "name": "imsglobal/caliper",
+    "version" : "1.0.1",
+    "description": "Caliper PHP Library",
+    "keywords": ["caliper"],
+    "homepage": "https://www.imsglobal.org/caliper",
+    "type": "library",
+    "license": "LGPL-3.0",
+    "authors":[
+        {
+            "name": "Lance E Sloan",
+            "email": "lsloan@umich.edu"
+        }
+    ],
+    "require":{
+        "php": ">=5.4.0"
+    },
+    "autoload":{
+        "psr-4": {
+            "IMSGlobal\\Caliper\\": "src/"
+        },
+        "exclude-from-classmap": [
+				    "/tests/"
+        ]
+    }
 }
