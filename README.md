@@ -13,7 +13,7 @@ caliper-php is a php client for [Caliper](http://www.imsglobal.org) that provide
 * Install dependencies:  ```php composer.phar install```
 * Run tests using the Makefile
 
-### Installing the Library:
+### Installing the Library
 
 #### Using Composer
 
