@@ -75,20 +75,6 @@ $sensor->send($sensor, $event);
 
 You only need to create a single instance of a Sensor object which can be then used for sending all messages.
 
-### Running an example
-
-A simple example program can be found in:
-
-  examples/SessionEventSampleApp.php
-
-It will attempt to send an event to a data store listener on localhost:8000.  If you have a data store on some other host or port, you can edit the program to point to it.  If you don't have a data store, you can run a simple listener included in:
-
-```
-examples/tools/testListener.sh [optional_port]
-```
-
-That will start a simple PHP web server (on port 8000 by default) that listens for POST requests and dumps the raw contents to the terminal.  If you run this in one terminal window and the example program in another terminal window, you will see the request received in the first window.
-
 ## Documentation
 Documentation is available at [http://www.imsglobal.org/caliper](https://www.imsglobal.org/caliper).
 
