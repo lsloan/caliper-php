@@ -17,11 +17,11 @@ caliper-php is a php client for [Caliper](http://www.imsglobal.org) that provide
 
 #### Using Composer
 
-Add the following entry to the require element of the composer.json file for your web application:
+Add the following entry to the require element of the `composer.json` file for your web application:
 
 ```
   "require" : {
-    "IMSGlobal/Caliper" : "*"
+    "imsglobal/caliper": "*"
   },
 ```
 
