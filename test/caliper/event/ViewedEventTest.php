@@ -1,7 +1,5 @@
 <?php
 require_once realpath(dirname(__FILE__) . '/../CaliperTestCase.php');
-require_once 'Caliper/events/ViewEvent.php';
-require_once 'Caliper/actions/Action.php';
 
 /**
  * @requires PHP 5.4
@@ -12,7 +10,7 @@ class ViewedEventTest extends CaliperTestCase {
 
         $this->setFixtureFilename('/../../caliper-common-fixtures/src/test/resources/fixtures/caliperViewEvent.json');
 
-        $this->setTestObject((new ViewEvent())
+        $this->setTestObject((new IMSGlobal\Caliper\events\ViewEvent())
             ->setActor(TestAgentEntities::makePerson())
             ->setMembership(TestLisEntities::makeMembership())
             ->setObject(TestReadingEntities::makeEPubVolume())

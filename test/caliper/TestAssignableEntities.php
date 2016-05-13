@@ -1,11 +1,9 @@
 <?php
-require_once 'Caliper/entities/assignable/Attempt.php';
-require_once 'Caliper/entities/outcome/Result.php';
 
 class TestAssignableEntities {
     public static function makeAssessmentAttempt() {
         /** @return Attempt */
-        return (new Attempt('https://example.edu/politicalScience/2015/american-revolution-101/assessment/001/attempt/5678'))
+        return (new IMSGlobal\Caliper\entities\assignable\Attempt('https://example.edu/politicalScience/2015/american-revolution-101/assessment/001/attempt/5678'))
             ->setDateCreated(TestTimes::createdTime())
             ->setActor(TestAgentEntities::makePerson())
             ->setCount(1)
@@ -14,7 +12,7 @@ class TestAssignableEntities {
 
     public static function makeItemAttempt() {
         /** @return Attempt */
-        return (new Attempt('https://example.edu/politicalScience/2015/american-revolution-101/assessment/001/item/001/attempt/789'))
+        return (new IMSGlobal\Caliper\entities\assignable\Attempt('https://example.edu/politicalScience/2015/american-revolution-101/assessment/001/item/001/attempt/789'))
             ->setDateCreated(TestTimes::createdTime())
             ->setActor(TestAgentEntities::makePerson())
             ->setAssignable(TestAssessmentEntities::makeAssessment())
@@ -24,7 +22,7 @@ class TestAssignableEntities {
 
     public static function makeResult() {
         /** @return Result */
-        return (new Result('https://example.edu/politicalScience/2015/american-revolution-101/assessment/001/attempt/5678/result'))
+        return (new IMSGlobal\Caliper\entities\outcome\Result('https://example.edu/politicalScience/2015/american-revolution-101/assessment/001/attempt/5678/result'))
             ->setDateCreated(TestTimes::createdTime())
             ->setAssignable(TestAssessmentEntities::makeAssessment())
             ->setActor(TestAgentEntities::makePerson())

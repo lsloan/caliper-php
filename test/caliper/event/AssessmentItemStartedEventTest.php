@@ -1,7 +1,5 @@
 <?php
 require_once realpath(dirname(__FILE__) . '/../CaliperTestCase.php');
-require_once 'Caliper/events/AssessmentItemEvent.php';
-require_once 'Caliper/actions/Action.php';
 
 /**
  * @requires PHP 5.4
@@ -12,9 +10,9 @@ class AssessmentItemStartedEventTest extends CaliperTestCase {
 
         $this->setFixtureFilename('/../../caliper-common-fixtures/src/test/resources/fixtures/caliperAssessmentItemStartedEvent.json');
 
-        $this->setTestObject((new AssessmentItemEvent())
+        $this->setTestObject((new IMSGlobal\Caliper\events\AssessmentItemEvent())
             ->setActor(TestAgentEntities::makePerson())
-            ->setAction(new Action(Action::STARTED))
+            ->setAction(new IMSGlobal\Caliper\actions\Action(IMSGlobal\Caliper\actions\Action::STARTED))
             ->setObject(TestAssessmentEntities::makeAssessmentItem())
             ->setGenerated(TestAssignableEntities::makeItemAttempt())
             ->setEventTime(TestTimes::startedTime())

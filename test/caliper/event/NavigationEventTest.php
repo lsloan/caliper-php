@@ -1,6 +1,5 @@
 <?php
 require_once realpath(dirname(__FILE__) . '/../CaliperTestCase.php');
-require_once 'Caliper/events/NavigationEvent.php';
 
 /**
  * @requires PHP 5.4
@@ -11,7 +10,7 @@ class NavigationEventTest extends CaliperTestCase {
 
         $this->setFixtureFilename('/../../caliper-common-fixtures/src/test/resources/fixtures/caliperNavigationEvent.json');
 
-        $this->setTestObject((new NavigationEvent())
+        $this->setTestObject((new IMSGlobal\Caliper\events\NavigationEvent())
             ->setActor(TestAgentEntities::makePerson())
             ->setMembership(TestLisEntities::makeMembership())
             ->setObject(TestReadingEntities::makeEPubVolume())
