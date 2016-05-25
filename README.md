@@ -56,9 +56,9 @@ require_once '/path/to/caliper-php/autoload.php';
 Now you're ready to initialize Caliper and send an event as follows:
 
 ```
-use \IMSGlobal\Caliper\Sensor;
-use \IMSGlobal\Caliper\Options;
-use \IMSGlobal\Caliper\Client;
+use IMSGlobal\Caliper\Sensor;
+use IMSGlobal\Caliper\Options;
+use IMSGlobal\Caliper\Client;
 
 $sensor = new Sensor('id');
 
