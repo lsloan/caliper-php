@@ -1,7 +1,9 @@
-# Ignore Sublime text files
+# Sublime Text
 *.sublime-*
-# Ignore Composer
+# IntelliJ IDEA
+.idea/*
+.idea
+# Composer
 *.phar
 *.lock
 vendor/*
-.idea/*
