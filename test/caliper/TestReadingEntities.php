@@ -1,12 +1,11 @@
 <?php
-require_once 'Caliper/entities/reading/EPubVolume.php';
-require_once 'Caliper/entities/reading/Frame.php';
-require_once 'Caliper/entities/reading/WebPage.php';
+use IMSGlobal\Caliper\entities\reading;
+use IMSGlobal\Caliper\entities\reading\Frame;
 
 class TestReadingEntities {
-    /** @return EPubVolume */
+    /** @return reading\EPubVolume */
     public static function makeEPubVolume() {
-        return (new EPubVolume('https://example.com/viewer/book/34843#epubcfi(/4/3)'))
+        return (new reading\EPubVolume('https://example.com/viewer/book/34843#epubcfi(/4/3)'))
             ->setName('The Glorious Cause: The American Revolution, 1763-1789 (Oxford History of the United States)')
             ->setDateCreated(TestTimes::createdTime())
             ->setDateModified(TestTimes::modifiedTime())
@@ -19,7 +18,7 @@ class TestReadingEntities {
             ->setName('Key Figures: George Washington')
             ->setDateCreated(TestTimes::createdTime())
             ->setDateModified(TestTimes::modifiedTime())
-            ->setIsPartOf(TestReadingEntities::makeEPubVolume())
+            ->setIsPartOf(self::makeEPubVolume())
             ->setVersion('2nd ed.')
             ->setIndex(1);
     }
@@ -30,7 +29,7 @@ class TestReadingEntities {
             ->setName('Key Figures: Lord North')
             ->setDateCreated(TestTimes::createdTime())
             ->setDateModified(TestTimes::modifiedTime())
-            ->setIsPartOf(TestReadingEntities::makeEPubVolume())
+            ->setIsPartOf(self::makeEPubVolume())
             ->setVersion('2nd ed.')
             ->setIndex(2);
     }
@@ -41,7 +40,7 @@ class TestReadingEntities {
             ->setName('Key Figures: John Adams')
             ->setDateCreated(TestTimes::createdTime())
             ->setDateModified(TestTimes::modifiedTime())
-            ->setIsPartOf(TestReadingEntities::makeEPubVolume())
+            ->setIsPartOf(self::makeEPubVolume())
             ->setVersion('2nd ed.')
             ->setIndex(3);
     }
@@ -52,14 +51,14 @@ class TestReadingEntities {
             ->setName('The Stamp Act Crisis')
             ->setDateCreated(TestTimes::createdTime())
             ->setDateModified(TestTimes::modifiedTime())
-            ->setIsPartOf(TestReadingEntities::makeEPubVolume())
+            ->setIsPartOf(self::makeEPubVolume())
             ->setVersion('2nd ed.')
             ->setIndex(4);
     }
 
-    /** @return WebPage */
+    /** @return reading\WebPage */
     public static function makeWebPage() {
-        return (new WebPage('https://example.edu/politicalScience/2015/american-revolution-101/index.html'))
+        return (new reading\WebPage('https://example.edu/politicalScience/2015/american-revolution-101/index.html'))
             ->setName('American Revolution 101 Landing Page')
             ->setDateCreated(TestTimes::createdTime())
             ->setDateModified(TestTimes::modifiedTime())

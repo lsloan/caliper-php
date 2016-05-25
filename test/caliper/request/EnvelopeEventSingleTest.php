@@ -1,6 +1,5 @@
 <?php
 require_once realpath(dirname(__FILE__) . '/../CaliperTestCase.php');
-require_once 'Caliper/events/NavigationEvent.php';
 
 /**
  * @requires PHP 5.4
@@ -10,7 +9,7 @@ class EnvelopeEventSingleTest extends CaliperTestCase {
         parent::setUp();
 
         $this->setTestObject(TestRequests::makeEnvelope()
-            ->setData((new NavigationEvent())
+            ->setData((new IMSGlobal\Caliper\events\NavigationEvent())
                 ->setActor(TestAgentEntities::makePerson())
                 ->setMembership(TestLisEntities::makeMembership())
                 ->setObject(TestReadingEntities::makeEPubVolume())
@@ -19,6 +18,6 @@ class EnvelopeEventSingleTest extends CaliperTestCase {
                 ->setTarget(TestReadingEntities::makeFrame1())
                 ->setGroup(TestLisEntities::makeGroup())
                 ->setEventTime(TestTimes::startedTime())
-                ->setFederatedSession(new Session('https://example.edu/lms/federatedSession/123456789'))));
+                ->setFederatedSession(new IMSGlobal\Caliper\entities\session\Session('https://example.edu/lms/federatedSession/123456789'))));
     }
 }

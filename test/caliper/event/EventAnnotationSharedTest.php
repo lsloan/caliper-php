@@ -1,7 +1,5 @@
 <?php
 require_once realpath(dirname(__FILE__) . '/../CaliperTestCase.php');
-require_once 'Caliper/events/AnnotationEvent.php';
-require_once 'Caliper/actions/Action.php';
 
 /**
  * @requires PHP 5.4
@@ -10,9 +8,9 @@ class EventAnnotationSharedTest extends CaliperTestCase {
     function setUp() {
         parent::setUp();
 
-        $this->setTestObject((new AnnotationEvent())
+        $this->setTestObject((new IMSGlobal\Caliper\events\AnnotationEvent())
             ->setActor(TestAgentEntities::makePerson())
-            ->setAction(new Action(Action::SHARED))
+            ->setAction(new IMSGlobal\Caliper\actions\Action(IMSGlobal\Caliper\actions\Action::SHARED))
             ->setObject(TestReadingEntities::makeFrame3())
             ->setGenerated(TestAnnotationEntities::makeSharedAnnotation())
             ->setEventTime(TestTimes::startedTime())

@@ -1,7 +1,7 @@
 <?php
+use IMSGlobal\Caliper\actions\Action;
+
 require_once realpath(dirname(__FILE__) . '/../CaliperTestCase.php');
-require_once 'Caliper/events/OutcomeEvent.php';
-require_once 'Caliper/actions/Action.php';
 
 /**
  * @requires PHP 5.4
@@ -10,7 +10,7 @@ class EventOutcomeGradedTest extends CaliperTestCase {
     function setUp() {
         parent::setUp();
 
-        $this->setTestObject((new OutcomeEvent())
+        $this->setTestObject((new IMSGlobal\Caliper\events\OutcomeEvent())
             ->setActor(TestAgentEntities::makePerson())
             ->setAction(new Action(Action::GRADED))
             ->setObject(TestAssignableEntities::makeAssessmentAttempt()

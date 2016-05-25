@@ -1,6 +1,6 @@
 <?php
-require_once 'Caliper/entities/agent/Person.php';
-require_once 'Caliper/entities/agent/SoftwareApplication.php';
+use IMSGlobal\Caliper\entities\agent\Person;
+use IMSGlobal\Caliper\entities\agent\SoftwareApplication;
 
 class TestAgentEntities {
     /** @return SoftwareApplication */

@@ -1,5 +1,5 @@
 <?php
-require_once 'Caliper/entities/response/FillinBlankResponse.php';
+use IMSGlobal\Caliper\entities\response\FillinBlankResponse;
 
 class TestResponseEntities {
     /** @return FillinBlankResponse */

@@ -1,6 +1,5 @@
 <?php
 require_once realpath(dirname(__FILE__) . '/caliper/CaliperTestCase.php');
-require_once 'Caliper/Client.php';
 
 /**
  * These tests may require an eventstore endpoint
@@ -15,11 +14,11 @@ class ConsumerSocketTest extends PHPUnit_Framework_TestCase {
     private $caliperEntity;
 
     function setUp() {
-        $this->client = new Client('testApiKey', [
+        $this->client = new IMSGlobal\Caliper\Client('testApiKey', [
             'consumer' => 'socket'
         ]);
 
-        $this->caliperEntity = new Entity();
+        $this->caliperEntity = new IMSGlobal\Caliper\entities\Entity();
         $this->caliperEntity->setId('course-1234');
         $this->caliperEntity->setType('course');
         $this->caliperEntity->setProperties([
@@ -29,7 +28,7 @@ class ConsumerSocketTest extends PHPUnit_Framework_TestCase {
     }
 
     function testTimeout() {
-        $client = new Client('testApiKey', [
+        $client = new IMSGlobal\Caliper\Client('testApiKey', [
             'timeout' => 0.01,
             'consumer' => 'socket'
         ]);
@@ -45,7 +44,7 @@ class ConsumerSocketTest extends PHPUnit_Framework_TestCase {
     }
 
     function testProd() {
-        $client = new Client('x', [
+        $client = new IMSGlobal\Caliper\Client('x', [
             'consumer' => 'socket',
             'error_handler' => function () {
                 throw new Exception('Was called');
@@ -67,7 +66,7 @@ class ConsumerSocketTest extends PHPUnit_Framework_TestCase {
             }
         ];
 
-        $client = new Client('x', $options);
+        $client = new IMSGlobal\Caliper\Client('x', $options);
 
         # Should error out with debug on.
         ## TODO - renable after fixing socket issues
@@ -85,7 +84,7 @@ class ConsumerSocketTest extends PHPUnit_Framework_TestCase {
             'consumer' => 'socket'
         ];
 
-        $client = new Client('testApiKey', $options);
+        $client = new IMSGlobal\Caliper\Client('testApiKey', $options);
 
         $large_message_body = '';
 
@@ -93,7 +92,7 @@ class ConsumerSocketTest extends PHPUnit_Framework_TestCase {
             $large_message_body .= 'a';
         }
 
-        $ce = new Entity();
+        $ce = new IMSGlobal\Caliper\entities\Entity();
         $ce->setId('course-1234');
         $ce->setType('course');
         $ce->setProperties([

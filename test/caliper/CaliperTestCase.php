@@ -1,19 +1,21 @@
 <?php
-require_once realpath(dirname(__FILE__) . '/../../lib/Caliper/Sensor.php');
-require_once 'Caliper/Options.php';
-require_once realpath(CALIPER_LIB_PATH . '/../test/caliper/TestAgentEntities.php');
-require_once realpath(CALIPER_LIB_PATH . '/../test/caliper/TestAnnotationEntities.php');
-require_once realpath(CALIPER_LIB_PATH . '/../test/caliper/TestAssessmentEntities.php');
-require_once realpath(CALIPER_LIB_PATH . '/../test/caliper/TestAssignableEntities.php');
-require_once realpath(CALIPER_LIB_PATH . '/../test/caliper/TestEntities.php');
-require_once realpath(CALIPER_LIB_PATH . '/../test/caliper/TestLisEntities.php');
-require_once realpath(CALIPER_LIB_PATH . '/../test/caliper/TestMediaEntities.php');
-require_once realpath(CALIPER_LIB_PATH . '/../test/caliper/TestReadingEntities.php');
-require_once realpath(CALIPER_LIB_PATH . '/../test/caliper/TestRequests.php');
-require_once realpath(CALIPER_LIB_PATH . '/../test/caliper/TestResponseEntities.php');
-require_once realpath(CALIPER_LIB_PATH . '/../test/caliper/TestSessionEntities.php');
-require_once realpath(CALIPER_LIB_PATH . '/../test/caliper/TestTimes.php');
-require_once realpath(CALIPER_LIB_PATH . '/../test/util/TestUtilities.php');
+require_once realpath(dirname(__FILE__) . '/../../vendor/autoload.php');
+
+define('CALIPER_LIB_PATH', realpath(dirname(__FILE__) . '/..'));
+
+require_once 'TestAgentEntities.php';
+require_once 'TestAnnotationEntities.php';
+require_once 'TestAssessmentEntities.php';
+require_once 'TestAssignableEntities.php';
+require_once 'TestEntities.php';
+require_once 'TestLisEntities.php';
+require_once 'TestMediaEntities.php';
+require_once 'TestReadingEntities.php';
+require_once 'TestRequests.php';
+require_once 'TestResponseEntities.php';
+require_once 'TestSessionEntities.php';
+require_once 'TestTimes.php';
+require_once realpath(dirname(__FILE__) . '/../util/TestUtilities.php');
 
 class CaliperTestCase extends PHPUnit_Framework_TestCase {
     const
@@ -109,8 +111,8 @@ class CaliperTestCase extends PHPUnit_Framework_TestCase {
     }
 
     function testObjectSerializesToJson() {
-        $testOptions = new Options();
-        $testRequestor = new HttpRequestor($testOptions);
+        $testOptions = new IMSGlobal\Caliper\Options();
+        $testRequestor = new IMSGlobal\Caliper\request\HttpRequestor($testOptions);
         $testJson = $testRequestor->serializeData($this->getTestObject());
 
         $fixtureFilePath = $this->getFixtureFilePath();

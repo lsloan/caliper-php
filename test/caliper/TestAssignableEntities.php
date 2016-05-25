@@ -1,6 +1,6 @@
 <?php
-require_once 'Caliper/entities/assignable/Attempt.php';
-require_once 'Caliper/entities/outcome/Result.php';
+use IMSGlobal\Caliper\entities\assignable\Attempt;
+use IMSGlobal\Caliper\entities\outcome\Result;
 
 class TestAssignableEntities {
     public static function makeAssessmentAttempt() {
