@@ -35,6 +35,8 @@ class Client {
      * Send application events
      * @param Sensor $sensor
      * @param Event|Event[] $events
+     * @throws \InvalidArgumentException if $events doesn't contain Event objects
+     * @throws \RuntimeException _passed along_ if HTTP response code is not 200
      */
     public function send(Sensor $sensor, $events) {
         if (!is_array($events)) {
@@ -69,6 +71,8 @@ class Client {
      * Describe an entities
      * @param Sensor $sensor
      * @param Entity|Entity[] $entities
+     * @throws \InvalidArgumentException if $events doesn't contain Entity objects
+     * @throws \RuntimeException _passed along_ if HTTP response code is not 200
      */
     public function describe($sensor, $entities) {
         if (!is_array($entities)) {
