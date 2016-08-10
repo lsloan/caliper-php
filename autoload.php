@@ -1,29 +1,29 @@
 <?php
 /**
- * Autoload a class file.
+ * Load a Caliper class file based on its name.
  *
- * @param string $class The fully-qualified class name.
+ * @param string $className Fully-qualified name of class to be loaded
  */
-spl_autoload_register(function ($class) {
+$loadCaliperClass = function ($className) {
+    /** @var string $classBaseDirectory Base directory for class files, i.e., "./src/" */
+    $classBaseDirectory = __DIR__ . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR;
 
-  // base directory for the class files
-  $base_dir = __DIR__ . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR;
+    // If the class name begins with "IMSGlobal\Caliper\", remove it
+    if (strpos($className, 'IMSGlobal\\Caliper\\') === 0) {
+        $className = substr($className, 18);
+    }
 
-  if (strpos($class, 'IMSGlobal\\Caliper\\') === 0) {
-    $class = substr($class, 18);
-  }
+    // Construct the class' filename from the class base directory, the class name
+    // with slashes replaced by the OS-specific directory separator character, and
+    // the ".php" extension
+    /** @var string $classFileFullPath */
+    $classFileFullPath = $classBaseDirectory .
+        str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $className) . '.php';
 
-  // replace the namespace prefix with the base directory, replace namespace
-  // separators with directory separators in the relative class name, append
-  // with .php
+    // If the class file exists, require it, but only once
+    if (file_exists($classFileFullPath)) {
+        require_once $classFileFullPath;
+    }
+};
 
-  $file = $base_dir . preg_replace('[\\/]', DIRECTORY_SEPARATOR, $class) . '.php';
-
-  // if the file exists, require it
-  if (file_exists($file)) {
-    require($file);
-  }
-
-});
-
-?>
+spl_autoload_register($loadCaliperClass);
