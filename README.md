@@ -31,7 +31,7 @@ In a command-line interface, change directory to the root of your web applicatio
 composer install
 ```
 
-Then, add the following to your PHP script:
+Then, add the following to your PHP program:
 
 ```
 require_once 'vendor/autoload.php';
@@ -45,7 +45,7 @@ To install the library, clone the repository from GitHub into your desired appli
 git clone https://github.com/IMSGlobal/caliper-php.git
 ```
 
-Then, add the following to your PHP script:
+Then, add the following to your PHP program:
 
 ```
 require_once '/path/to/caliper-php/autoload.php';
@@ -56,9 +56,9 @@ require_once '/path/to/caliper-php/autoload.php';
 Now you're ready to initialize Caliper and send an event as follows:
 
 ```
-use \IMSGlobal\Caliper\Sensor;
-use \IMSGlobal\Caliper\Options;
-use \IMSGlobal\Caliper\Client;
+use IMSGlobal\Caliper\Client;
+use IMSGlobal\Caliper\Options;
+use IMSGlobal\Caliper\Sensor;
 
 $sensor = new Sensor('id');
 
@@ -70,7 +70,11 @@ $options = (new Options())
 $sensor->registerClient('http', new Client('clientId', $options));
 
 // TODO: Define $event to be sent
-$sensor->send($sensor, $event);
+try {
+    $sensor->send($sensor, $event);
+} catch (\RuntimeException $sendException) {
+    echo 'Error sending event: ' . $sendException->getMessage() . PHP_EOL;
+}
 ```
 
 You only need to create a single instance of a Sensor object which can be then used for sending all messages.
