@@ -9,8 +9,8 @@ class HttpRequestor extends Requestor {
     private $options;
 
     /**
-     * @param Options $options
-     * @throws \RuntimeException
+     * @param \IMSGlobal\Caliper\Options $options
+     * @throws \RuntimeException if "http" (AKA pecl_http) or "curl" extensions not loaded
      */
     public function __construct(Options $options) {
         if (!extension_loaded('http') && !extension_loaded('curl')) {
@@ -23,7 +23,8 @@ class HttpRequestor extends Requestor {
     /**
      * @param \IMSGlobal\Caliper\Sensor $sensor
      * @param Entity|Event|Entity[]|Event[] $items
-     * @throws \InvalidArgumentException
+     * @throws \InvalidArgumentException if $items doesn't contain Entity or Event objects
+     * @throws \RuntimeException if HTTP response code is not 200
      * @return bool success
      */
     public function send(\IMSGlobal\Caliper\Sensor $sensor, $items) {
