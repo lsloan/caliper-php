@@ -1,5 +1,5 @@
 <?php
-require_once 'C:\Users\svickers\htdocs\caliper2\vendor\autoload.php';
+require_once realpath(dirname(__FILE__) . '/../../vendor/autoload.php');
 
 define('CALIPER_LIB_PATH', realpath(dirname(__FILE__) . '/..'));
 set_include_path(get_include_path() . PATH_SEPARATOR . CALIPER_LIB_PATH);
