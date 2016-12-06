@@ -1,9 +1,9 @@
 # Sublime Text
 *.sublime-*
-# IntelliJ IDEA
-.idea/*
-.idea
 # Composer
-*.phar
+composer.phar
 composer.lock
 vendor
+# IntelliJ IDEA
+.idea
+*.iml
