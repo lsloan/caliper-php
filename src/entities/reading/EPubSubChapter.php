@@ -8,6 +8,8 @@ use IMSGlobal\Caliper\entities;
  *
  *         A major sub-division of a chapter
  *         http://www.idpf.org/epub/vocab/structure/#subchapter
+ *
+ * @deprecated 1.2 IDPF has deprecated this. It will not be available in Caliper 1.2.
  */
 class EPubSubChapter extends entities\DigitalResource {
     public function __construct($id) {
