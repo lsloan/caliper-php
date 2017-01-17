@@ -1,8 +1,9 @@
 <?php
 namespace IMSGlobal\Caliper\entities;
 
-use IMSGlobal\Caliper\util\TimestampUtil;
+use IMSGlobal\Caliper\entities\foaf\Agent;
 use IMSGlobal\Caliper\entities\schemadotorg\CreativeWork;
+use IMSGlobal\Caliper\util\TimestampUtil;
 
 /**
  *         Caliper representation of a CreativeWork
@@ -24,10 +25,17 @@ use IMSGlobal\Caliper\entities\schemadotorg\CreativeWork;
  *
  */
 class DigitalResource extends Entity implements CreativeWork, Targetable {
-    /** @var string[] */
+    /**
+     * @deprecated 1.2 Redundant.  See "@type".
+     * @var string[]
+     */
     private $objectTypes = [];
+    /** @var string */
+    private $mediaType;
+    /** @var Agent[] */
+    private $creators = [];
     /** @var LearningObjective[] */
-    private $alignedLearningObjectives = [];
+    private $learningObjectives = [];
     /** @var string[] */
     private $keywords = [];
     /** @var CreativeWork */
@@ -39,12 +47,42 @@ class DigitalResource extends Entity implements CreativeWork, Targetable {
 
     public function __construct($id) {
         parent::__construct($id);
+        $this->setType(new DigitalResourceType(DigitalResourceType::ASSIGNABLE_DIGITAL_RESOURCE));
+    }
+
+    /**
+     * @return Agent[]
+     */
+    public function getCreators() {
+        return $this->creators;
+    }
+
+    /**
+     * @param Agent[] $creators
+     * @return DigitalResource
+     */
+    public function setCreators($creators) {
+        if (!is_array($creators)) {
+            $creators = [$creators];
+        }
+
+        foreach ($creators as $aCreator) {
+            if (!($aCreator instanceof Agent)) {
+                // Using `Agent::className()` here is tricky.  Using static string for expediency.
+                throw new \InvalidArgumentException(
+                    __METHOD__ . ': array of Agent expected');
+            }
+        }
+
+        $this->creators = $creators;
+        return $this;
     }
 
     public function jsonSerialize() {
         return array_merge(parent::jsonSerialize(), [
             'objectType' => $this->getObjectTypes(),
-            'alignedLearningObjective' => $this->getAlignedLearningObjectives(),
+            'mediaType' => $this->getMediaType(),
+            'learningObjectives' => $this->getLearningObjectives(),
             'keywords' => $this->getKeywords(),
             'isPartOf' => $this->getIsPartOf(),
             'datePublished' => TimestampUtil::formatTimeISO8601MillisUTC($this->getDatePublished()),
@@ -52,12 +90,16 @@ class DigitalResource extends Entity implements CreativeWork, Targetable {
         ]);
     }
 
-    /** @return string[] objectTypes */
+    /**
+     * @deprecated 1.2 Redundant.  See "@type".
+     * @return string[] objectTypes
+     */
     public function getObjectTypes() {
         return $this->objectTypes;
     }
 
     /**
+     * @deprecated 1.2 Redundant.  See "@type".
      * @param string|string[] $objectTypes
      * @return $this|DigitalResource
      */
@@ -76,33 +118,50 @@ class DigitalResource extends Entity implements CreativeWork, Targetable {
         return $this;
     }
 
-    /** @return LearningObjective[] alignedLearningObjectives */
-    public function  getAlignedLearningObjectives() {
-        return $this->alignedLearningObjectives;
+    /** @return string mediaType */
+    public function getMediaType() {
+        return $this->mediaType;
     }
 
     /**
-     * @param LearningObjective|LearningObjective[] $alignedLearningObjectives
-     * @return $this|DigitalResource
+     * @param string $mediaType
+     * @return DigitalResource
      */
-    public function setAlignedLearningObjectives($alignedLearningObjectives) {
-        if (!is_array($alignedLearningObjectives)) {
-            $alignedLearningObjectives = [$alignedLearningObjectives];
+    public function setMediaType($mediaType) {
+        if (!is_string($mediaType)) {
+            throw new \InvalidArgumentException(__METHOD__ . ': string expected');
         }
 
-        foreach ($alignedLearningObjectives as $anAlignedLearningObjective) {
-            if (!($anAlignedLearningObjective instanceof LearningObjective)) {
-                throw new \InvalidArgumentException(
-                    __METHOD__ . ': array of ' . LearningObjective::className() . ' expected');
+        $this->mediaType = strval($mediaType);
+        return $this;
+    }
+
+    /** @return LearningObjective[] learningObjectives */
+    public function getLearningObjectives() {
+        return $this->learningObjectives;
+    }
+
+    /**
+     * @param LearningObjective|LearningObjective[] $learningObjectives
+     * @return $this|DigitalResource
+     */
+    public function setLearningObjectives($learningObjectives) {
+        if (!is_array($learningObjectives)) {
+            $learningObjectives = [$learningObjectives];
+        }
+
+        foreach ($learningObjectives as $aLearningObjective) {
+            if (!is_string($aLearningObjective)) {
+                throw new \InvalidArgumentException(__METHOD__ . ': array of string expected');
             }
         }
 
-        $this->alignedLearningObjectives = $alignedLearningObjectives;
+        $this->learningObjectives = $learningObjectives;
         return $this;
     }
 
     /** @return string[] keywords */
-    public function  getKeywords() {
+    public function getKeywords() {
         return $this->keywords;
     }
 

@@ -19,7 +19,7 @@ class TestMediaEntities {
     public static function makeVideoObject() {
         return (new media\VideoObject(self::videoId()))
             ->setName('American Revolution - Key Figures Video')
-            ->setAlignedLearningObjectives(TestEntities::makeLearningObjective())
+            ->setLearningObjectives(TestEntities::makeLearningObjective())
             ->setDateCreated(TestTimes::createdTime())
             ->setDateModified(TestTimes::modifiedTime())
             ->setDuration(1420)
