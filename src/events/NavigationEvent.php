@@ -5,7 +5,10 @@ use IMSGlobal\Caliper\entities;
 use IMSGlobal\Caliper\actions;
 
 class NavigationEvent extends Event {
-    /** @var entities\DigitalResource */
+    /**
+     * @deprecated 1.2 See `Event.referrer`
+     * @var entities\DigitalResource
+     */
     private $navigatedFrom;
 
     public function __construct() {
@@ -20,35 +23,22 @@ class NavigationEvent extends Event {
         ]);
     }
 
-    /** @return entities\DigitalResource navigatedFrom */
+    /**
+     * @deprecated 1.2 See `Event.referrer`
+     * @return entities\DigitalResource navigatedFrom
+     */
     public function getNavigatedFrom() {
         return $this->navigatedFrom;
     }
 
     /**
+     * @deprecated 1.2 See `Event.referrer`
      * @param entities\DigitalResource $navigatedFrom
      * @return $this|NavigationEvent
      */
     public function setNavigatedFrom(entities\DigitalResource $navigatedFrom) {
         $this->navigatedFrom = $navigatedFrom;
         return $this;
-    }
-
-    /**
-     * @deprecated
-     * @return entities\DigitalResource navigatedFrom
-     */
-    public function getFromResource() {
-        return $this->getNavigatedFrom();
-    }
-
-    /**
-     * @deprecated
-     * @param entities\DigitalResource $fromResource
-     * @return $this|NavigationEvent
-     */
-    public function setFromResource(entities\DigitalResource $fromResource) {
-        return $this->setNavigatedFrom($fromResource);
     }
 }
 
