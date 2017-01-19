@@ -32,6 +32,8 @@ abstract class Event extends util\ClassUtil implements \JsonSerializable {
     /** @var entities\lis\Membership */
     private $membership;
     /** @var entities\session\Session */
+    private $session;
+    /** @var entities\session\Session */
     private $federatedSession;
 
     public function __construct() {
@@ -207,7 +209,7 @@ abstract class Event extends util\ClassUtil implements \JsonSerializable {
     }
 
     /**
-     * @param entities\w3c\Membership|object $membership
+     * @param entities\w3c\Membership $membership
      * @return $this|Event
      */
     public function setMembership(entities\w3c\Membership $membership) {
@@ -240,6 +242,20 @@ abstract class Event extends util\ClassUtil implements \JsonSerializable {
      */
     public function setReferrer(entities\Referrable $referrer) {
         $this->referrer = $referrer;
+        return $this;
+    }
+
+    /** @return entities\session\Session */
+    public function getSession() {
+        return $this->session;
+    }
+
+    /**
+     * @param entities\session\Session $session
+     * @return Event
+     */
+    public function setSession(entities\session\Session $session) {
+        $this->session = $session;
         return $this;
     }
 }
