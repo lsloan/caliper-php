@@ -35,6 +35,8 @@ abstract class Event extends util\ClassUtil implements \JsonSerializable {
     private $session;
     /** @var entities\session\Session */
     private $federatedSession;
+    /** @var array[] */
+    private $extensions;
 
     public function __construct() {
         $this->setContext(new context\Context(context\Context::CONTEXT));
@@ -256,6 +258,34 @@ abstract class Event extends util\ClassUtil implements \JsonSerializable {
      */
     public function setSession(entities\session\Session $session) {
         $this->session = $session;
+        return $this;
+    }
+
+    /** @return \array[] */
+    public function getExtensions() {
+        return $this->extensions;
+    }
+
+    /**
+     * @param \array[]|null $extensions An array of associative arrays
+     * @return Event
+     */
+    public function setExtensions($extensions) {
+        if ($extensions !== null) {
+            if (!is_array($extensions)) {
+                $extensions = [$extensions];
+            } else {
+                $extensions = array_values($extensions);
+            }
+
+            foreach ($extensions as $anExtension) {
+                if (!util\TypeUtil::isStringKeyedArray($anExtension)) {
+                    throw new \InvalidArgumentException(__METHOD__ . ': array of associative arrays expected');
+                }
+            }
+        }
+
+        $this->extensions = $extensions;
         return $this;
     }
 }
