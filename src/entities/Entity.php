@@ -4,7 +4,7 @@ namespace IMSGlobal\Caliper\entities;
 use IMSGlobal\Caliper\util\ClassUtil;
 use IMSGlobal\Caliper\context\Context;
 use IMSGlobal\Caliper\entities;
-use IMSGlobal\Caliper\util\TimestampUtil;
+use IMSGlobal\Caliper\util;
 
 abstract class Entity extends ClassUtil implements \JsonSerializable, entities\schemadotorg\Thing {
     /** @var string */
@@ -36,8 +36,8 @@ abstract class Entity extends ClassUtil implements \JsonSerializable, entities\s
             'name' => $this->getName(),
             'description' => $this->getDescription(),
             'extensions' => (object) $this->getExtensions(),
-            'dateCreated' => TimestampUtil::formatTimeISO8601MillisUTC($this->getDateCreated()),
-            'dateModified' => TimestampUtil::formatTimeISO8601MillisUTC($this->getDateModified()),
+            'dateCreated' => util\TimestampUtil::formatTimeISO8601MillisUTC($this->getDateCreated()),
+            'dateModified' => util\TimestampUtil::formatTimeISO8601MillisUTC($this->getDateModified()),
         ];
     }
 
@@ -132,14 +132,22 @@ abstract class Entity extends ClassUtil implements \JsonSerializable, entities\s
      * @param string|string[] $extensions
      * @return $this|Entity
      */
+    /**
+     * @param \array[]|null $extensions An array of associative arrays
+     * @return Entity
+     */
     public function setExtensions($extensions) {
-        if (!is_array($extensions)) {
-            $extensions = [$extensions];
-        }
+        if ($extensions !== null) {
+            if (!is_array($extensions)) {
+                $extensions = [$extensions];
+            } else {
+                $extensions = array_values($extensions);
+            }
 
-        foreach ($extensions as $anExtension) {
-            if (!is_string($anExtension)) {
-                throw new \InvalidArgumentException(__METHOD__ . ': array of strings expected');
+            foreach ($extensions as $anExtension) {
+                if (!util\TypeUtil::isStringKeyedArray($anExtension)) {
+                    throw new \InvalidArgumentException(__METHOD__ . ': array of associative arrays expected');
+                }
             }
         }
 
