@@ -1,10 +1,9 @@
 <?php
 namespace IMSGlobal\Caliper\events;
 
+use IMSGlobal\Caliper\actions;
 use IMSGlobal\Caliper\context;
 use IMSGlobal\Caliper\entities;
-use IMSGlobal\Caliper\events;
-use IMSGlobal\Caliper\actions;
 use IMSGlobal\Caliper\util;
 
 abstract class Event extends util\ClassUtil implements \JsonSerializable {
@@ -22,6 +21,8 @@ abstract class Event extends util\ClassUtil implements \JsonSerializable {
     private $target;
     /** @var entities\Generatable */
     private $generated;
+    /** @var entities\Referrable */
+    private $referrer;
     /** @var \DateTime */
     private $eventTime;
     /** @var entities\agent\SoftwareApplication */
@@ -31,7 +32,11 @@ abstract class Event extends util\ClassUtil implements \JsonSerializable {
     /** @var entities\lis\Membership */
     private $membership;
     /** @var entities\session\Session */
+    private $session;
+    /** @var entities\session\Session */
     private $federatedSession;
+    /** @var array[] */
+    private $extensions;
 
     public function __construct() {
         $this->setContext(new context\Context(context\Context::CONTEXT));
@@ -145,7 +150,7 @@ abstract class Event extends util\ClassUtil implements \JsonSerializable {
     }
 
     /** @return entities\Generatable generated */
-    public function  getGenerated() {
+    public function getGenerated() {
         return $this->generated;
     }
 
@@ -206,7 +211,7 @@ abstract class Event extends util\ClassUtil implements \JsonSerializable {
     }
 
     /**
-     * @param entities\w3c\Membership|object $membership
+     * @param entities\w3c\Membership $membership
      * @return $this|Event
      */
     public function setMembership(entities\w3c\Membership $membership) {
@@ -227,5 +232,60 @@ abstract class Event extends util\ClassUtil implements \JsonSerializable {
         $this->federatedSession = $federatedSession;
         return $this;
     }
-}
 
+    /** @return entities\Referrable */
+    public function getReferrer() {
+        return $this->referrer;
+    }
+
+    /**
+     * @param entities\Referrable $referrer
+     * @return $this
+     */
+    public function setReferrer(entities\Referrable $referrer) {
+        $this->referrer = $referrer;
+        return $this;
+    }
+
+    /** @return entities\session\Session */
+    public function getSession() {
+        return $this->session;
+    }
+
+    /**
+     * @param entities\session\Session $session
+     * @return Event
+     */
+    public function setSession(entities\session\Session $session) {
+        $this->session = $session;
+        return $this;
+    }
+
+    /** @return \array[] */
+    public function getExtensions() {
+        return $this->extensions;
+    }
+
+    /**
+     * @param \array[]|null $extensions An array of associative arrays
+     * @return Event
+     */
+    public function setExtensions($extensions) {
+        if ($extensions !== null) {
+            if (!is_array($extensions)) {
+                $extensions = [$extensions];
+            } else {
+                $extensions = array_values($extensions);
+            }
+
+            foreach ($extensions as $anExtension) {
+                if (!util\TypeUtil::isStringKeyedArray($anExtension)) {
+                    throw new \InvalidArgumentException(__METHOD__ . ': array of associative arrays expected');
+                }
+            }
+        }
+
+        $this->extensions = $extensions;
+        return $this;
+    }
+}
