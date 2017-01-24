@@ -37,12 +37,18 @@ abstract class Event extends util\ClassUtil implements \JsonSerializable {
     private $federatedSession;
     /** @var array[] */
     private $extensions;
+    /** @var string */
+    private $uuid;
 
     public function __construct() {
         $this->setContext(new context\Context(context\Context::CONTEXT));
     }
 
     public function jsonSerialize() {
+        if ($this->getUuid() === null) {
+            $this->setUuid(uniqid());
+        }
+
         return [
             '@context' => $this->getContext(),
             'type' => $this->getType(),
@@ -286,6 +292,20 @@ abstract class Event extends util\ClassUtil implements \JsonSerializable {
         }
 
         $this->extensions = $extensions;
+        return $this;
+    }
+
+    /** @return string */
+    public function getUuid() {
+        return $this->uuid;
+    }
+
+    /**
+     * @param string $uuid
+     * @return Event
+     */
+    public function setUuid($uuid) {
+        $this->uuid = strval($uuid);
         return $this;
     }
 }
