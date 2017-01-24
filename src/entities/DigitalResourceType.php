@@ -7,7 +7,6 @@ class DigitalResourceType extends \IMSGlobal\Caliper\util\BasicEnum implements T
         ASSIGNABLE_DIGITAL_RESOURCE = 'AssignableDigitalResource',
         EPUB_CHAPTER = 'EpubChapter',
         EPUB_PART = 'EpubPart',
-        EPUB_SUB_CHAPTER = 'EpubSubChapter',
         EPUB_VOLUME = 'EpubVolume',
         FRAME = 'Frame',
         MEDIA_OBJECT = 'MediaObject',
