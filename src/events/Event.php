@@ -45,7 +45,7 @@ abstract class Event extends util\ClassUtil implements \JsonSerializable {
     public function jsonSerialize() {
         return [
             '@context' => $this->getContext(),
-            '@type' => $this->getType(),
+            'type' => $this->getType(),
             'actor' => $this->getActor(),
             'action' => $this->getAction(),
             'object' => $this->getObject(),
