@@ -61,6 +61,8 @@ abstract class Event extends util\ClassUtil implements \JsonSerializable {
             'edApp' => $this->getEdApp(),
             'group' => $this->getGroup(),
             'membership' => $this->getMembership(),
+            //TODO: add 'session'
+            'uuid' => $this->getUuid(),
             'federatedSession' => (!is_null($this->getFederatedSession()))
                 ? $this->getFederatedSession()->getId()
                 : null,
