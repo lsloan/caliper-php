@@ -18,6 +18,8 @@ class EventSessionLoggedOutTest extends CaliperTestCase {
                 ->setDuration(TestTimes::durationSeconds()))
             ->setEdApp(TestAgentEntities::makeReadingApplication())
             ->setGroup(TestLisEntities::makeGroup())
-            ->setEventTime(TestTimes::startedTime()));
+            ->setEventTime(TestTimes::startedTime())
+            ->setUuid('a438f8ac-1da3-4d48-8c86-94a1b387e0f6')
+        );
     }
 }

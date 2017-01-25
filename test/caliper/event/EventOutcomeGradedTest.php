@@ -19,6 +19,8 @@ class EventOutcomeGradedTest extends CaliperTestCase {
             ->setEventTime(TestTimes::startedTime())
             ->setEdApp(TestAgentEntities::makeAssessmentApplication())
             ->setGroup(TestLisEntities::makeGroup())
-            ->setMembership(TestLisEntities::makeMembership()));
+            ->setMembership(TestLisEntities::makeMembership())
+            ->setUuid('a50ca17f-5971-47bb-8fca-4e6e6879001d')
+        );
     }
 }

@@ -16,6 +16,8 @@ class EventNavigationNavigatedToTest extends CaliperTestCase {
             ->setEdApp(TestAgentEntities::makeReadingApplication())
             ->setTarget(TestReadingEntities::makeFrame1())
             ->setGroup(TestLisEntities::makeGroup())
-            ->setEventTime(TestTimes::startedTime()));
+            ->setEventTime(TestTimes::startedTime())
+            ->setUuid('ff9ec22a-fc59-4ae1-ae8d-2c9463ee2f8f')
+        );
     }
 }

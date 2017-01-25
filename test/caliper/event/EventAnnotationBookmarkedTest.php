@@ -16,6 +16,8 @@ class EventAnnotationBookmarkedTest extends CaliperTestCase {
             ->setEventTime(TestTimes::startedTime())
             ->setEdApp(TestAgentEntities::makeReadingApplication())
             ->setGroup(TestLisEntities::makeGroup())
-            ->setMembership(TestLisEntities::makeMembership()));
+            ->setMembership(TestLisEntities::makeMembership())
+            ->setUuid('d4618c23-d612-4709-8d9a-478d87808067')
+        );
     }
 }

@@ -17,6 +17,8 @@ class EventSessionLoggedInTest extends CaliperTestCase {
             ->setGenerated(TestSessionEntities::makeSession())
             ->setEdApp(TestAgentEntities::makeReadingApplication())
             ->setGroup(TestLisEntities::makeGroup())
-            ->setEventTime(TestTimes::startedTime()));
+            ->setEventTime(TestTimes::startedTime())
+            ->setUuid('fcd495d0-3740-4298-9bec-1154571dc211')
+        );
     }
 }
