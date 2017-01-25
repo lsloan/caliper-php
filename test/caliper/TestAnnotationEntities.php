@@ -4,11 +4,11 @@ use IMSGlobal\Caliper\entities\annotation;
 class TestAnnotationEntities {
     /** @return annotation\BookmarkAnnotation */
     public static function makeBookmarkAnnotation() {
-        return (new annotation\BookmarkAnnotation('https://example.edu/bookmarks/00001'))
+        return (new annotation\BookmarkAnnotation('https://example.edu/users/554433/etexts/201/bookmarks/1'))
             ->setDateCreated(TestTimes::createdTime())
             ->setDateModified(TestTimes::modifiedTime())
             ->setAnnotated(TestReadingEntities::makeFrame2())
-            ->setBookmarkNotes('The Intolerable Acts (1774)--bad idea Lord North');
+            ->setBookmarkNotes('Caliper profiles model discrete learning activities or supporting activities that enable learning.');
     }
 
     /** @return annotation\HighlightAnnotation */

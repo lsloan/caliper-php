@@ -10,7 +10,7 @@ use IMSGlobal\Caliper\entities\w3c\Organization;
 class TestLisEntities {
     /** @return string|Organization */
     public static function groupId() {
-        return 'https://example.edu/politicalScience/2015/american-revolution-101/section/001/group/001';
+        return 'https://example.edu/terms/201601/courses/7/sections/1';
     }
 
     public static function makeGroup() {
@@ -55,7 +55,7 @@ class TestLisEntities {
 
     /** @return Membership */
     public static function makeMembership() {
-        return (new Membership('https://example.edu/politicalScience/2015/american-revolution-101/roster/554433'))
+        return (new Membership('https://example.edu/terms/201601/courses/7/sections/1/rosters/1'))
             ->setDateCreated(TestTimes::createdTime())
             ->setDescription('Roster entry')
             ->setMember(TestAgentEntities::makePerson())

@@ -12,7 +12,7 @@ class EventNavigationNavigatedToTest extends CaliperTestCase {
             ->setActor(TestAgentEntities::makePerson())
             ->setMembership(TestLisEntities::makeMembership())
             ->setObject(TestReadingEntities::makeEPubVolume())
-            ->setNavigatedFrom(TestReadingEntities::makeWebPage())
+            //->setNavigatedFrom(TestReadingEntities::makeWebPage())
             ->setEdApp(TestAgentEntities::makeReadingApplication())
             ->setTarget(TestReadingEntities::makeFrame1())
             ->setGroup(TestLisEntities::makeGroup())

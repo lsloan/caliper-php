@@ -19,15 +19,15 @@ class TestAgentEntities {
 
     /** @return Person */
     public static function makePerson() {
-        return (new Person('https://example.edu/user/554433'))
+        return (new Person('https://example.edu/users/554433'))
             ->setDateCreated(TestTimes::createdTime())
             ->setDateModified(TestTimes::modifiedTime());
     }
 
     /** @return SoftwareApplication */
     public static function makeReadingApplication() {
-        return (new SoftwareApplication('https://example.com/viewer'))
-            ->setName('ePub')
+        return (new SoftwareApplication('https://example.edu'))
+            ->setName('ePub Reader')
             ->setDateCreated(TestTimes::createdTime())
             ->setDateModified(TestTimes::modifiedTime());
     }

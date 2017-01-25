@@ -25,12 +25,12 @@ class TestReadingEntities {
 
     /** @return Frame */
     public static function makeFrame2() {
-        return (new Frame('https://example.com/viewer/book/34843#epubcfi(/4/3/2)'))
-            ->setName('Key Figures: Lord North')
+        return (new Frame('https://example.edu/etexts/201.epub'))
+            ->setName('IMS Caliper Implementation Guide')
             ->setDateCreated(TestTimes::createdTime())
             ->setDateModified(TestTimes::modifiedTime())
             ->setIsPartOf(self::makeEPubVolume())
-            ->setVersion('2nd ed.')
+            ->setVersion('1.1')
             ->setIndex(2);
     }
 
