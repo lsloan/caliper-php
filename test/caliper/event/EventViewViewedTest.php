@@ -15,6 +15,8 @@ class EventViewViewedTest extends CaliperTestCase {
             ->setTarget(TestReadingEntities::makeFrame1())
             ->setEdApp(TestAgentEntities::makeReadingApplication())
             ->setGroup(TestLisEntities::makeGroup())
-            ->setEventTime(TestTimes::startedTime()));
+            ->setEventTime(TestTimes::startedTime())
+            ->setUuid('cd088ca7-c044-405c-bb41-0b2a8506f907')
+        );
     }
 }

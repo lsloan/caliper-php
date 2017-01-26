@@ -13,11 +13,12 @@ class EnvelopeEventSingleTest extends CaliperTestCase {
                 ->setActor(TestAgentEntities::makePerson())
                 ->setMembership(TestLisEntities::makeMembership())
                 ->setObject(TestReadingEntities::makeEPubVolume())
-                ->setNavigatedFrom(TestReadingEntities::makeWebPage())
                 ->setEdApp(TestAgentEntities::makeReadingApplication())
                 ->setTarget(TestReadingEntities::makeFrame1())
                 ->setGroup(TestLisEntities::makeGroup())
                 ->setEventTime(TestTimes::startedTime())
-                ->setFederatedSession(new IMSGlobal\Caliper\entities\session\Session('https://example.edu/lms/federatedSession/123456789'))));
+                ->setFederatedSession(new IMSGlobal\Caliper\entities\session\Session('https://example.edu/lms/federatedSession/123456789'))
+                ->setUuid('c51570e4-f8ed-4c18-bb3a-dfe51b2cc594')
+            ));
     }
 }

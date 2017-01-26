@@ -16,6 +16,8 @@ class EventAssessmentItemCompletedTest extends CaliperTestCase {
             ->setEventTime(TestTimes::startedTime())
             ->setEdApp(TestAgentEntities::makeAssessmentApplication())
             ->setGroup(TestLisEntities::makeGroup())
-            ->setMembership(TestLisEntities::makeMembership()));
+            ->setMembership(TestLisEntities::makeMembership())
+            ->setUuid('e5891791-3d27-4df1-a272-091806a43dfb')
+        );
     }
 }

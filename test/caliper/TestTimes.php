@@ -1,13 +1,24 @@
 <?php
 class TestTimes {
-    /** @return \DateTime */ 
-    public static function createdTime() {
-        return new \DateTime('2015-08-01T06:00:00.000Z');
+    /**
+     * Timestamp: 2016-08-01T06:00:00.000Z
+     * @return \DateTime
+     */
+    public static function createdTime1() {
+        return new \DateTime('2016-08-01T06:00:00.000Z');
     }
 
-    /** @return \DateTime */ 
+    /**
+     * Timestamp: 2016-11-15T10:15:00.000Z
+     * @return \DateTime
+     */
+    public static function createdTime2() {
+        return new \DateTime('2016-11-15T10:15:00.000Z');
+    }
+
+    /** @return \DateTime */
     public static function modifiedTime() {
-        return new \DateTime('2015-09-02T11:30:00.000Z');
+        return new \DateTime('2016-09-02T11:30:00.000Z');
     }
 
     /** @return string */
@@ -17,7 +28,7 @@ class TestTimes {
 
     /** @return \DateTime */ 
     public static function endedTime() {
-        return new \DateTime('2015-09-15T11:05:00.000Z');
+        return new \DateTime('2016-11-15T10:15:12.000Z');
     }
 
     /** @return \DateTime */ 
@@ -26,11 +37,16 @@ class TestTimes {
     }
 
     /** @return \DateTime */ 
-    public static function sendTime() {
-        return new \DateTime('2015-09-15T11:05:01.000Z');
+    public static function eventTime() {
+        return new \DateTime('2016-11-15T10:15:00.000Z');
     }
 
-    /** @return \DateTime */ 
+    /** @return \DateTime */
+    public static function sendTime() {
+        return new \DateTime('2016-11-15T11:05:01.000Z');
+    }
+
+    /** @return \DateTime */
     public static function publishedTime() {
         return new \DateTime('2015-08-15T09:30:00.000Z');
     }

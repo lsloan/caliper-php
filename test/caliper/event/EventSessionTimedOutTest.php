@@ -16,6 +16,8 @@ class EventSessionTimedOutTest extends CaliperTestCase {
                 ->setDuration(TestTimes::durationSeconds()))
             ->setEdApp(TestAgentEntities::makeReadingApplication())
             ->setGroup(TestLisEntities::makeGroup())
-            ->setEventTime(TestTimes::startedTime()));
+            ->setEventTime(TestTimes::startedTime())
+            ->setUuid('4e61cf6c-ffbe-45bc-893f-afe7ad4079dc')
+        );
     }
 }

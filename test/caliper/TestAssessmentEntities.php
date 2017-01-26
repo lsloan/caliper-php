@@ -6,7 +6,7 @@ class TestAssessmentEntities {
     /** @return Assessment */
     public static function makeAssessment() {
         return (new Assessment('https://example.edu/politicalScience/2015/american-revolution-101/assessment/001'))
-            ->setDateCreated(TestTimes::createdTime())
+            ->setDateCreated(TestTimes::createdTime1())
             ->setDateModified(TestTimes::modifiedTime())
             ->setDatePublished(TestTimes::publishedTime())
             ->setDateToActivate(TestTimes::activateTime())

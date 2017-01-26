@@ -12,10 +12,12 @@ class EventNavigationNavigatedToTest extends CaliperTestCase {
             ->setActor(TestAgentEntities::makePerson())
             ->setMembership(TestLisEntities::makeMembership())
             ->setObject(TestReadingEntities::makeEPubVolume())
-            ->setNavigatedFrom(TestReadingEntities::makeWebPage())
+            //->setNavigatedFrom(TestReadingEntities::makeWebPage())
             ->setEdApp(TestAgentEntities::makeReadingApplication())
             ->setTarget(TestReadingEntities::makeFrame1())
             ->setGroup(TestLisEntities::makeGroup())
-            ->setEventTime(TestTimes::startedTime()));
+            ->setEventTime(TestTimes::startedTime())
+            ->setUuid('ff9ec22a-fc59-4ae1-ae8d-2c9463ee2f8f')
+        );
     }
 }

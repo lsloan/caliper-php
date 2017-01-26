@@ -10,7 +10,7 @@ class TestMediaEntities {
     /** @return media\MediaLocation */
     public static function makeMediaLocation() {
         return (new media\MediaLocation(self::videoId()))
-            ->setDateCreated(TestTimes::createdTime())
+            ->setDateCreated(TestTimes::createdTime1())
             ->setCurrentTime(710)
             ->setVersion('1.0');
     }
@@ -20,7 +20,7 @@ class TestMediaEntities {
         return (new media\VideoObject(self::videoId()))
             ->setName('American Revolution - Key Figures Video')
             ->setLearningObjectives(TestEntities::makeLearningObjective())
-            ->setDateCreated(TestTimes::createdTime())
+            ->setDateCreated(TestTimes::createdTime1())
             ->setDateModified(TestTimes::modifiedTime())
             ->setDuration(1420)
             ->setVersion('1.0');
