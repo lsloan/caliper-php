@@ -17,7 +17,7 @@ class TestAnnotationEntities {
             // TODO: Add `Annotation.actor` property #200
             //->setActor(TestAgentEntities::makePerson())
             ->setDateCreated(TestTimes::createdTime2())
-            // TODO: Removed for EventAnnotationHighlightedTest.php
+            // XXX: Removed for EventAnnotationHighlightedTest.php
             //->setDateModified(TestTimes::modifiedTime())
             // TODO: Add `Document` entity #202
             // TODO: (annotated should be a Document object, not a reference)

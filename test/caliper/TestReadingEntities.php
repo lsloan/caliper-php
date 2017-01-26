@@ -19,7 +19,7 @@ class TestReadingEntities {
         return (new Frame('https://example.edu/etexts/201'))
             ->setName('IMS Caliper Implementation Guide')
             ->setDateCreated(new \DateTime('2016-10-01T06:00:00.000Z'))
-            // TODO: Removed for EventAnnotationHighlightedTest.php
+            // XXX: Removed for EventAnnotationHighlightedTest.php
             //->setDateModified(TestTimes::modifiedTime())
             //->setIsPartOf(self::makeEPubVolume())
             ->setVersion('1.1');

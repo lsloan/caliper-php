@@ -33,7 +33,7 @@ class TestLisEntities {
         return (new CourseSection(self::courseSectionId()))
             ->setCourseNumber('CPS 435-01')
             ->setAcademicSession('Fall 2016');
-            // TODO: Removed for EventAnnotationHighlightedTest.php
+            // XXX: Removed for EventAnnotationHighlightedTest.php
             //->setName('American Revolution 101')
             //->setSubOrganizationOf(self::makeCourseOffering())
             //->setDateCreated(TestTimes::createdTime1())
@@ -58,7 +58,7 @@ class TestLisEntities {
     public static function makeMembership() {
         return (new Membership('https://example.edu/terms/201601/courses/7/sections/1/rosters/1'))
             ->setDateCreated(TestTimes::createdTime1())
-            // TODO: Removed for EventAnnotationHighlightedTest.php
+            // XXX: Removed for EventAnnotationHighlightedTest.php
             //->setDescription('Roster entry')
             //->setName('American Revolution 101')
             // TODO: (member should be an object, not a reference)

@@ -20,7 +20,7 @@ class TestAgentEntities {
     /** @return Person */
     public static function makePerson() {
         return (new Person('https://example.edu/users/554433'));
-            // TODO: Removed for EventAnnotationHighlightedTest.php
+            // XXX: Removed for EventAnnotationHighlightedTest.php
             //->setDateCreated(TestTimes::createdTime1())
             //->setDateModified(TestTimes::modifiedTime());
     }
@@ -30,7 +30,7 @@ class TestAgentEntities {
         return (new SoftwareApplication('https://example.edu'))
             // TODO: Add `SoftwareApplication.version` property #199
             //->setVersion('v3')
-            // TODO: Removed for EventAnnotationHighlightedTest.php
+            // XXX: Removed for EventAnnotationHighlightedTest.php
             //->setName('ePub Reader')
             //->setDateCreated(TestTimes::createdTime1())
             //->setDateModified(TestTimes::modifiedTime())
