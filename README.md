@@ -108,7 +108,7 @@ A very special thank you to each of the developers that contributed to this proj
 * balachandiran.v / Yoganand-htc
 * Lance E Sloan (lsloan at umich dot edu), University of Michigan
 
-©2016 IMS Global Learning Consortium, Inc. All Rights Reserved.
+Copyright © 2017 IMS Global Learning Consortium, Inc. All Rights Reserved.
 Trademark Information - http://www.imsglobal.org/copyright.html
 
 For license information contact, info@imsglobal.org and read the LICENSE file contained in the repository.
