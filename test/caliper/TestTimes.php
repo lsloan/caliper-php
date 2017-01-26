@@ -22,7 +22,7 @@ class TestTimes {
 
     /** @return \DateTime */ 
     public static function startedTime() {
-        return new \DateTime('2015-09-15T10:15:00.000Z');
+        return new \DateTime('2016-11-15T10:00:00.000Z');
     }
 
     /** @return \DateTime */ 

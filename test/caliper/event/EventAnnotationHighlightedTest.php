@@ -16,6 +16,7 @@ class EventAnnotationHighlightedTest extends CaliperTestCase {
             ->setEventTime(TestTimes::startedTime())
             ->setEdApp(TestAgentEntities::makeReadingApplication())
             ->setGroup(TestLisEntities::makeGroup())
+            ->setSession(TestSessionEntities::makeSession())
             ->setMembership(TestLisEntities::makeMembership()));
     }
 }
