@@ -28,8 +28,7 @@ class TestAgentEntities {
     /** @return SoftwareApplication */
     public static function makeReadingApplication() {
         return (new SoftwareApplication('https://example.edu'))
-            // TODO: Add `SoftwareApplication.version` property #199
-            //->setVersion('v3')
+            ->setVersion('v3')
             // XXX: Removed for EventAnnotationHighlightedTest.php
             //->setName('ePub Reader')
             //->setDateCreated(TestTimes::createdTime1())
