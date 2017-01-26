@@ -20,7 +20,7 @@ class TestAnnotationEntities {
             // TODO: Removed for EventAnnotationHighlightedTest.php
             //->setDateModified(TestTimes::modifiedTime())
             // TODO: Add `Document` entity #202
-            // (annotated should be an object, not a reference)
+            // TODO: (annotated should be a Document object, not a reference)
             ->setAnnotated(TestReadingEntities::makeFrame1())
             // TODO: `TextPositionSelector`: `start` and `end` types; extend `Entity` #201
             ->setSelection((new annotation\TextPositionSelector())

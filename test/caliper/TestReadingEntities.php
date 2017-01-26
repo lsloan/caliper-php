@@ -14,11 +14,14 @@ class TestReadingEntities {
 
     /** @return Frame */
     public static function makeFrame1() {
+        // TODO: Replace Frame with Document object
+        // TODO: Add `Document` entity #202
         return (new Frame('https://example.edu/etexts/201'))
             ->setName('IMS Caliper Implementation Guide')
-            ->setDateCreated(TestTimes::createdTime2())
-            ->setDateModified(TestTimes::modifiedTime())
-            ->setIsPartOf(self::makeEPubVolume())
+            ->setDateCreated(new \DateTime('2016-10-01T06:00:00.000Z'))
+            // TODO: Removed for EventAnnotationHighlightedTest.php
+            //->setDateModified(TestTimes::modifiedTime())
+            //->setIsPartOf(self::makeEPubVolume())
             ->setVersion('1.1');
     }
 

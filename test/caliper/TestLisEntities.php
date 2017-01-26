@@ -32,12 +32,12 @@ class TestLisEntities {
     public static function makeCourseSection() {
         return (new CourseSection(self::courseSectionId()))
             ->setCourseNumber('CPS 435-01')
-            ->setName('American Revolution 101')
-            ->setAcademicSession('Fall 2016')
+            ->setAcademicSession('Fall 2016');
             // TODO: Removed for EventAnnotationHighlightedTest.php
+            //->setName('American Revolution 101')
             //->setSubOrganizationOf(self::makeCourseOffering())
-            ->setDateCreated(TestTimes::createdTime1())
-            ->setDateModified(TestTimes::modifiedTime());
+            //->setDateCreated(TestTimes::createdTime1())
+            //->setDateModified(TestTimes::modifiedTime());
     }
 
     /** @return string|Organization */
@@ -58,9 +58,13 @@ class TestLisEntities {
     public static function makeMembership() {
         return (new Membership('https://example.edu/terms/201601/courses/7/sections/1/rosters/1'))
             ->setDateCreated(TestTimes::createdTime1())
-            ->setDescription('Roster entry')
+            // TODO: Removed for EventAnnotationHighlightedTest.php
+            //->setDescription('Roster entry')
+            //->setName('American Revolution 101')
+            // TODO: (member should be an object, not a reference)
             ->setMember(TestAgentEntities::makePerson())
-            ->setName('American Revolution 101')
+            // TODO: (organization should be an object, not a reference)
+            // TODO: ??? ...add `Organization.members<Agent>` #205
             ->setOrganization(new Group('https://example.edu/politicalScience/2015/american-revolution-101/section/001'))
             ->setRoles(new Role(Role::LEARNER))
             ->setStatus(new Status(Status::ACTIVE));

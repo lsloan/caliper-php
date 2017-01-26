@@ -61,7 +61,8 @@ abstract class Event extends util\ClassUtil implements \JsonSerializable {
             'edApp' => $this->getEdApp(),
             'group' => $this->getGroup(),
             'membership' => $this->getMembership(),
-            //TODO: add 'session'
+            // TODO: Add Event properties; remove NavigationEvent.navigatedFrom #180
+            // TODO: reopen this issue and add serialization of session here, before uuid
             'uuid' => $this->getUuid(),
             'federatedSession' => (!is_null($this->getFederatedSession()))
                 ? $this->getFederatedSession()->getId()
