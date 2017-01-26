@@ -13,7 +13,7 @@ class EventAnnotationHighlightedTest extends CaliperTestCase {
             ->setAction(new IMSGlobal\Caliper\actions\Action(IMSGlobal\Caliper\actions\Action::HIGHLIGHTED))
             ->setObject(TestReadingEntities::makeFrame1())
             ->setGenerated(TestAnnotationEntities::makeHighlightAnnotation())
-            ->setEventTime(TestTimes::startedTime())
+            ->setEventTime(TestTimes::eventTime())
             ->setEdApp(TestAgentEntities::makeReadingApplication())
             ->setGroup(TestLisEntities::makeCourseSection())
             ->setMembership(TestLisEntities::makeMembership())
