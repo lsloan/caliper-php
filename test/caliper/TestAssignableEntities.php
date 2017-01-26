@@ -6,7 +6,7 @@ class TestAssignableEntities {
     public static function makeAssessmentAttempt() {
         /** @return Attempt */
         return (new Attempt('https://example.edu/politicalScience/2015/american-revolution-101/assessment/001/attempt/5678'))
-            ->setDateCreated(TestTimes::createdTime())
+            ->setDateCreated(TestTimes::createdTime1())
             ->setActor(TestAgentEntities::makePerson())
             ->setCount(1)
             ->setStartedAtTime(TestTimes::startedTime());
@@ -15,7 +15,7 @@ class TestAssignableEntities {
     public static function makeItemAttempt() {
         /** @return Attempt */
         return (new Attempt('https://example.edu/politicalScience/2015/american-revolution-101/assessment/001/item/001/attempt/789'))
-            ->setDateCreated(TestTimes::createdTime())
+            ->setDateCreated(TestTimes::createdTime1())
             ->setActor(TestAgentEntities::makePerson())
             ->setAssignable(TestAssessmentEntities::makeAssessment())
             ->setCount(1)
@@ -25,7 +25,7 @@ class TestAssignableEntities {
     public static function makeResult() {
         /** @return Result */
         return (new Result('https://example.edu/politicalScience/2015/american-revolution-101/assessment/001/attempt/5678/result'))
-            ->setDateCreated(TestTimes::createdTime())
+            ->setDateCreated(TestTimes::createdTime1())
             ->setAssignable(TestAssessmentEntities::makeAssessment())
             ->setActor(TestAgentEntities::makePerson())
             ->setNormalScore(3.0)

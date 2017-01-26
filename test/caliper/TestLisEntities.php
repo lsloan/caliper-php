@@ -17,7 +17,7 @@ class TestLisEntities {
         return (new Group(self::groupId()))
             ->setName('Discussion Group 001')
             ->setSubOrganizationOf(self::makeCourseSection())
-            ->setDateCreated(TestTimes::createdTime());
+            ->setDateCreated(TestTimes::createdTime1());
     }
 
     public static function makeGroupMembership() {
@@ -25,23 +25,24 @@ class TestLisEntities {
             ->setMember(TestAgentEntities::makePerson())
             ->setOrganization(self::groupId())
             ->setRoles(self::makeMembership()->getRoles())
-            ->setDateCreated(TestTimes::createdTime());
+            ->setDateCreated(TestTimes::createdTime1());
     }
 
     /** @return \IMSGlobal\Caliper\entities\lis\Course */
     public static function makeCourseSection() {
         return (new CourseSection(self::courseSectionId()))
-            ->setCourseNumber('POL101')
+            ->setCourseNumber('CPS 435-01')
             ->setName('American Revolution 101')
-            ->setAcademicSession('Fall-2015')
-            ->setSubOrganizationOf(self::makeCourseOffering())
-            ->setDateCreated(TestTimes::createdTime())
+            ->setAcademicSession('Fall 2016')
+            // TODO: Removed for EventAnnotationHighlightedTest.php
+            //->setSubOrganizationOf(self::makeCourseOffering())
+            ->setDateCreated(TestTimes::createdTime1())
             ->setDateModified(TestTimes::modifiedTime());
     }
 
     /** @return string|Organization */
     public static function courseSectionId() {
-        return 'https://example.edu/politicalScience/2015/american-revolution-101/section/001';
+        return 'https://example.edu/terms/201601/courses/7/sections/1';
     }
 
     public static function makeSectionMembership() {
@@ -49,14 +50,14 @@ class TestLisEntities {
             ->setMember(TestAgentEntities::makePerson())
             ->setOrganization(self::courseSectionId())
             ->setRoles(self::makeMembership()->getRoles())
-            ->setDateCreated(TestTimes::createdTime());
+            ->setDateCreated(TestTimes::createdTime1());
 
     }
 
     /** @return Membership */
     public static function makeMembership() {
         return (new Membership('https://example.edu/terms/201601/courses/7/sections/1/rosters/1'))
-            ->setDateCreated(TestTimes::createdTime())
+            ->setDateCreated(TestTimes::createdTime1())
             ->setDescription('Roster entry')
             ->setMember(TestAgentEntities::makePerson())
             ->setName('American Revolution 101')
@@ -71,7 +72,7 @@ class TestLisEntities {
             ->setCourseNumber('POL101')
             ->setName('Political Science 101: The American Revolution')
             ->setAcademicSession('Fall-2015')
-            ->setDateCreated(TestTimes::createdTime())
+            ->setDateCreated(TestTimes::createdTime1())
             ->setDateModified(TestTimes::modifiedTime());
     }
 }
