@@ -14,14 +14,9 @@ class TestAnnotationEntities {
     /** @return annotation\HighlightAnnotation */
     public static function makeHighlightAnnotation() {
         return (new annotation\HighlightAnnotation('https://example.edu/users/554433/etexts/201/highlights?start=2300&end=2370'))
-            // TODO: Add `Annotation.actor` property #200
-            //->setActor(TestAgentEntities::makePerson())
+            ->setActor(TestAgentEntities::makePerson())
             ->setDateCreated(TestTimes::createdTime2())
-            // XXX: Removed for EventAnnotationHighlightedTest.php
-            //->setDateModified(TestTimes::modifiedTime())
-            // TODO: Add `Document` entity #202
-            // TODO: (annotated should be a Document object, not a reference)
-            ->setAnnotated(TestReadingEntities::makeDocument())
+            ->setAnnotated(TestReadingEntities::makeDocumentReference())
             ->setSelection((new annotation\TextPositionSelector())
                 ->setStart(2300)
                 ->setEnd(2370))
