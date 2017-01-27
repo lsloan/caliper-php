@@ -22,10 +22,9 @@ class TestAnnotationEntities {
             // TODO: Add `Document` entity #202
             // TODO: (annotated should be a Document object, not a reference)
             ->setAnnotated(TestReadingEntities::makeDocument())
-            // TODO: `TextPositionSelector`: `start` and `end` types; extend `Entity` #201
             ->setSelection((new annotation\TextPositionSelector())
-                ->setStart('2300') // TODO: `TextPositionSelector`: `start` and `end` types; extend `Entity` #201
-                ->setEnd('2370')) // TODO: `TextPositionSelector`: `start` and `end` types; extend `Entity` #201
+                ->setStart(2300)
+                ->setEnd(2370))
             ->setSelectionText('ISO 8601 formatted date and time expressed with millisecond precision.');
     }
 

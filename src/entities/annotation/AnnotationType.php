@@ -9,6 +9,7 @@ class AnnotationType extends Caliper\util\BasicEnum implements Caliper\entities\
         BOOKMARK_ANNOTATION = 'BookmarkAnnotation',
         HIGHLIGHT_ANNOTATION = 'HighlightAnnotation',
         SHARED_ANNOTATION = 'SharedAnnotation',
-        TAG_ANNOTATION = 'TagAnnotation';
+        TAG_ANNOTATION = 'TagAnnotation',
+        TEXT_POSITION_SELECTOR = 'TextPositionSelector';
 }
 
