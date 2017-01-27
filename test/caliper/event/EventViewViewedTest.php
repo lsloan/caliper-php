@@ -12,7 +12,7 @@ class EventViewViewedTest extends CaliperTestCase {
             ->setActor(TestAgentEntities::makePerson())
             ->setMembership(TestLisEntities::makeMembership())
             ->setObject(TestReadingEntities::makeEPubVolume())
-            ->setTarget(TestReadingEntities::makeFrame1())
+            ->setTarget(TestReadingEntities::makeDocument())
             ->setEdApp(TestAgentEntities::makeReadingApplication())
             ->setGroup(TestLisEntities::makeGroup())
             ->setEventTime(TestTimes::startedTime())

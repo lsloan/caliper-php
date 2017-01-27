@@ -14,7 +14,7 @@ class EnvelopeEventSingleTest extends CaliperTestCase {
                 ->setMembership(TestLisEntities::makeMembership())
                 ->setObject(TestReadingEntities::makeEPubVolume())
                 ->setEdApp(TestAgentEntities::makeReadingApplication())
-                ->setTarget(TestReadingEntities::makeFrame1())
+                ->setTarget(TestReadingEntities::makeDocument())
                 ->setGroup(TestLisEntities::makeGroup())
                 ->setEventTime(TestTimes::startedTime())
                 ->setFederatedSession(new IMSGlobal\Caliper\entities\session\Session('https://example.edu/lms/federatedSession/123456789'))
