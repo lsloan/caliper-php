@@ -13,7 +13,7 @@ class EventSessionLoggedInTest extends CaliperTestCase {
             ->setMembership(TestLisEntities::makeMembership())
             ->setAction(new IMSGlobal\Caliper\actions\Action(IMSGlobal\Caliper\actions\Action::LOGGED_IN))
             ->setObject(TestAgentEntities::makeReadingApplication())
-            ->setTarget(TestReadingEntities::makeFrame1())
+            ->setTarget(TestReadingEntities::makeDocument())
             ->setGenerated(TestSessionEntities::makeSession())
             ->setEdApp(TestAgentEntities::makeReadingApplication())
             ->setGroup(TestLisEntities::makeGroup())

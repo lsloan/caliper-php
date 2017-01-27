@@ -21,7 +21,7 @@ class TestAnnotationEntities {
             //->setDateModified(TestTimes::modifiedTime())
             // TODO: Add `Document` entity #202
             // TODO: (annotated should be a Document object, not a reference)
-            ->setAnnotated(TestReadingEntities::makeFrame1())
+            ->setAnnotated(TestReadingEntities::makeDocument())
             // TODO: `TextPositionSelector`: `start` and `end` types; extend `Entity` #201
             ->setSelection((new annotation\TextPositionSelector())
                 ->setStart('2300') // TODO: `TextPositionSelector`: `start` and `end` types; extend `Entity` #201
