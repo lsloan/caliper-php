@@ -3,12 +3,12 @@ namespace IMSGlobal\Caliper\util;
 
 class TypeUtil {
     /**
-     * Given an array, return true if all of its keys are strings, return false otherwise.
+     * Return true if the argument is an array and all of its keys are strings.  Otherwise, return false.
      * @param array $array
      * @return bool formatted timestamp
      */
-    static function isStringKeyedArray(array $array) {
-        if ([] === $array) return false;
+    static function isStringKeyedArray($array) {
+        if (!is_array($array) || [] === $array) return false;
         return count(array_filter(array_keys($array), 'is_integer')) == 0;
     }
 }
