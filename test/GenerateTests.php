@@ -1,5 +1,5 @@
 <?php
-require_once realpath(dirname(__FILE__) . '/test/caliper/CaliperTestCase.php');
+require_once realpath(dirname(__FILE__) . '/caliper/CaliperTestCase.php');
 
 use IMSGlobal\Caliper\util\TypeUtil;
 
