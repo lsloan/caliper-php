@@ -1,14 +1,8 @@
 <?php
 require_once realpath(dirname(__FILE__) . '/caliper/CaliperTestCase.php');
 
-use IMSGlobal\Caliper\util\TypeUtil;
-
-function stringEndsWith($string, $test) {
-    $strlen = strlen($string);
-    $testlen = strlen($test);
-    if ($testlen > $strlen) return false;
-    return substr_compare($string, $test, $strlen - $testlen, $testlen) === 0;
-}
+use IMSGlobal\Caliper\util\StringUtil;
+use IMSGlobal\Caliper\util\Type;
 
 /**
  * Recursively process fixture JSON, producing nested arrays that represent the PHP
@@ -26,7 +20,7 @@ function createClassCode(array $fixture) {
     if (is_string($id)) $id = "'$id'";
 
     $type = $fixture['type'];
-    if (stringEndsWith($type, 'Event')) $type = "IMSGlobal\\Caliper\\events\\$type";
+    if (StringUtil::endsWith($type, 'Event')) $type = "IMSGlobal\\Caliper\\events\\$type";
 
     $code = ["(new $type($id))"];
     $setters = [];
@@ -37,7 +31,7 @@ function createClassCode(array $fixture) {
         $propertyCapitalized = ucfirst($property);
         $setterCode = "->set$propertyCapitalized(";
 
-        if (TypeUtil::isStringKeyedArray($value)) {
+        if (Type::isStringKeyedArray($value)) {
             $setters[] = $setterCode;
             $setters[] = createClassCode($value);
             $setters[] = ')';

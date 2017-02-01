@@ -145,7 +145,7 @@ abstract class Entity extends ClassUtil implements \JsonSerializable, entities\s
             }
 
             foreach ($extensions as $anExtension) {
-                if (!util\TypeUtil::isStringKeyedArray($anExtension)) {
+                if (!util\Type::isStringKeyedArray($anExtension)) {
                     throw new \InvalidArgumentException(__METHOD__ . ': array of associative arrays expected');
                 }
             }
