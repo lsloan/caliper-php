@@ -16,7 +16,7 @@ use IMSGlobal\Caliper\util\Type;
  * @return array Nested arrays of PHP code to instantiate Caliper classes
  */
 function createClassCode(array $fixture) {
-    $id = (@$fixture['uuid']) ? $fixture['uuid'] : ((@$fixture['id']) ? $fixture['id'] : null);
+    $id = (@$fixture['id']) ? $fixture['id'] : null;
     if (is_string($id)) $id = "'$id'";
 
     $type = $fixture['type'];
@@ -26,7 +26,7 @@ function createClassCode(array $fixture) {
     $setters = [];
 
     foreach ($fixture as $property => $value) {
-        if (in_array($property, ['type', 'id', 'uuid', '@context'])) continue;
+        if (in_array($property, ['type', 'id', '@context'])) continue;
 
         $propertyCapitalized = ucfirst($property);
         $setterCode = "->set$propertyCapitalized(";
@@ -126,5 +126,5 @@ foreach ($argv as $fixtureFullPathAndFilename) {
     $testCode[] = $epilog;
 
     // TODO: Handle errors and exceptions
-    file_put_contents($pathToGeneratedTests . DIRECTORY_SEPARATOR . $className . '.php', $testCode);
+    file_put_contents($pathToGeneratedTests . DIRECTORY_SEPARATOR . $className . 'Test.php', $testCode);
 }
