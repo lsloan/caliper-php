@@ -35,7 +35,7 @@ abstract class Entity extends ClassUtil implements \JsonSerializable, entities\s
             'type' => $this->getType(),
             'name' => $this->getName(),
             'description' => $this->getDescription(),
-            'extensions' => (object) $this->getExtensions(),
+            'extensions' => $this->getExtensions(),
             'dateCreated' => util\TimestampUtil::formatTimeISO8601MillisUTC($this->getDateCreated()),
             'dateModified' => util\TimestampUtil::formatTimeISO8601MillisUTC($this->getDateModified()),
         ];
@@ -145,7 +145,7 @@ abstract class Entity extends ClassUtil implements \JsonSerializable, entities\s
             }
 
             foreach ($extensions as $anExtension) {
-                if (!util\TypeUtil::isStringKeyedArray($anExtension)) {
+                if (!util\Type::isStringKeyedArray($anExtension)) {
                     throw new \InvalidArgumentException(__METHOD__ . ': array of associative arrays expected');
                 }
             }

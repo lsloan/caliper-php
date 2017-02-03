@@ -11,24 +11,39 @@ use IMSGlobal\Caliper\entities;
  *
  */
 abstract class Annotation extends entities\Entity implements entities\Generatable {
+    /** @var entities\foaf\Agent */
+    private $actor;
     /** @var entities\DigitalResource */
     private $annotated;
 
-    public function  __construct($id) {
+    public function __construct($id) {
         parent::__construct($id);
         $this->setType(new entities\EntityType(entities\EntityType::ANNOTATION));
     }
 
     public function jsonSerialize() {
         return array_merge(parent::jsonSerialize(), [
-            'annotated' => (!is_null($this->getAnnotated()))
-                ? $this->getAnnotated()->getId()
-                : null,
+            'actor' => $this->getActor(),
+            'annotated' => $this->getAnnotated(),
         ]);
     }
 
+    /** @return entities\foaf\Agent actor */
+    public function getActor() {
+        return $this->actor;
+    }
+
+    /**
+     * @param entities\foaf\Agent $actor
+     * @return $this|Annotation
+     */
+    public function setActor(entities\foaf\Agent $actor) {
+        $this->actor = $actor;
+        return $this;
+    }
+
     /** @return entities\DigitalResource annotated */
-    public function  getAnnotated() {
+    public function getAnnotated() {
         return $this->annotated;
     }
 

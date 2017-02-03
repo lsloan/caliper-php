@@ -36,7 +36,10 @@ class TestTimes {
         return new \DateTime('2016-11-15T10:00:00.000Z');
     }
 
-    /** @return \DateTime */ 
+    /**
+     * Timestamp: 2016-11-15T10:15:00.000Z
+     * @return \DateTime
+     */
     public static function eventTime() {
         return new \DateTime('2016-11-15T10:15:00.000Z');
     }
