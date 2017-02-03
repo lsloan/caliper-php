@@ -35,7 +35,7 @@ abstract class Entity extends ClassUtil implements \JsonSerializable, entities\s
             'type' => $this->getType(),
             'name' => $this->getName(),
             'description' => $this->getDescription(),
-            'extensions' => (object) $this->getExtensions(),
+            'extensions' => $this->getExtensions(),
             'dateCreated' => util\TimestampUtil::formatTimeISO8601MillisUTC($this->getDateCreated()),
             'dateModified' => util\TimestampUtil::formatTimeISO8601MillisUTC($this->getDateModified()),
         ];
