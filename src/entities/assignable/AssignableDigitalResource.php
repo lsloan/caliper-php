@@ -6,19 +6,19 @@ use IMSGlobal\Caliper\entities\DigitalResourceType;
 use IMSGlobal\Caliper\util\TimestampUtil;
 
 class AssignableDigitalResource extends DigitalResource implements Assignable {
-    /** @var  \DateTime */
+    /** @var \DateTime */
     private $dateToActivate;
-    /** @var  \DateTime */
+    /** @var \DateTime */
     private $dateToShow;
-    /** @var  \DateTime */
+    /** @var \DateTime */
     private $dateToStartOn;
-    /** @var  \DateTime */
+    /** @var \DateTime */
     private $dateToSubmit;
-    /** @var  int */
+    /** @var int */
     private $maxAttempts;
-    /** @var  int */
+    /** @var int */
     private $maxSubmits;
-    /** @var  double */
+    /** @var float */
     private $maxScore;
 
     public function __construct($id) {
@@ -136,12 +136,16 @@ class AssignableDigitalResource extends DigitalResource implements Assignable {
     }
 
     /**
-     * @param double $maxScore
+     * @param float $maxScore
      * @return $this|AssignableDigitalResource
      */
     public function setMaxScore($maxScore) {
-        if (!is_double($maxScore)) {
-            throw new \InvalidArgumentException(__METHOD__ . ': double expected');
+        if (!is_float($maxScore)) {
+            if (is_numeric($maxScore)) {
+                $maxScore = floatval($maxScore);
+            } else {
+                throw new \InvalidArgumentException(__METHOD__ . ': float expected');
+            }
         }
 
         $this->maxScore = $maxScore;
