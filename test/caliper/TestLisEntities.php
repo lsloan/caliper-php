@@ -8,16 +8,33 @@ use IMSGlobal\Caliper\entities\lis\Status;
 use IMSGlobal\Caliper\entities\w3c\Organization;
 
 class TestLisEntities {
-    /** @return string|Organization */
-    public static function groupId() {
-        return 'https://example.edu/terms/201601/courses/7/sections/1';
-    }
-
     public static function makeGroup() {
         return (new Group(self::groupId()))
             ->setName('Discussion Group 001')
             ->setSubOrganizationOf(self::makeCourseSection())
             ->setDateCreated(TestTimes::createdTime1());
+    }
+
+    /** @return string|Organization */
+    public static function groupId() {
+        return 'https://example.edu/terms/201601/courses/7/sections/1';
+    }
+
+    /** @return \IMSGlobal\Caliper\entities\lis\Course */
+    public static function makeCourseSection() {
+        return (new CourseSection(self::courseSectionId()))
+            ->setCourseNumber('CPS 435-01')
+            ->setAcademicSession('Fall 2016');
+        // XXX: Removed for EventAnnotationHighlightedTest.php
+        //->setName('American Revolution 101')
+        //->setSubOrganizationOf(self::makeCourseOffering())
+        //->setDateCreated(TestTimes::createdTime1())
+        //->setDateModified(TestTimes::modifiedTime());
+    }
+
+    /** @return string|Organization */
+    public static function courseSectionId() {
+        return 'https://example.edu/terms/201601/courses/7/sections/1';
     }
 
     public static function makeGroupMembership() {
@@ -26,32 +43,6 @@ class TestLisEntities {
             ->setOrganization(self::groupId())
             ->setRoles(self::makeMembership()->getRoles())
             ->setDateCreated(TestTimes::createdTime1());
-    }
-
-    /** @return \IMSGlobal\Caliper\entities\lis\Course */
-    public static function makeCourseSection() {
-        return (new CourseSection(self::courseSectionId()))
-            ->setCourseNumber('CPS 435-01')
-            ->setAcademicSession('Fall 2016');
-            // XXX: Removed for EventAnnotationHighlightedTest.php
-            //->setName('American Revolution 101')
-            //->setSubOrganizationOf(self::makeCourseOffering())
-            //->setDateCreated(TestTimes::createdTime1())
-            //->setDateModified(TestTimes::modifiedTime());
-    }
-
-    /** @return string|Organization */
-    public static function courseSectionId() {
-        return 'https://example.edu/terms/201601/courses/7/sections/1';
-    }
-
-    public static function makeSectionMembership() {
-        return (new Membership('https://example.edu/membership/002'))
-            ->setMember(TestAgentEntities::makePerson())
-            ->setOrganization(self::courseSectionId())
-            ->setRoles(self::makeMembership()->getRoles())
-            ->setDateCreated(TestTimes::createdTime1());
-
     }
 
     /** @return Membership */
@@ -65,9 +56,17 @@ class TestLisEntities {
             ->setMember(TestAgentEntities::makePerson())
             // TODO: (organization should be an object, not a reference)
             // TODO: ??? ...add `Organization.members<Agent>` #205
-            ->setOrganization(new Group('https://example.edu/politicalScience/2015/american-revolution-101/section/001'))
+            ->setOrganization(new CourseSection('https://example.edu/terms/201601/courses/7/sections/1'))
             ->setRoles(new Role(Role::LEARNER))
             ->setStatus(new Status(Status::ACTIVE));
+    }
+
+    public static function makeSectionMembership() {
+        return (new Membership('https://example.edu/membership/002'))
+            ->setMember(TestAgentEntities::makePerson())
+            ->setOrganization(self::courseSectionId())
+            ->setRoles(self::makeMembership()->getRoles())
+            ->setDateCreated(TestTimes::createdTime1());
     }
 
     /** @return CourseOffering */

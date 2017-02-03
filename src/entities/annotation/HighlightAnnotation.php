@@ -10,7 +10,6 @@ class HighlightAnnotation extends Annotation {
     public function __construct($id) {
         parent::__construct($id);
         $this->setType(new AnnotationType(AnnotationType::HIGHLIGHT_ANNOTATION));
-        $this->selection = new TextPositionSelector();
     }
 
     public function jsonSerialize() {

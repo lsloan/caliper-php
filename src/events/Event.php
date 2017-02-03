@@ -287,7 +287,7 @@ abstract class Event extends util\ClassUtil implements \JsonSerializable {
             }
 
             foreach ($extensions as $anExtension) {
-                if (!util\TypeUtil::isStringKeyedArray($anExtension)) {
+                if (!util\Type::isStringKeyedArray($anExtension)) {
                     throw new \InvalidArgumentException(__METHOD__ . ': array of associative arrays expected');
                 }
             }

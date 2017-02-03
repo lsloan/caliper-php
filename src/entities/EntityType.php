@@ -39,7 +39,6 @@ class EntityType extends \IMSGlobal\Caliper\util\BasicEnum implements Type {
         SHARED_ANNOTATION = 'SharedAnnotation',
         SOFTWARE_APPLICATION = 'SoftwareApplication',
         TAG_ANNOTATION = 'TagAnnotation',
-        TEXT_POSITION_SELECTOR = 'TextPositionSelector',
         THREAD = 'Thread',
         TRUEFALSE = 'TrueFalseResponse',
         VIDEO_OBJECT = 'VideoObject',

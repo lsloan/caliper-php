@@ -13,14 +13,24 @@ class TestReadingEntities {
     }
 
     /** @return reading\Document */
+    public static function makeDocumentReference() {
+        return (new reading\Document('https://example.edu/etexts/201'));
+            // XXX: Removed for EventAnnotationHighlightedTest.php
+            //->setName('IMS Caliper Implementation Guide')
+            //->setDateCreated(new \DateTime('2016-10-01T06:00:00.000Z'))
+            //->setDateModified(TestTimes::modifiedTime())
+            //->setIsPartOf(self::makeEPubVolume())
+            //->setVersion('1.1');
+    }
+
     public static function makeDocument() {
-        return (new reading\Document('https://example.edu/etexts/201'))
+        return self::makeDocumentReference()
             ->setName('IMS Caliper Implementation Guide')
             ->setDateCreated(new \DateTime('2016-10-01T06:00:00.000Z'))
+            ->setVersion('1.1');
             // XXX: Removed for EventAnnotationHighlightedTest.php
             //->setDateModified(TestTimes::modifiedTime())
             //->setIsPartOf(self::makeEPubVolume())
-            ->setVersion('1.1');
     }
 
     /** @return Frame */
