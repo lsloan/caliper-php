@@ -34,7 +34,7 @@ class AssignableDigitalResource extends DigitalResource implements Assignable {
             'dateToSubmit' => TimestampUtil::formatTimeISO8601MillisUTC($this->getDateToSubmit()),
             'maxAttempts' => $this->getMaxAttempts(),
             'maxSubmits' => $this->getMaxSubmits(),
-            'maxScore' => $this->getMaxScore(),
+            'maxScore' => $this->getMaxScore(), // Fractionless float prints as int!
         ]);
     }
 

@@ -1,9 +1,6 @@
 <?php
 require_once realpath(dirname(__FILE__) . '/caliper/CaliperTestCase.php');
 
-use IMSGlobal\Caliper\util\StringUtil;
-use IMSGlobal\Caliper\util\Type;
-
 /**
  * Recursively process fixture JSON, producing nested arrays that
  * represent the PHP code required to instantiate Caliper classes and
@@ -18,98 +15,91 @@ use IMSGlobal\Caliper\util\Type;
  * If PHP had better type support, introspection could eliminate some
  * of the special cases in this code.
  *
- * @param $fixture array Parsed fixture JSON with objects as "associative" arrays.
+ * @param $fixture mixed Parsed fixture JSON
  * @return array Nested arrays of PHP code to instantiate Caliper classes
  */
-
-function createClassCode(array $fixture) {
+function createClassCode($fixture) {
     $code = [];
-    $setters = [];
 
-    if (Type::isStringKeyedArray($fixture)) {
-        $id = (@$fixture['id']) ? $fixture['id'] : null;
-        if (is_string($id)) $id = "'" . escapeshellcmd($id) . "'";
-
-        $type = @$fixture['type'] ?: 'UnknownType';
-        //$type = $fixture['type'];
-
-        print "type: $type; ID: $id; " . PHP_EOL; // TODO: remove debug
+    if (is_object($fixture)) {
+        $properties = get_object_vars($fixture);
+        // FIXME: Find places where "NoType" gets used; prevent it.
+        $type = @$properties['type'] ?: 'NoType';
+        $id = (@$properties['id']) ?: null;
+        if (is_string($id)) $id = var_export($id, $noPrint = true);
 
         $code[] = "(new $type($id))";
-    } else {
-        print "Nope, not an object!" . PHP_EOL;
-    }
 
-    foreach ($fixture as $property => $value) {
-        if (in_array($property, ['type', 'id', '@context'])) continue;
+        foreach ($properties as $property => $value) {
+            if (in_array($property, ['@context', 'type', 'id'])) continue;
 
-        $propertyCapitalized = ucfirst($property);
-        $setterCode = "->set$propertyCapitalized(";
+            $propertyCapitalized = ucfirst($property);
+            $code[] = "->set$propertyCapitalized(";
 
-
-        if (Type::isStringKeyedArray($value)) {
-            $setters[] = $setterCode;
-            $setters[] = createClassCode($value);
-            $setters[] = ')';
-        } else {
-            if (is_array($value))
-                if ('extensions' === $property) {
-                    $value = var_export($value, $returnString = true);
-                } elseif ('roles' === $property) {
-                    $value = '[' . implode(', ', array_map(
-                            function ($role) {
-                                return 'new Role(Role::' . strtoupper($role) . ')';
-                            },
-                            $value)) . ']';
-                } else {
-                    if (Type::isStringKeyedArray($value[0])) {
-                        $objects = [];
-                        foreach ($value as $object) {
-                            print "calling createClassCode() for $property" . PHP_EOL; // TODO: remove debug
-                            $objects[] = createClassCode($object);
-                        }
-                        $value = $objects;
-                    } else {
-                        $value = json_encode($value); // Cheating?
-                    }
-                }
-            elseif
-            (is_string($value)) {
-                if (stristr($property, 'date') !== false || stristr($property, 'time') !== false)
-                    $value = "new \\DateTime('$value')";
-                elseif (in_array($property, ['action', 'status']))
-                    $value = "new $propertyCapitalized($propertyCapitalized::" . strtoupper($value) . ')';
-                else {
-                    $value = "'" . escapeshellcmd($value) . "'";
-                }
+            if ('extensions' === $property &&
+                is_array($value)
+            ) {
+                $code[] = str_replace('stdClass::__set_state', '', var_export($value, $noPrint = true)) . ')';
+                continue;
             }
 
-            if (is_array($value)) {
-                $setters[] = $setterCode . '[';
-                $setters[] = $value;
-                $setters[] = '])';
-            } else
-                $setters[] = $setterCode . $value . ')';
+            if ('roles' === $property &&
+                is_array($value)
+            ) {
+                $code[] = ['[' . implode(', ', array_map(
+                        function ($role) {
+                            return 'new Role(Role::' . strtoupper($role) . ')';
+                        },
+                        $value)) . '])'];
+                continue;
+            }
+
+            if (is_string($value) &&
+                (stristr($property, 'date') !== false || stristr($property, 'time') !== false) &&
+                date_create($value) !== false
+            ) {
+                $code[] = ["new \\DateTime('$value'))"];
+                continue;
+            }
+
+            if (in_array($property, ['action', 'status'])) {
+                $code[] = "new $propertyCapitalized($propertyCapitalized::" . strtoupper($value) . '))';
+                continue;
+            }
+
+            $code[] = createClassCode($value);
+            $code[] = ')';
         }
+    } elseif (is_array($fixture)) {
+        $code[] = '[';
+        foreach ($fixture as $item) {
+            $code[] = createClassCode($item);
+            // TODO: Append comma to last item of array returned from previous step?
+            $code[] = ',';
+        }
+        $code[] = ']';
+    } else {
+        $result = var_export($fixture, $noPrint = true);
+
+        // PHP shows fractionless floats as integers!
+        if (is_float($fixture) && !strpos($result, '.')) $result .= '.0';
+
+        $code[] = $result;
     }
 
-    $code[] = $setters;
     return $code;
 }
 
 function formatArrayIndented(array $array, $indent, $additionalIndent = 4, $append = null) {
     $formatted = [];
-    $previousItem = false;
 
     foreach ($array as $item) {
         if (is_array($item)) {
             $formatted = array_merge($formatted,
                 formatArrayIndented(
-                    $item, $indent + $additionalIndent, $additionalIndent,
-                    (StringUtil::endsWith($previousItem, '[')) ? ',' : null));
-            $previousItem = end($formatted);
+                    $item, $indent + $additionalIndent, $additionalIndent));
         } else {
-            $previousItem = $formatted[] = str_pad(null, $indent) . $item . $append;
+            $formatted[] = str_pad(null, $indent) . $item . $append;
         }
     }
 
@@ -166,6 +156,19 @@ use IMSGlobal\Caliper\entities\response\ResponseType;
 use IMSGlobal\Caliper\entities\response\SelectTextResponse;
 use IMSGlobal\Caliper\entities\response\TrueFalseResponse;
 use IMSGlobal\Caliper\entities\session\Session;
+use IMSGlobal\Caliper\events\AnnotationEvent;
+use IMSGlobal\Caliper\events\AssessmentEvent;
+use IMSGlobal\Caliper\events\AssessmentItemEvent;
+use IMSGlobal\Caliper\events\AssignableEvent;
+use IMSGlobal\Caliper\events\Event;
+use IMSGlobal\Caliper\events\EventType;
+use IMSGlobal\Caliper\events\MediaEvent;
+use IMSGlobal\Caliper\events\NavigationEvent;
+use IMSGlobal\Caliper\events\OutcomeEvent;
+use IMSGlobal\Caliper\events\ReadingEvent;
+use IMSGlobal\Caliper\events\SessionEvent;
+use IMSGlobal\Caliper\events\ViewEvent;
+
 
 /**
  * @requires PHP 5.4
@@ -174,13 +177,12 @@ class %sTest extends CaliperTestCase {
     function setUp() {
         parent::setUp();
 
-        $this->setTestObject(
-';
+
+        $this->setTestObject(';
 
 $epilog = '        );
     }
 }
-
 ';
 
 $pathToGeneratedTests = 'test/caliper/generatedTests';
@@ -206,7 +208,7 @@ foreach ($argv as $fixturePathAndFilename) {
         continue;
     }
 
-    $fixture = json_decode($fixtureJson, $asAssociativeArray = true);
+    $fixture = json_decode($fixtureJson, $asAssociativeArray = false);
 
     if (is_null($fixture)) {
         print "Error decoding JSON from $fixturePathAndFilename." . PHP_EOL;
