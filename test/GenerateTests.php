@@ -178,7 +178,6 @@ class %sTest extends CaliperTestCase {
     function setUp() {
         parent::setUp();
 
-
         $this->setTestObject(';
 
 $epilog = '        );
