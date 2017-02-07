@@ -142,6 +142,7 @@ use IMSGlobal\Caliper\entities\media\MediaLocation;
 use IMSGlobal\Caliper\entities\media\MediaObjectType;
 use IMSGlobal\Caliper\entities\media\VideoObject;
 use IMSGlobal\Caliper\entities\outcome\Result;
+use IMSGlobal\Caliper\entities\reading\Chapter;
 use IMSGlobal\Caliper\entities\reading\Document;
 use IMSGlobal\Caliper\entities\reading\EPubChapter;
 use IMSGlobal\Caliper\entities\reading\EPubPart;
