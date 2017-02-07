@@ -4,9 +4,11 @@ require_once realpath(dirname(__FILE__) . '/../CaliperTestCase.php');
 /**
  * @requires PHP 5.4
  */
-class EventSessionTimedOutTest extends CaliperTestCase {
+class SessionTimeoutEventTest extends CaliperTestCase {
     function setUp() {
         parent::setUp();
+
+        $this->setFixtureFilename('/../../caliper-common-fixtures/src/test/resources/fixtures/caliperSessionTimeoutEvent.json');
 
         $this->setTestObject((new IMSGlobal\Caliper\events\SessionEvent())
             ->setActor(TestAgentEntities::makeReadingApplication())
@@ -16,8 +18,6 @@ class EventSessionTimedOutTest extends CaliperTestCase {
                 ->setDuration(TestTimes::durationSeconds()))
             ->setEdApp(TestAgentEntities::makeReadingApplication())
             ->setGroup(TestLisEntities::makeGroup())
-            ->setEventTime(TestTimes::startedTime())
-            ->setUuid('4e61cf6c-ffbe-45bc-893f-afe7ad4079dc')
-        );
+            ->setEventTime(TestTimes::startedTime()));
     }
 }

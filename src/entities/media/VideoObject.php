@@ -1,4 +1,5 @@
 <?php
+
 namespace IMSGlobal\Caliper\entities\media;
 
 class VideoObject extends MediaObject implements \IMSGlobal\Caliper\entities\schemadotorg\VideoObject {

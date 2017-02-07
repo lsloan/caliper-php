@@ -1,4 +1,5 @@
 <?php
+
 namespace IMSGlobal\Caliper\events;
 
 class ReadingEvent extends Event {

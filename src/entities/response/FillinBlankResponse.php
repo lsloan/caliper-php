@@ -1,4 +1,5 @@
 <?php
+
 namespace IMSGlobal\Caliper\entities\response;
 
 class FillinBlankResponse extends Response {

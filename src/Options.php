@@ -1,7 +1,6 @@
 <?php
-namespace IMSGlobal\Caliper;
 
-use IMSGlobal\Caliper\util\JsonInclude;
+namespace IMSGlobal\Caliper;
 
 class Options {
     /** @var string */
@@ -14,8 +13,6 @@ class Options {
     private $socketTimeout;
     /** @var int */
     private $connectionRequestTimeout;
-    /** @var JsonInclude */
-    private $jsonInclude;
     /** @var int */
     private $jsonEncodeOptions;
     /** @var bool */
@@ -24,7 +21,6 @@ class Options {
     public function __construct() {
         $this->setHost(Defaults::HOST)
             ->setJsonEncodeOptions(Defaults::JSON_ENCODE_OPTIONS)
-            ->setJsonInclude(\IMSGlobal\Caliper\Defaults::JSON_INCLUDE)
             ->setDebug(Defaults::DEBUG)
             ->setConnectionTimeout(Defaults::CONNECTION_TIMEOUT);
     }
@@ -128,24 +124,6 @@ class Options {
         }
 
         $this->connectionRequestTimeout = $connectionRequestTimeout;
-        return $this;
-    }
-
-    /** @return JsonInclude */
-    public function getJsonInclude() {
-        return $this->jsonInclude;
-    }
-
-    /**
-     * @param JsonInclude|null $jsonInclude
-     * @return $this
-     */
-    public function setJsonInclude($jsonInclude = null) {
-        if (!($jsonInclude instanceof JsonInclude)) {
-            $jsonInclude = new JsonInclude($jsonInclude);
-        }
-
-        $this->jsonInclude = $jsonInclude;
         return $this;
     }
 

@@ -1,7 +1,8 @@
 <?php
+
 namespace IMSGlobal\Caliper\entities\lis;
 
-use IMSGlobal\Caliper\entities;
+use \IMSGlobal\Caliper\entities;
 
 class Group extends entities\Entity implements entities\w3c\Organization {
     /** @var Course */

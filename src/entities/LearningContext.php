@@ -1,9 +1,6 @@
 <?php
-namespace IMSGlobal\Caliper\entities;
 
-use IMSGlobal\Caliper\entities\agent\SoftwareApplication;
-use IMSGlobal\Caliper\entities\lis\Membership;
-use IMSGlobal\Caliper\entities\w3c\Organization;
+namespace IMSGlobal\Caliper\entities;
 
 class LearningContext {
     /** @var SoftwareApplication */

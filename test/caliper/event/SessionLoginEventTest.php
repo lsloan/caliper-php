@@ -4,22 +4,21 @@ require_once realpath(dirname(__FILE__) . '/../CaliperTestCase.php');
 /**
  * @requires PHP 5.4
  */
-class EventSessionLoggedOutTest extends CaliperTestCase {
+class SessionLoginEventTest extends CaliperTestCase {
     function setUp() {
         parent::setUp();
+
+        $this->setFixtureFilename('/../../caliper-common-fixtures/src/test/resources/fixtures/caliperSessionLoginEvent.json');
 
         $this->setTestObject((new IMSGlobal\Caliper\events\SessionEvent())
             ->setActor(TestAgentEntities::makePerson())
             ->setMembership(TestLisEntities::makeMembership())
-            ->setAction(new IMSGlobal\Caliper\actions\Action(IMSGlobal\Caliper\actions\Action::LOGGED_OUT))
+            ->setAction(new IMSGlobal\Caliper\actions\Action(IMSGlobal\Caliper\actions\Action::LOGGED_IN))
             ->setObject(TestAgentEntities::makeReadingApplication())
-            ->setTarget(TestSessionEntities::makeSession()
-                ->setEndedAtTime(TestTimes::endedTime())
-                ->setDuration(TestTimes::durationSeconds()))
+            ->setTarget(TestReadingEntities::makeFrame1())
+            ->setGenerated(TestSessionEntities::makeSession())
             ->setEdApp(TestAgentEntities::makeReadingApplication())
             ->setGroup(TestLisEntities::makeGroup())
-            ->setEventTime(TestTimes::startedTime())
-            ->setUuid('a438f8ac-1da3-4d48-8c86-94a1b387e0f6')
-        );
+            ->setEventTime(TestTimes::startedTime()));
     }
 }

@@ -1,7 +1,8 @@
 <?php
+
 namespace IMSGlobal\Caliper\events;
 
-use IMSGlobal\Caliper\actions;
+use \IMSGlobal\Caliper\actions;
 
 class ViewEvent extends Event {
 

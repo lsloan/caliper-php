@@ -1,12 +1,12 @@
 <?php
+
 namespace IMSGlobal\Caliper\entities\assessment;
 
-use IMSGlobal\Caliper\entities\assignable\AssignableDigitalResource;
-use IMSGlobal\Caliper\entities\assignable\AssignableDigitalResourceType;
+use \IMSGlobal\Caliper\entities\assignable;
 
-class Assessment extends AssignableDigitalResource {
+class Assessment extends assignable\AssignableDigitalResource {
     public function __construct($id) {
         parent::__construct($id);
-        $this->setType(new AssignableDigitalResourceType(AssignableDigitalResourceType::ASSESSMENT));
+        $this->setType(new assignable\AssignableDigitalResourceType(assignable\AssignableDigitalResourceType::ASSESSMENT));
     }
 }

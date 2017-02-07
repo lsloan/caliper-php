@@ -1,9 +1,6 @@
 <?php
-namespace IMSGlobal\Caliper;
 
-use IMSGlobal\Caliper\entities\Entity;
-use IMSGlobal\Caliper\events\Event;
-use IMSGlobal\Caliper\request\HttpRequestor;
+namespace IMSGlobal\Caliper;
 
 class Client {
     /** @var string */
@@ -47,12 +44,12 @@ class Client {
         }
 
         foreach ($events as $anEvent) {
-            if (!($anEvent instanceof Event)) {
-                throw new \InvalidArgumentException(__METHOD__ . ': array of ' . Event::className() . ' expected');
+            if (!($anEvent instanceof events\Event)) {
+                throw new \InvalidArgumentException(__METHOD__ . ': array of ' . events\Event::className() . ' expected');
             }
         }
 
-        (new HttpRequestor($this->getOptions()))
+        (new request\HttpRequestor($this->getOptions()))
             ->send($sensor, $events);
     }
 
@@ -71,7 +68,7 @@ class Client {
     }
 
     /**
-     * Describe an entity
+     * Describe an entities
      * @param Sensor $sensor
      * @param Entity|Entity[] $entities
      * @throws \InvalidArgumentException if $events doesn't contain Entity objects
@@ -83,12 +80,12 @@ class Client {
         }
 
         foreach ($entities as $anEntity) {
-            if (!($anEntity instanceof Entity)) {
-                throw new \InvalidArgumentException(__METHOD__ . ': array of ' . Entity::className() . ' expected');
+            if (!($anEntity instanceof entities\Entity)) {
+                throw new \InvalidArgumentException(__METHOD__ . ': array of ' . entities\Entity::className() . ' expected');
             }
         }
 
-        (new HttpRequestor($this->getOptions()))
+        (new request\HttpRequestor($this->getOptions()))
             ->send($sensor, $entities);
     }
 }

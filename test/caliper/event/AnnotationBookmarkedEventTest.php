@@ -4,9 +4,11 @@ require_once realpath(dirname(__FILE__) . '/../CaliperTestCase.php');
 /**
  * @requires PHP 5.4
  */
-class EventAnnotationBookmarkedTest extends CaliperTestCase {
-    function setUp() {
+class AnnotationBookmarkedEventTest extends CaliperTestCase {
+	function setUp() {
         parent::setUp();
+
+        $this->setFixtureFilename('/../../caliper-common-fixtures/src/test/resources/fixtures/caliperBookmarkAnnotationEvent.json');
 
         $this->setTestObject((new IMSGlobal\Caliper\events\AnnotationEvent())
             ->setActor(TestAgentEntities::makePerson())
@@ -16,8 +18,6 @@ class EventAnnotationBookmarkedTest extends CaliperTestCase {
             ->setEventTime(TestTimes::startedTime())
             ->setEdApp(TestAgentEntities::makeReadingApplication())
             ->setGroup(TestLisEntities::makeGroup())
-            ->setMembership(TestLisEntities::makeMembership())
-            ->setUuid('d4618c23-d612-4709-8d9a-478d87808067')
-        );
-    }
+            ->setMembership(TestLisEntities::makeMembership()));
+	}
 }

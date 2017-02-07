@@ -1,4 +1,5 @@
 <?php
+
 namespace IMSGlobal\Caliper\events;
 
 class MediaEvent extends Event {

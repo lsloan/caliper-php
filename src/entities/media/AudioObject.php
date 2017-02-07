@@ -1,7 +1,8 @@
 <?php
+
 namespace IMSGlobal\Caliper\entities\media;
 
-use IMSGlobal\Caliper\entities;
+use \IMSGlobal\Caliper\entities;
 
 class AudioObject extends MediaObject implements entities\schemadotorg\AudioObject {
     /** @var string */

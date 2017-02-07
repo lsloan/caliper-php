@@ -1,7 +1,8 @@
 <?php
+
 namespace IMSGlobal\Caliper\entities\lis;
 
-use IMSGlobal\Caliper\entities;
+use \IMSGlobal\Caliper\entities;
 
 class Membership extends entities\Entity implements entities\w3c\Membership {
     /** @var entities\agent\Person */
@@ -20,20 +21,24 @@ class Membership extends entities\Entity implements entities\w3c\Membership {
 
     public function jsonSerialize() {
         return array_merge(parent::jsonSerialize(), [
-            'member' => $this->getMember(),
-            'organization' => $this->getOrganization(),
+            'member' => (!is_null($this->getMember()))
+                ? $this->getMember()->getId()
+                : null,
+            'organization' => (!is_null($this->getOrganization()))
+                ? $this->getOrganization()->getId()
+                : null,
             'roles' => $this->getRoles(),
             'status' => $this->getStatus(),
         ]);
     }
 
-    /** @return entities\agent\Person member */
+    /** @return Person member */
     public function getMember() {
         return $this->member;
     }
 
     /**
-     * @param entities\agent\Person $member
+     * @param Person $member
      * @return $this|Membership
      */
     public function setMember(entities\agent\Person $member) {
@@ -41,13 +46,13 @@ class Membership extends entities\Entity implements entities\w3c\Membership {
         return $this;
     }
 
-    /** @return entities\w3c\Organization */
+    /** @return \w3c\Organization  organization */
     public function getOrganization() {
         return $this->organization;
     }
 
     /**
-     * @param entities\w3c\Organization $organization
+     * @param \w3c\Organization $organization
      * @return $this|Membership
      */
     public function setOrganization(entities\w3c\Organization $organization) {
@@ -55,13 +60,13 @@ class Membership extends entities\Entity implements entities\w3c\Membership {
         return $this;
     }
 
-    /** @return entities\w3c\Role[] roles */
+    /** @return \w3c\Role[] roles */
     public function getRoles() {
         return $this->roles;
     }
 
     /**
-     * @param entities\w3c\Role|entities\w3c\Role[] $roles
+     * @param entities\w3c\Role|\w3c\Role[] $roles
      * @return $this|Membership
      */
     public function setRoles($roles) {

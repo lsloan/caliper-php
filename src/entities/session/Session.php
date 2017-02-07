@@ -1,15 +1,16 @@
 <?php
+
 namespace IMSGlobal\Caliper\entities\session;
 
-use IMSGlobal\Caliper\entities;
-use IMSGlobal\Caliper\util;
+use \IMSGlobal\Caliper\entities;
+use \IMSGlobal\Caliper\util;
 
 class Session extends entities\Entity implements entities\Generatable, entities\Targetable {
-    /** @var entities\foaf\Agent */
+    /** @var \foaf\Agent */
     private $actor;
-    /** @var \DateTime */
+    /** @var DateTime */
     private $startedAtTime;
-    /** @var \DateTime */
+    /** @var DateTime */
     private $endedAtTime;
     /** @var string (seconds) */
     private $duration;

@@ -1,8 +1,9 @@
 <?php
+
 namespace IMSGlobal\Caliper\entities\assignable;
 
-use IMSGlobal\Caliper\entities;
-use IMSGlobal\Caliper\util\TimestampUtil;
+use \IMSGlobal\Caliper\entities;
+use \IMSGlobal\Caliper\util;
 
 class Attempt extends entities\Entity implements entities\Generatable {
     /** @var entities\DigitalResource */
@@ -32,8 +33,8 @@ class Attempt extends entities\Entity implements entities\Generatable {
                 ? $this->getActor()->getId()
                 : null,
             'count' => $this->getCount(),
-            'startedAtTime' => TimestampUtil::formatTimeISO8601MillisUTC($this->getStartedAtTime()),
-            'endedAtTime' => TimestampUtil::formatTimeISO8601MillisUTC($this->getEndedAtTime()),
+            'startedAtTime' => util\TimestampUtil::formatTimeISO8601MillisUTC($this->getStartedAtTime()),
+            'endedAtTime' => util\TimestampUtil::formatTimeISO8601MillisUTC($this->getEndedAtTime()),
             'duration' => $this->getDurationFormatted(),
         ]);
     }

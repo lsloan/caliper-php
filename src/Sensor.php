@@ -1,8 +1,9 @@
 <?php
+
 namespace IMSGlobal\Caliper;
 
-use IMSGlobal\Caliper\events\Event;
-use IMSGlobal\Caliper\entities\Entity;
+use \IMSGlobal\Caliper\events\Event;
+use \IMSGlobal\Caliper\entities\Entity;
 
 class Sensor {
     /** @var Client[] */

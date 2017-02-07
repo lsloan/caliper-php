@@ -1,12 +1,13 @@
 <?php
+
 namespace IMSGlobal\Caliper\entities\outcome;
 
-use IMSGlobal\Caliper\entities;
+use \IMSGlobal\Caliper\entities;
 
 class Result extends entities\Entity implements entities\Generatable {
     /** @var entities\DigitalResource */
     private $assignable;
-    /** @var entities\foaf\Agent */
+    /** @var \foaf\Agent */
     private $actor;
     /** @var double */
     private $normalScore;
@@ -22,7 +23,7 @@ class Result extends entities\Entity implements entities\Generatable {
     private $curveFactor;
     /** @var string */
     private $comment;
-    /** @var entities\foaf\Agent */
+    /** @var \foaf\Agent */
     private $scoredBy;
 
     public function __construct($id) {
@@ -203,7 +204,7 @@ class Result extends entities\Entity implements entities\Generatable {
         return $this;
     }
 
-    /** @return entities\foaf\Agent scoredBy */
+    /** @return \foaf\Agent scoredBy */
     public function getScoredBy() {
         return $this->scoredBy;
     }

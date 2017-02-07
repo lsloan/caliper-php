@@ -1,9 +1,10 @@
 <?php
+
 namespace IMSGlobal\Caliper\request;
 
-use IMSGlobal\Caliper\entities\Entity;
-use IMSGlobal\Caliper\events\Event;
-use IMSGlobal\Caliper\util;
+use \IMSGlobal\Caliper\entities\Entity;
+use \IMSGlobal\Caliper\events\Event;
+use \IMSGlobal\Caliper\util;
 
 class Envelope implements \JsonSerializable {
     /** @var string */

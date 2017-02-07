@@ -1,7 +1,8 @@
 <?php
+
 namespace IMSGlobal\Caliper\entities\reading;
 
-use IMSGlobal\Caliper\entities;
+use \IMSGlobal\Caliper\entities;
 
 class Reading extends entities\DigitalResource {
     public function  __construct($id) {

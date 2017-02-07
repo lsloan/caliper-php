@@ -1,8 +1,9 @@
 <?php
+
 namespace IMSGlobal\Caliper\entities\w3c;
 
 interface Membership {
-    /** @return \IMSGlobal\Caliper\entities\foaf\Agent */
+    /** @return Agent */
     function getMember();
 
     /** @return Organization */
