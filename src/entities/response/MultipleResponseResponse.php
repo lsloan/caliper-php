@@ -1,5 +1,4 @@
 <?php
-
 namespace IMSGlobal\Caliper\entities\response;
 
 class MultipleResponseResponse extends Response {

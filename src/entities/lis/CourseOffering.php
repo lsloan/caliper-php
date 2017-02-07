@@ -1,8 +1,7 @@
 <?php
-
 namespace IMSGlobal\Caliper\entities\lis;
 
-use \IMSGlobal\Caliper\entities;
+use IMSGlobal\Caliper\entities;
 
 class CourseOffering extends entities\Entity implements Course {
     /** @var string */

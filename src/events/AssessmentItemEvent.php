@@ -1,5 +1,4 @@
 <?php
-
 namespace IMSGlobal\Caliper\events;
 
 class AssessmentItemEvent extends Event {

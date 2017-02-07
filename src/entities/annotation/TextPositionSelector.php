@@ -1,54 +1,62 @@
 <?php
-
 namespace IMSGlobal\Caliper\entities\annotation;
+
+use IMSGlobal\Caliper\entities\Entity;
+use IMSGlobal\Caliper\entities\EntityType;
 
 /**
  * A Selector which describes a range of text based on its start and end positions
  * Defined by: http://www.w3.org/ns/oa#d4e667
  */
-class TextPositionSelector implements \JsonSerializable {
-    /** @var string */
+class TextPositionSelector extends Entity implements \JsonSerializable {
+    /** @var int */
     private $start;
-    /** @var string */
+    /** @var int */
     private $end;
 
-    public function jsonSerialize() {
-        return [
-            'start' => $this->getStart(),
-            'end' => $this->getEnd(),
-        ];
+    public function __construct() {
+        parent::__construct(''); // TextPositionSelector objects don't need an ID
+        $this->setType(new AnnotationType(AnnotationType::TEXT_POSITION_SELECTOR));
     }
 
-    /** @return string start */
+    public function jsonSerialize() {
+        return array_merge(parent::jsonSerialize(), [
+            'id' => null, // TextPositionSelector objects don't need an ID
+            'start' => $this->getStart(),
+            'end' => $this->getEnd(),
+        ]);
+    }
+
+    /** @return int start */
     public function getStart() {
         return $this->start;
     }
 
     /**
-     * @param string $start
+     * @param int $start
      * @return $this|TextPositionSelector
      */
     public function setStart($start) {
-        if (!is_string($start)) {
-            throw new \InvalidArgumentException(__METHOD__ . ': string expected');
+        if (!is_int($start)) {
+            throw new \InvalidArgumentException(__METHOD__ . ': int expected');
         }
 
         $this->start = $start;
         return $this;
     }
 
-    /** @return string end */
+    /** @return int end */
     public function getEnd() {
         return $this->end;
     }
 
     /**
-     * @param string $end
+     * @param int $end
      * @return $this|TextPositionSelector
      */
     public function setEnd($end) {
-        if (!is_string($end)) {
-            throw new \InvalidArgumentException(__METHOD__ . ': string expected');
+        if (!is_int($end)) {
+            throw new \InvalidArgumentException(__METHOD__ . ': int expected');
         }
 
         $this->end = $end;

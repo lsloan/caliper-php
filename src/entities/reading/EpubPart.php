@@ -1,8 +1,7 @@
 <?php
-
 namespace IMSGlobal\Caliper\entities\reading;
 
-use \IMSGlobal\Caliper\entities;
+use IMSGlobal\Caliper\entities;
 
 /**
  *         Representation of an EPUB 3 Volume

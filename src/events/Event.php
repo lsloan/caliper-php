@@ -1,46 +1,57 @@
 <?php
-
 namespace IMSGlobal\Caliper\events;
 
-use \IMSGlobal\Caliper\context;
-use \IMSGlobal\Caliper\entities;
-use \IMSGlobal\Caliper\actions;
-use \IMSGlobal\Caliper\util;
+use IMSGlobal\Caliper\actions;
+use IMSGlobal\Caliper\context;
+use IMSGlobal\Caliper\entities;
+use IMSGlobal\Caliper\util;
 
-abstract class Event extends \IMSGlobal\Caliper\util\ClassUtil implements \JsonSerializable {
-    /** @var Context */
+abstract class Event extends util\ClassUtil implements \JsonSerializable {
+    /** @var context\Context */
     private $context;
     /** @var EventType */
     private $type;
-    /** @var \foaf\Agent */
+    /** @var entities\foaf\Agent */
     private $actor;
-    /** @var Action */
+    /** @var actions\Action */
     private $action;
     /** @var object */
     private $object;
-    /** @var Targetable */
+    /** @var entities\Targetable */
     private $target;
-    /** @var Generatable */
+    /** @var entities\Generatable */
     private $generated;
-    /** @var DateTime */
+    /** @var entities\Referrable */
+    private $referrer;
+    /** @var \DateTime */
     private $eventTime;
-    /** @var SoftwareApplication */
+    /** @var entities\agent\SoftwareApplication */
     private $edApp;
-    /** @var Organization */
+    /** @var entities\agent\Organization */
     private $group;
-    /** @var Membership */
+    /** @var entities\lis\Membership */
     private $membership;
-    /** @var Session */
+    /** @var entities\session\Session */
+    private $session;
+    /** @var entities\session\Session */
     private $federatedSession;
+    /** @var array[] */
+    private $extensions;
+    /** @var string */
+    private $uuid;
 
     public function __construct() {
         $this->setContext(new context\Context(context\Context::CONTEXT));
     }
 
     public function jsonSerialize() {
+        if ($this->getUuid() === null) {
+            $this->setUuid(uniqid());
+        }
+
         return [
             '@context' => $this->getContext(),
-            '@type' => $this->getType(),
+            'type' => $this->getType(),
             'actor' => $this->getActor(),
             'action' => $this->getAction(),
             'object' => $this->getObject(),
@@ -50,6 +61,8 @@ abstract class Event extends \IMSGlobal\Caliper\util\ClassUtil implements \JsonS
             'edApp' => $this->getEdApp(),
             'group' => $this->getGroup(),
             'membership' => $this->getMembership(),
+            'session' => $this->getSession(),
+            'uuid' => $this->getUuid(),
             'federatedSession' => (!is_null($this->getFederatedSession()))
                 ? $this->getFederatedSession()->getId()
                 : null,
@@ -104,7 +117,7 @@ abstract class Event extends \IMSGlobal\Caliper\util\ClassUtil implements \JsonS
     }
 
     /**
-     * @param Action $action
+     * @param actions\Action $action
      * @return $this|Event
      */
     public function setAction(actions\Action $action) {
@@ -130,7 +143,7 @@ abstract class Event extends \IMSGlobal\Caliper\util\ClassUtil implements \JsonS
         return $this;
     }
 
-    /** @return Targetable target */
+    /** @return entities\Targetable target */
     public function getTarget() {
         return $this->target;
     }
@@ -145,7 +158,7 @@ abstract class Event extends \IMSGlobal\Caliper\util\ClassUtil implements \JsonS
     }
 
     /** @return entities\Generatable generated */
-    public function  getGenerated() {
+    public function getGenerated() {
         return $this->generated;
     }
 
@@ -186,7 +199,7 @@ abstract class Event extends \IMSGlobal\Caliper\util\ClassUtil implements \JsonS
         return $this;
     }
 
-    /** @return Organization group */
+    /** @return entities\agent\Organization group */
     public function getGroup() {
         return $this->group;
     }
@@ -206,7 +219,7 @@ abstract class Event extends \IMSGlobal\Caliper\util\ClassUtil implements \JsonS
     }
 
     /**
-     * @param entities\w3c\Membership|object $membership
+     * @param entities\w3c\Membership $membership
      * @return $this|Event
      */
     public function setMembership(entities\w3c\Membership $membership) {
@@ -214,7 +227,7 @@ abstract class Event extends \IMSGlobal\Caliper\util\ClassUtil implements \JsonS
         return $this;
     }
 
-    /** @return Session */
+    /** @return entities\session\Session */
     public function getFederatedSession() {
         return $this->federatedSession;
     }
@@ -227,5 +240,74 @@ abstract class Event extends \IMSGlobal\Caliper\util\ClassUtil implements \JsonS
         $this->federatedSession = $federatedSession;
         return $this;
     }
-}
 
+    /** @return entities\Referrable */
+    public function getReferrer() {
+        return $this->referrer;
+    }
+
+    /**
+     * @param entities\Referrable $referrer
+     * @return $this
+     */
+    public function setReferrer(entities\Referrable $referrer) {
+        $this->referrer = $referrer;
+        return $this;
+    }
+
+    /** @return entities\session\Session */
+    public function getSession() {
+        return $this->session;
+    }
+
+    /**
+     * @param entities\session\Session $session
+     * @return Event
+     */
+    public function setSession(entities\session\Session $session) {
+        $this->session = $session;
+        return $this;
+    }
+
+    /** @return \array[] */
+    public function getExtensions() {
+        return $this->extensions;
+    }
+
+    /**
+     * @param \array[]|null $extensions An array of associative arrays
+     * @return Event
+     */
+    public function setExtensions($extensions) {
+        if ($extensions !== null) {
+            if (!is_array($extensions)) {
+                $extensions = [$extensions];
+            } else {
+                $extensions = array_values($extensions);
+            }
+
+            foreach ($extensions as $anExtension) {
+                if (!util\Type::isStringKeyedArray($anExtension)) {
+                    throw new \InvalidArgumentException(__METHOD__ . ': array of associative arrays expected');
+                }
+            }
+        }
+
+        $this->extensions = $extensions;
+        return $this;
+    }
+
+    /** @return string */
+    public function getUuid() {
+        return $this->uuid;
+    }
+
+    /**
+     * @param string $uuid
+     * @return Event
+     */
+    public function setUuid($uuid) {
+        $this->uuid = strval($uuid);
+        return $this;
+    }
+}

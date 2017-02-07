@@ -1,18 +1,18 @@
 <?php
-
 namespace IMSGlobal\Caliper\request;
 
-use \IMSGlobal\Caliper\entities\Entity;
-use \IMSGlobal\Caliper\events\Event;
+use IMSGlobal\Caliper\entities\Entity;
+use IMSGlobal\Caliper\events\Event;
+use IMSGlobal\Caliper\Options;
 
-class HttpRequestor extends EventStoreRequestor {
+class HttpRequestor extends Requestor {
     private $options;
 
     /**
      * @param \IMSGlobal\Caliper\Options $options
      * @throws \RuntimeException if "http" (AKA pecl_http) or "curl" extensions not loaded
      */
-    public function __construct(\IMSGlobal\Caliper\Options $options) {
+    public function __construct(Options $options) {
         if (!extension_loaded('http') && !extension_loaded('curl')) {
             throw new \RuntimeException('Caliper ' . __CLASS__ . ' requires one of the PHP extensions: "http" (AKA pecl_http) or "curl".');
         }
@@ -43,11 +43,8 @@ class HttpRequestor extends EventStoreRequestor {
             }
         }
 
-        $envelope = (new Envelope())
-            ->setSensorId($sensor)
-            ->setData($items);
-
-        $payload = json_encode($envelope, $this->getOptions()->getJsonEncodeOptions());
+        $envelope = $this->createEnvelope($sensor, new \DateTime(), $items);
+        $payload = $this->serializeData($envelope);
 
         $headers = [
             'Content-Type' => 'application/json',
@@ -124,5 +121,18 @@ class HttpRequestor extends EventStoreRequestor {
     public function setOptions($options) {
         $this->options = $options;
         return $this;
+    }
+
+    /**
+     * @param object $data
+     * @param Options $options
+     * @return string
+     */
+    public function serializeData($data, Options $options = null) {
+        if (is_null($options)) {
+            $options = $this->getOptions();
+        }
+
+        return parent::serializeData($data, $options);
     }
 }

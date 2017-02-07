@@ -1,40 +1,41 @@
 <?php
+use IMSGlobal\Caliper\entities\annotation;
 
 class TestAnnotationEntities {
-    /** @return BookmarkAnnotation */
+    /** @return annotation\BookmarkAnnotation */
     public static function makeBookmarkAnnotation() {
-        return (new IMSGlobal\Caliper\entities\annotation\BookmarkAnnotation('https://example.edu/bookmarks/00001'))
-            ->setDateCreated(TestTimes::createdTime())
+        return (new annotation\BookmarkAnnotation('https://example.edu/users/554433/etexts/201/bookmarks/1'))
+            ->setDateCreated(TestTimes::createdTime2())
             ->setDateModified(TestTimes::modifiedTime())
             ->setAnnotated(TestReadingEntities::makeFrame2())
-            ->setBookmarkNotes('The Intolerable Acts (1774)--bad idea Lord North');
+            ->setBookmarkNotes('Caliper profiles model discrete learning activities or supporting activities that enable learning.');
     }
 
-    /** @return HighlightAnnotation */
+    /** @return annotation\HighlightAnnotation */
     public static function makeHighlightAnnotation() {
-        return (new IMSGlobal\Caliper\entities\annotation\HighlightAnnotation('https://example.edu/highlights/12345'))
-            ->setDateCreated(TestTimes::createdTime())
-            ->setDateModified(TestTimes::modifiedTime())
-            ->setAnnotated(TestReadingEntities::makeFrame1())
-            ->setSelection((new IMSGlobal\Caliper\entities\annotation\TextPositionSelector())
-                ->setStart('455')
-                ->setEnd('489'))
-            ->setSelectionText('Life, Liberty and the pursuit of Happiness');
+        return (new annotation\HighlightAnnotation('https://example.edu/users/554433/etexts/201/highlights?start=2300&end=2370'))
+            ->setActor(TestAgentEntities::makePerson())
+            ->setDateCreated(TestTimes::createdTime2())
+            ->setAnnotated(TestReadingEntities::makeDocumentReference())
+            ->setSelection((new annotation\TextPositionSelector())
+                ->setStart(2300)
+                ->setEnd(2370))
+            ->setSelectionText('ISO 8601 formatted date and time expressed with millisecond precision.');
     }
 
-    /** @return SharedAnnotation */
+    /** @return annotation\SharedAnnotation */
     public static function makeSharedAnnotation() {
-        return (new IMSGlobal\Caliper\entities\annotation\SharedAnnotation('https://example.edu/shared/9999'))
-            ->setDateCreated(TestTimes::createdTime())
+        return (new annotation\SharedAnnotation('https://example.edu/shared/9999'))
+            ->setDateCreated(TestTimes::createdTime1())
             ->setDateModified(TestTimes::modifiedTime())
             ->setAnnotated(TestReadingEntities::makeFrame3())
             ->setWithAgents(TestAgentEntities::makeWithAgents());
     }
 
-    /** @return TagAnnotation */
+    /** @return annotation\TagAnnotation */
     public static function makeTagAnnotation() {
-        return (new IMSGlobal\Caliper\entities\annotation\TagAnnotation('https://example.edu/tags/7654'))
-            ->setDateCreated(TestTimes::createdTime())
+        return (new annotation\TagAnnotation('https://example.edu/tags/7654'))
+            ->setDateCreated(TestTimes::createdTime1())
             ->setDateModified(TestTimes::modifiedTime())
             ->setAnnotated(TestReadingEntities::makeFrame4())
             ->setTags(["to-read", "1765", "shared-with-project-team"]);

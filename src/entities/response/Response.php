@@ -1,14 +1,13 @@
 <?php
-
 namespace IMSGlobal\Caliper\entities\response;
 
-use \IMSGlobal\Caliper\entities;
-use \IMSGlobal\Caliper\util;
+use IMSGlobal\Caliper\entities;
+use IMSGlobal\Caliper\util;
 
 abstract class Response extends entities\Entity implements entities\Generatable {
     /** @var entities\DigitalResource */
     private $assignable;
-    /** @var entities\\foaf\Agent */
+    /** @var entities\foaf\Agent */
     private $actor;
     /** @var entities\assignable\Attempt */
     private $attempt;
@@ -67,7 +66,7 @@ abstract class Response extends entities\Entity implements entities\Generatable 
         return $this;
     }
 
-    /** @return Attempt attempt */
+    /** @return entities\assignable\Attempt attempt */
     public function getAttempt() {
         return $this->attempt;
     }

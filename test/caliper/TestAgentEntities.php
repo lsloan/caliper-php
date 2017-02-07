@@ -1,43 +1,49 @@
 <?php
+use IMSGlobal\Caliper\entities\agent\Person;
+use IMSGlobal\Caliper\entities\agent\SoftwareApplication;
 
 class TestAgentEntities {
     /** @return SoftwareApplication */
     public static function makeAssessmentApplication() {
-        return (new IMSGlobal\Caliper\entities\agent\SoftwareApplication('https://example.com/super-assessment-tool'))
+        return (new SoftwareApplication('https://example.com/super-assessment-tool'))
             ->setName('Super Assessment Tool')
-            ->setDateCreated(TestTimes::createdTime());
+            ->setDateCreated(TestTimes::createdTime1());
     }
 
     public static function makeMediaApplication() {
-        return (new IMSGlobal\Caliper\entities\agent\SoftwareApplication('https://example.com/super-media-tool'))
+        return (new SoftwareApplication('https://example.com/super-media-tool'))
             ->setName('Super Media Tool')
-            ->setDateCreated(TestTimes::createdTime())
+            ->setDateCreated(TestTimes::createdTime1())
             ->setDateModified(TestTimes::modifiedTime());
     }
 
     /** @return Person */
     public static function makePerson() {
-        return (new IMSGlobal\Caliper\entities\agent\Person('https://example.edu/user/554433'))
-            ->setDateCreated(TestTimes::createdTime())
-            ->setDateModified(TestTimes::modifiedTime());
+        return (new Person('https://example.edu/users/554433'));
+            // XXX: Removed for EventAnnotationHighlightedTest.php
+            //->setDateCreated(TestTimes::createdTime1())
+            //->setDateModified(TestTimes::modifiedTime());
     }
 
     /** @return SoftwareApplication */
     public static function makeReadingApplication() {
-        return (new IMSGlobal\Caliper\entities\agent\SoftwareApplication('https://example.com/viewer'))
-            ->setName('ePub')
-            ->setDateCreated(TestTimes::createdTime())
-            ->setDateModified(TestTimes::modifiedTime());
+        return (new SoftwareApplication('https://example.edu'))
+            ->setVersion('v3')
+            // XXX: Removed for EventAnnotationHighlightedTest.php
+            //->setName('ePub Reader')
+            //->setDateCreated(TestTimes::createdTime1())
+            //->setDateModified(TestTimes::modifiedTime())
+            ;
     }
 
     /** @return array */
     public static function makeWithAgents() {
         return [
-            (new IMSGlobal\Caliper\entities\agent\Person('https://example.edu/user/657585'))
-                ->setDateCreated(TestTimes::createdTime())
+            (new Person('https://example.edu/user/657585'))
+                ->setDateCreated(TestTimes::createdTime1())
                 ->setDateModified(TestTimes::modifiedTime()),
-            (new IMSGlobal\Caliper\entities\agent\Person('https://example.edu/user/667788'))
-                ->setDateCreated(TestTimes::createdTime())
+            (new Person('https://example.edu/user/667788'))
+                ->setDateCreated(TestTimes::createdTime1())
                 ->setDateModified(TestTimes::modifiedTime())
         ];
     }

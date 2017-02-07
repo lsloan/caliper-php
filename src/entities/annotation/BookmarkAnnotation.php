@@ -1,5 +1,4 @@
 <?php
-
 namespace IMSGlobal\Caliper\entities\annotation;
 
 class BookmarkAnnotation extends Annotation {

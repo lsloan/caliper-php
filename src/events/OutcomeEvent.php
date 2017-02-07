@@ -1,8 +1,7 @@
 <?php
-
 namespace IMSGlobal\Caliper\events;
 
-use \IMSGlobal\Caliper\actions;
+use IMSGlobal\Caliper\actions;
 
 class OutcomeEvent extends Event {
     public function __construct() {

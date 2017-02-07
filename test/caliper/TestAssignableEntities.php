@@ -1,10 +1,12 @@
 <?php
+use IMSGlobal\Caliper\entities\assignable\Attempt;
+use IMSGlobal\Caliper\entities\outcome\Result;
 
 class TestAssignableEntities {
     public static function makeAssessmentAttempt() {
         /** @return Attempt */
-        return (new IMSGlobal\Caliper\entities\assignable\Attempt('https://example.edu/politicalScience/2015/american-revolution-101/assessment/001/attempt/5678'))
-            ->setDateCreated(TestTimes::createdTime())
+        return (new Attempt('https://example.edu/politicalScience/2015/american-revolution-101/assessment/001/attempt/5678'))
+            ->setDateCreated(TestTimes::createdTime1())
             ->setActor(TestAgentEntities::makePerson())
             ->setCount(1)
             ->setStartedAtTime(TestTimes::startedTime());
@@ -12,8 +14,8 @@ class TestAssignableEntities {
 
     public static function makeItemAttempt() {
         /** @return Attempt */
-        return (new IMSGlobal\Caliper\entities\assignable\Attempt('https://example.edu/politicalScience/2015/american-revolution-101/assessment/001/item/001/attempt/789'))
-            ->setDateCreated(TestTimes::createdTime())
+        return (new Attempt('https://example.edu/politicalScience/2015/american-revolution-101/assessment/001/item/001/attempt/789'))
+            ->setDateCreated(TestTimes::createdTime1())
             ->setActor(TestAgentEntities::makePerson())
             ->setAssignable(TestAssessmentEntities::makeAssessment())
             ->setCount(1)
@@ -22,8 +24,8 @@ class TestAssignableEntities {
 
     public static function makeResult() {
         /** @return Result */
-        return (new IMSGlobal\Caliper\entities\outcome\Result('https://example.edu/politicalScience/2015/american-revolution-101/assessment/001/attempt/5678/result'))
-            ->setDateCreated(TestTimes::createdTime())
+        return (new Result('https://example.edu/politicalScience/2015/american-revolution-101/assessment/001/attempt/5678/result'))
+            ->setDateCreated(TestTimes::createdTime1())
             ->setAssignable(TestAssessmentEntities::makeAssessment())
             ->setActor(TestAgentEntities::makePerson())
             ->setNormalScore(3.0)

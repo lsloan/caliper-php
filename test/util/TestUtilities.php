@@ -1,29 +1,27 @@
 <?php
 
-
 class TestUtilities {
-    public static function saveFormattedFixtureAndOutputJson($fixtureFilePath, $outputJsonString, $filenamePrefix) {
-        $outputDir = getenv('PHPUNIT_OUTPUT_DIR');
-        if ($outputDir != FALSE) {
-            // Converting JSON string back to object avoids property access problems.
-            $caliperObjects = json_decode($outputJsonString);
-            self::ksortObjectsRecursive($caliperObjects);
-            $caliperJson = json_encode($caliperObjects, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+    private static function formatJson($json) {
+        $objects = json_decode($json);
+        self::ksortObjectsRecursive($objects);
 
-            file_put_contents(realpath($outputDir) . DIRECTORY_SEPARATOR . $filenamePrefix . '_output.json',
-                $caliperJson);
+        return json_encode($objects, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+    }
 
-            $fixtureJson = file_get_contents($fixtureFilePath);
-
-            $jsonObjects = json_decode($fixtureJson);
-
-            self::ksortObjectsRecursive($jsonObjects);
-
-            $jsonString = json_encode($jsonObjects, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
-            file_put_contents(realpath($outputDir) . DIRECTORY_SEPARATOR . $filenamePrefix . '_fixture.json',
-                $jsonString);
+    private static function writeJsonFile($jsonFilePath, $formattedJson) {
+        if (file_put_contents($jsonFilePath, $formattedJson) === false) {
+            throw new PHPUnit_Runner_Exception("Error writing '${$jsonFilePath}'");
         }
+    }
 
+    public static function saveFormattedFixtureAndTestJson($fixtureJson, $testJson,
+                                                           $filename, $outputDirectoryPath) {
+        if ($outputDirectoryPath !== false) {
+            self::writeJsonFile($outputDirectoryPath . DIRECTORY_SEPARATOR . $filename . '_output.json',
+                self::formatJson($testJson));
+            self::writeJsonFile($outputDirectoryPath . DIRECTORY_SEPARATOR . $filename . '_fixture.json',
+                self::formatJson($fixtureJson));
+        }
     }
 
     public static function ksortObjectsRecursive(&$data, $sortFlags = SORT_REGULAR) {
@@ -31,7 +29,7 @@ class TestUtilities {
             function ksortObjectsRecursiveCallback(&$data, $unusedKey, $sortFlags) {
                 $dataWasCastAsArray = false;
                 if (is_object($data)) {
-                    $data = (array)$data;
+                    $data = (array) $data;
                     $dataWasCastAsArray = true;
                 }
 
@@ -46,11 +44,11 @@ class TestUtilities {
                     }
                     $data = $object;
                 }
+
                 return $success;
             }
         }
 
         return ksortObjectsRecursiveCallback($data, null, $sortFlags);
     }
-
 }

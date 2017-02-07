@@ -1,11 +1,10 @@
 <?php
-
 namespace IMSGlobal\Caliper\entities\annotation;
 
-use \IMSGlobal\Caliper\entities;
+use IMSGlobal\Caliper\entities\foaf\Agent;
 
 class SharedAnnotation extends Annotation {
-    /** @var entities\foaf\Agent[] */
+    /** @var Agent[] */
     public $withAgents = [];
 
     public function __construct($id) {
@@ -19,13 +18,13 @@ class SharedAnnotation extends Annotation {
         ]);
     }
 
-    /** @return entities\foaf\Agent[] withAgents */
+    /** @return Agent[] withAgents */
     public function getWithAgents() {
         return $this->withAgents;
     }
 
     /**
-     * @param entities\foaf\Agent|\foaf\Agent[] $withAgents
+     * @param Agent|Agent[] $withAgents
      * @return $this|SharedAnnotation
      */
     public function setWithAgents($withAgents) {
@@ -34,7 +33,7 @@ class SharedAnnotation extends Annotation {
         }
 
         foreach ($withAgents as $aWithAgents) {
-            if (!($aWithAgents instanceof entities\foaf\Agent)) {
+            if (!($aWithAgents instanceof Agent)) {
                 // FIXME: After PHP 5.5 is a requirement, change "IMSGlobal\Caliper\entities\foaf\Agent" string to "::class".
                 throw new \InvalidArgumentException(__METHOD__ . ': array of \IMSGlobal\Caliper\entities\foaf\Agent expected');
             }

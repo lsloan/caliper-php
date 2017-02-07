@@ -1,22 +1,26 @@
 <?php
+use IMSGlobal\Caliper\entities\media;
 
 class TestMediaEntities {
+    /** @return string */
     public static function videoId() {
         return 'https://example.com/super-media-tool/video/1225';
     }
 
+    /** @return media\MediaLocation */
     public static function makeMediaLocation() {
-        return (new IMSGlobal\Caliper\entities\media\MediaLocation(TestMediaEntities::videoId()))
-            ->setDateCreated(TestTimes::createdTime())
+        return (new media\MediaLocation(self::videoId()))
+            ->setDateCreated(TestTimes::createdTime1())
             ->setCurrentTime(710)
             ->setVersion('1.0');
     }
 
+    /** @return media\VideoObject */
     public static function makeVideoObject() {
-        return (new IMSGlobal\Caliper\entities\media\VideoObject(TestMediaEntities::videoId()))
+        return (new media\VideoObject(self::videoId()))
             ->setName('American Revolution - Key Figures Video')
-            ->setAlignedLearningObjectives(TestEntities::makeLearningObjective())
-            ->setDateCreated(TestTimes::createdTime())
+            ->setLearningObjectives(TestEntities::makeLearningObjective())
+            ->setDateCreated(TestTimes::createdTime1())
             ->setDateModified(TestTimes::modifiedTime())
             ->setDuration(1420)
             ->setVersion('1.0');

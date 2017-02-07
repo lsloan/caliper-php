@@ -1,6 +1,6 @@
 {
     "name": "imsglobal/caliper",
-    "version" : "1.0.3",
+    "version" : "1.0.1",
     "description": "Caliper PHP Library",
     "keywords": ["caliper"],
     "homepage": "https://www.imsglobal.org/caliper",

@@ -1,65 +1,81 @@
 <?php
+use IMSGlobal\Caliper\entities\lis\CourseOffering;
+use IMSGlobal\Caliper\entities\lis\CourseSection;
+use IMSGlobal\Caliper\entities\lis\Group;
+use IMSGlobal\Caliper\entities\lis\Membership;
+use IMSGlobal\Caliper\entities\lis\Role;
+use IMSGlobal\Caliper\entities\lis\Status;
+use IMSGlobal\Caliper\entities\w3c\Organization;
 
 class TestLisEntities {
-    public static function groupId() {
-        return 'https://example.edu/politicalScience/2015/american-revolution-101/section/001/group/001';
+    public static function makeGroup() {
+        return (new Group(self::groupId()))
+            ->setName('Discussion Group 001')
+            ->setSubOrganizationOf(self::makeCourseSection())
+            ->setDateCreated(TestTimes::createdTime1());
     }
 
-    public static function makeGroup() {
-        return (new IMSGlobal\Caliper\entities\lis\Group(TestLisEntities::groupId()))
-            ->setName('Discussion Group 001')
-            ->setSubOrganizationOf(TestLisEntities::makeCourseSection())
-            ->setDateCreated(TestTimes::createdTime());
+    /** @return string|Organization */
+    public static function groupId() {
+        return 'https://example.edu/terms/201601/courses/7/sections/1';
+    }
+
+    /** @return \IMSGlobal\Caliper\entities\lis\Course */
+    public static function makeCourseSection() {
+        return (new CourseSection(self::courseSectionId()))
+            ->setCourseNumber('CPS 435-01')
+            ->setAcademicSession('Fall 2016');
+        // XXX: Removed for EventAnnotationHighlightedTest.php
+        //->setName('American Revolution 101')
+        //->setSubOrganizationOf(self::makeCourseOffering())
+        //->setDateCreated(TestTimes::createdTime1())
+        //->setDateModified(TestTimes::modifiedTime());
+    }
+
+    /** @return string|Organization */
+    public static function courseSectionId() {
+        return 'https://example.edu/terms/201601/courses/7/sections/1';
     }
 
     public static function makeGroupMembership() {
-        return (new IMSGlobal\Caliper\entities\lis\Membership('https://example.edu/membership/003'))
+        return (new Membership('https://example.edu/membership/003'))
             ->setMember(TestAgentEntities::makePerson())
-            ->setOrganization(TestLisEntities::groupId())
-            ->setRoles(TestLisEntities::makeMembership()->getRoles())
-            ->setDateCreated(TestTimes::createdTime());
+            ->setOrganization(self::groupId())
+            ->setRoles(self::makeMembership()->getRoles())
+            ->setDateCreated(TestTimes::createdTime1());
     }
 
-    public static function makeCourseSection() {
-        return (new IMSGlobal\Caliper\entities\lis\CourseSection(TestLisEntities::courseSectionId()))
-            ->setCourseNumber('POL101')
-            ->setName('American Revolution 101')
-            ->setAcademicSession('Fall-2015')
-            ->setSubOrganizationOf(TestLisEntities::makeCourseOffering())
-            ->setDateCreated(TestTimes::createdTime())
-            ->setDateModified(TestTimes::modifiedTime());
-    }
-
-    public static function courseSectionId() {
-        return 'https://example.edu/politicalScience/2015/american-revolution-101/section/001';
+    /** @return Membership */
+    public static function makeMembership() {
+        return (new Membership('https://example.edu/terms/201601/courses/7/sections/1/rosters/1'))
+            ->setDateCreated(TestTimes::createdTime1())
+            // XXX: Removed for EventAnnotationHighlightedTest.php
+            //->setDescription('Roster entry')
+            //->setName('American Revolution 101')
+            // TODO: (member should be an object, not a reference)
+            ->setMember(TestAgentEntities::makePerson())
+            // TODO: (organization should be an object, not a reference)
+            // TODO: ??? ...add `Organization.members<Agent>` #205
+            ->setOrganization(new CourseSection('https://example.edu/terms/201601/courses/7/sections/1'))
+            ->setRoles(new Role(Role::LEARNER))
+            ->setStatus(new Status(Status::ACTIVE));
     }
 
     public static function makeSectionMembership() {
-        return (new IMSGlobal\Caliper\entities\lis\Membership('https://example.edu/membership/002'))
+        return (new Membership('https://example.edu/membership/002'))
             ->setMember(TestAgentEntities::makePerson())
-            ->setOrganization(TestLisEntities::courseSectionId())
-            ->setRoles(TestLisEntities::makeMembership()->getRoles())
-            ->setDateCreated(TestTimes::createdTime());
-
+            ->setOrganization(self::courseSectionId())
+            ->setRoles(self::makeMembership()->getRoles())
+            ->setDateCreated(TestTimes::createdTime1());
     }
 
-    public static function makeMembership() {
-        return (new IMSGlobal\Caliper\entities\lis\Membership('https://example.edu/politicalScience/2015/american-revolution-101/roster/554433'))
-            ->setDateCreated(TestTimes::createdTime())
-            ->setDescription('Roster entry')
-            ->setMember(TestAgentEntities::makePerson())
-            ->setName('American Revolution 101')
-            ->setOrganization(new IMSGlobal\Caliper\entities\lis\Group('https://example.edu/politicalScience/2015/american-revolution-101/section/001'))
-            ->setRoles(new IMSGlobal\Caliper\entities\lis\Role(IMSGlobal\Caliper\entities\lis\Role::LEARNER))
-            ->setStatus(new IMSGlobal\Caliper\entities\lis\Status(IMSGlobal\Caliper\entities\lis\Status::ACTIVE));
-    }
-
+    /** @return CourseOffering */
     public static function makeCourseOffering() {
-        return (new IMSGlobal\Caliper\entities\lis\CourseOffering('https://example.edu/politicalScience/2015/american-revolution-101'))
+        return (new CourseOffering('https://example.edu/politicalScience/2015/american-revolution-101'))
             ->setCourseNumber('POL101')
             ->setName('Political Science 101: The American Revolution')
             ->setAcademicSession('Fall-2015')
-            ->setDateCreated(TestTimes::createdTime())
+            ->setDateCreated(TestTimes::createdTime1())
             ->setDateModified(TestTimes::modifiedTime());
     }
 }
