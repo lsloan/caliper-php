@@ -68,6 +68,20 @@ abstract class Event extends util\ClassUtil implements \JsonSerializable {
         ];
     }
 
+    /** @return string */
+    public function getUuid() {
+        return $this->uuid;
+    }
+
+    /**
+     * @param string $uuid
+     * @return Event
+     */
+    public function setUuid($uuid) {
+        $this->uuid = strval($uuid);
+        return $this;
+    }
+
     /** @return context\Context context */
     public function getContext() {
         return $this->context;
@@ -170,6 +184,20 @@ abstract class Event extends util\ClassUtil implements \JsonSerializable {
         return $this;
     }
 
+    /** @return entities\Referrable */
+    public function getReferrer() {
+        return $this->referrer;
+    }
+
+    /**
+     * @param entities\Referrable $referrer
+     * @return $this
+     */
+    public function setReferrer(entities\Referrable $referrer) {
+        $this->referrer = $referrer;
+        return $this;
+    }
+
     /** @return \DateTime eventTime */
     public function getEventTime() {
         return $this->eventTime;
@@ -226,34 +254,6 @@ abstract class Event extends util\ClassUtil implements \JsonSerializable {
         return $this;
     }
 
-    /** @return entities\session\LtiSession */
-    public function getFederatedSession() {
-        return $this->federatedSession;
-    }
-
-    /**
-     * @param entities\session\LtiSession $federatedSession
-     * @return $this|Event
-     */
-    public function setFederatedSession(entities\session\LtiSession $federatedSession) {
-        $this->federatedSession = $federatedSession;
-        return $this;
-    }
-
-    /** @return entities\Referrable */
-    public function getReferrer() {
-        return $this->referrer;
-    }
-
-    /**
-     * @param entities\Referrable $referrer
-     * @return $this
-     */
-    public function setReferrer(entities\Referrable $referrer) {
-        $this->referrer = $referrer;
-        return $this;
-    }
-
     /** @return entities\session\Session */
     public function getSession() {
         return $this->session;
@@ -265,6 +265,20 @@ abstract class Event extends util\ClassUtil implements \JsonSerializable {
      */
     public function setSession(entities\session\Session $session) {
         $this->session = $session;
+        return $this;
+    }
+
+    /** @return entities\session\LtiSession */
+    public function getFederatedSession() {
+        return $this->federatedSession;
+    }
+
+    /**
+     * @param entities\session\LtiSession $federatedSession
+     * @return $this|Event
+     */
+    public function setFederatedSession(entities\session\LtiSession $federatedSession) {
+        $this->federatedSession = $federatedSession;
         return $this;
     }
 
@@ -293,20 +307,6 @@ abstract class Event extends util\ClassUtil implements \JsonSerializable {
         }
 
         $this->extensions = $extensions;
-        return $this;
-    }
-
-    /** @return string */
-    public function getUuid() {
-        return $this->uuid;
-    }
-
-    /**
-     * @param string $uuid
-     * @return Event
-     */
-    public function setUuid($uuid) {
-        $this->uuid = strval($uuid);
         return $this;
     }
 }

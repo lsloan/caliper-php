@@ -1,10 +1,10 @@
 <?php
 namespace IMSGlobal\Caliper\entities;
 
-use IMSGlobal\Caliper\util\ClassUtil;
 use IMSGlobal\Caliper\context\Context;
 use IMSGlobal\Caliper\entities;
 use IMSGlobal\Caliper\util;
+use IMSGlobal\Caliper\util\ClassUtil;
 
 abstract class Entity extends ClassUtil implements \JsonSerializable, entities\schemadotorg\Thing {
     /** @var string */
@@ -56,20 +56,6 @@ abstract class Entity extends ClassUtil implements \JsonSerializable, entities\s
         }
 
         $this->id = $id;
-        return $this;
-    }
-
-    /** @return Context */
-    public function getContext() {
-        return $this->context;
-    }
-
-    /**
-     * @param Context $context
-     * @return $this|Entity
-     */
-    public function setContext(Context $context) {
-        $this->context = $context;
         return $this;
     }
 
@@ -129,10 +115,6 @@ abstract class Entity extends ClassUtil implements \JsonSerializable, entities\s
     }
 
     /**
-     * @param string|string[] $extensions
-     * @return $this|Entity
-     */
-    /**
      * @param \array[]|null $extensions An array of associative arrays
      * @return Entity
      */
@@ -180,6 +162,20 @@ abstract class Entity extends ClassUtil implements \JsonSerializable, entities\s
      */
     public function setDateModified(\DateTime $dateModified) {
         $this->dateModified = $dateModified;
+        return $this;
+    }
+
+    /** @return Context */
+    public function getContext() {
+        return $this->context;
+    }
+
+    /**
+     * @param Context $context
+     * @return $this|Entity
+     */
+    public function setContext(Context $context) {
+        $this->context = $context;
         return $this;
     }
 }

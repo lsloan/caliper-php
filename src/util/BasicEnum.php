@@ -38,21 +38,12 @@ abstract class BasicEnum implements \JsonSerializable {
         if (!is_null($errorMessage)) {
             throw new \InvalidArgumentException(get_called_class() . '::' . __FUNCTION__ .
                 ': ' . $errorMessage . ' Valid values: ' .
-                join(', ', array_filter(array_keys(self::getConstants()), function($v){
+                join(', ', array_filter(array_keys(self::getConstants()), function ($v) {
                     return strpos($v, '__') !== 0;
                 })));
         }
 
         $this->value = $value;
-    }
-
-    function jsonSerialize() {
-        return $this->getValue();
-    }
-
-    /** @return mixed */
-    public function getValue() {
-        return $this->value;
     }
 
     /** @return mixed[] */
@@ -66,6 +57,15 @@ abstract class BasicEnum implements \JsonSerializable {
             self::$constCacheArray[$calledClass] = $reflect->getConstants();
         }
         return self::$constCacheArray[$calledClass];
+    }
+
+    /**
+     * @param $value
+     * @return bool
+     */
+    public static function isValidValue($value) {
+        $values = array_values(self::getConstants());
+        return in_array($value, $values, $strict = true);
     }
 
     /**
@@ -84,12 +84,12 @@ abstract class BasicEnum implements \JsonSerializable {
         return in_array(strtolower($name), $keys);
     }
 
-    /**
-     * @param $value
-     * @return bool
-     */
-    public static function isValidValue($value) {
-        $values = array_values(self::getConstants());
-        return in_array($value, $values, $strict = true);
+    function jsonSerialize() {
+        return $this->getValue();
+    }
+
+    /** @return mixed */
+    public function getValue() {
+        return $this->value;
     }
 }

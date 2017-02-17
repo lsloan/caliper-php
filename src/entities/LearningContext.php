@@ -34,7 +34,7 @@ class LearningContext {
         $this->edApp = $edApp;
         return $this;
     }
-    
+
     /** @return Organization group */
     public function getGroup() {
         return $this->group;

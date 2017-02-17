@@ -30,7 +30,7 @@ class HighlightAnnotation extends Annotation {
      * @param TextPositionSelector $selection
      * @return $this|HighlightAnnotation
      */
-    public function  setSelection(TextPositionSelector $selection) {
+    public function setSelection(TextPositionSelector $selection) {
         $this->selection = $selection;
         return $this;
     }
@@ -38,7 +38,7 @@ class HighlightAnnotation extends Annotation {
     /**
      * @return string selectionText
      */
-    public function  getSelectionText() {
+    public function getSelectionText() {
         return $this->selectionText;
     }
 

@@ -2,7 +2,6 @@
 namespace IMSGlobal\Caliper\entities\session;
 
 use IMSGlobal\Caliper\entities;
-use IMSGlobal\Caliper\util;
 
 class LtiSession extends Session {
     /** @var mixed */

@@ -5,38 +5,6 @@ use IMSGlobal\Caliper\Options;
 
 class JsonUtil {
     /**
-     * Return function for use with array_filter() to keep only nonempty structures and nonnull values.
-     *
-     * This method returns a function so it's not necessary to specify the filter function to
-     * array_filter() by using its name in a string.
-     *
-     * @return callable
-     */
-    public static function isNonemptyNonnull() {
-        return function ($value) {
-            if (is_object($value) || is_array($value)) {
-                return !empty((array) $value);
-            } else {
-                return !is_null($value);
-            }
-        };
-    }
-
-    /**
-     * Return function for use with array_filter() to keep only nonnull values.
-     *
-     * This method returns a function so it's not necessary to specify the filter function to
-     * array_filter() by using its name in a string.
-     *
-     * @return callable
-     */
-    public static function isNonnull() {
-        return function ($value) {
-            return !is_null($value);
-        };
-    }
-
-    /**
      * PHP's json_encode() shamefully lacks the ability to remove empty structures and null
      * values from the JSON it produces.  The best solution is this recursive method, which
      * calls jsonSerialize() on every object that implements the JsonSerializable interface,
@@ -72,5 +40,37 @@ class JsonUtil {
         }
 
         return $processedObject;
+    }
+
+    /**
+     * Return function for use with array_filter() to keep only nonempty structures and nonnull values.
+     *
+     * This method returns a function so it's not necessary to specify the filter function to
+     * array_filter() by using its name in a string.
+     *
+     * @return callable
+     */
+    public static function isNonemptyNonnull() {
+        return function ($value) {
+            if (is_object($value) || is_array($value)) {
+                return !empty((array) $value);
+            } else {
+                return !is_null($value);
+            }
+        };
+    }
+
+    /**
+     * Return function for use with array_filter() to keep only nonnull values.
+     *
+     * This method returns a function so it's not necessary to specify the filter function to
+     * array_filter() by using its name in a string.
+     *
+     * @return callable
+     */
+    public static function isNonnull() {
+        return function ($value) {
+            return !is_null($value);
+        };
     }
 }
