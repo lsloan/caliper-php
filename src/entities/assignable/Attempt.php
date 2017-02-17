@@ -15,26 +15,22 @@ class Attempt extends entities\Entity implements entities\Generatable {
     private $startedAtTime;
     /** @var \DateTime */
     private $endedAtTime;
-    /** @var string */
+    /** @var string|null */
     private $duration;
 
-    public function  __construct($id) {
+    public function __construct($id) {
         parent::__construct($id);
         $this->setType(new entities\EntityType(entities\EntityType::ATTEMPT));
     }
 
     public function jsonSerialize() {
         return array_merge(parent::jsonSerialize(), [
-            'assignable' => (!is_null($this->getAssignable()))
-                ? $this->getAssignable()->getId()
-                : null,
-            'actor' => (!is_null($this->getActor()))
-                ? $this->getActor()->getId()
-                : null,
+            'assignable' => $this->getAssignable(),
+            'actor' => $this->getActor(),
             'count' => $this->getCount(),
             'startedAtTime' => TimestampUtil::formatTimeISO8601MillisUTC($this->getStartedAtTime()),
             'endedAtTime' => TimestampUtil::formatTimeISO8601MillisUTC($this->getEndedAtTime()),
-            'duration' => $this->getDurationFormatted(),
+            'duration' => $this->getDuration(),
         ]);
     }
 
@@ -112,27 +108,24 @@ class Attempt extends entities\Entity implements entities\Generatable {
         return $this;
     }
 
-    /** @return null|string Duration in seconds formatted according to ISO 8601 ("PTnnnnS") */
-    public function getDurationFormatted() {
-        if ($this->getDuration() === null) {
-            return null;
-        }
-
-        return 'PT' . $this->getDuration() . 'S';
-    }
-
-    /** @return string duration */
+    /** @return string|null duration (ISO 8601 interval) */
     public function getDuration() {
         return $this->duration;
     }
 
     /**
-     * @param string $duration
+     * @param string|null $duration (ISO 8601 interval)
      * @return $this|Attempt
      */
     public function setDuration($duration) {
-        if (!is_string($duration)) {
-            throw new \InvalidArgumentException(__METHOD__ . ': string expected');
+        if (!is_null($duration)) {
+            $duration = strval($duration);
+
+            try {
+                $_ = new \DateInterval($duration);
+            } catch (\Exception $exception) {
+                throw new \InvalidArgumentException(__METHOD__ . ': ISO 8601 interval string expected');
+            }
         }
 
         $this->duration = $duration;

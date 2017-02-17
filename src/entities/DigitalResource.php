@@ -38,7 +38,7 @@ class DigitalResource extends Entity implements Referrable, Targetable, Creative
     private $learningObjectives = [];
     /** @var string[] */
     private $keywords = [];
-    /** @var CreativeWork */
+    /** @var Entity|null */
     private $isPartOf;
     /** @var \DateTime */
     private $datePublished;
@@ -47,7 +47,7 @@ class DigitalResource extends Entity implements Referrable, Targetable, Creative
 
     public function __construct($id) {
         parent::__construct($id);
-        $this->setType(new DigitalResourceType(DigitalResourceType::ASSIGNABLE_DIGITAL_RESOURCE));
+        $this->setType(new EntityType(EntityType::DIGITAL_RESOURCE));
     }
 
     /**
@@ -184,16 +184,16 @@ class DigitalResource extends Entity implements Referrable, Targetable, Creative
         return $this;
     }
 
-    /** @return CreativeWork isPartOf */
+    /** @return Entity|null isPartOf */
     public function getIsPartOf() {
         return $this->isPartOf;
     }
 
     /**
-     * @param CreativeWork $isPartOf
+     * @param Entity|null $isPartOf
      * @return $this|DigitalResource
      */
-    public function setIsPartOf(CreativeWork $isPartOf) {
+    public function setIsPartOf(Entity $isPartOf) {
         $this->isPartOf = $isPartOf;
         return $this;
     }

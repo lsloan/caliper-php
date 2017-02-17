@@ -62,7 +62,7 @@ function createClassCode($fixture) {
 
             if (is_string($value) &&
                 (stristr($property, 'date') !== false || stristr($property, 'time') !== false) &&
-                date_create($value) !== false
+                date_create($value, new DateTimeZone('UTC')) !== false
             ) {
                 $code[] = ["new \\DateTime('$value'))"];
                 continue;
@@ -119,6 +119,7 @@ require_once realpath(dirname(__FILE__) . \'/../CaliperTestCase.php\');
 
 use IMSGlobal\Caliper\actions\Action;
 use IMSGlobal\Caliper\entities\DigitalResource;
+use IMSGlobal\Caliper\entities\DigitalResourceCollection;
 use IMSGlobal\Caliper\entities\DigitalResourceType;
 use IMSGlobal\Caliper\entities\EntityType;
 use IMSGlobal\Caliper\entities\LearningContext;
