@@ -2,8 +2,8 @@
 namespace IMSGlobal\Caliper\events;
 
 class MediaEvent extends Event {
-	public function __construct(){
-		parent::__construct();
-		$this->setType(new EventType(EventType::MEDIA));
-	}
+    public function __construct() {
+        parent::__construct();
+        $this->setType(new EventType(EventType::MEDIA));
+    }
 }

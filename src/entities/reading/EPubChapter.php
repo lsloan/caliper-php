@@ -11,8 +11,8 @@ use IMSGlobal\Caliper\entities;
  *
  */
 class EPubChapter extends entities\DigitalResource implements entities\schemadotorg\CreativeWork {
-  public function __construct($id) {
-    parent::__construct($id);
-    $this->setType(new entities\DigitalResourceType(entities\DigitalResourceType::EPUB_CHAPTER));
-  }
+    public function __construct($id) {
+        parent::__construct($id);
+        $this->setType(new entities\DigitalResourceType(entities\DigitalResourceType::EPUB_CHAPTER));
+    }
 }

@@ -13,7 +13,7 @@ class Organization extends entities\Entity implements entities\foaf\Agent, entit
     }
 
     /** @return entities\w3c\Organization */
-    public function  getSubOrganizationOf() {
+    public function getSubOrganizationOf() {
         return $this->subOrganizationOf;
     }
 
@@ -21,7 +21,7 @@ class Organization extends entities\Entity implements entities\foaf\Agent, entit
      * @param entities\w3c\Organization $subOrganizationOf
      * @return $this|Organization
      */
-    public function  setSubOrganizationOf(entities\w3c\Organization $subOrganizationOf) {
+    public function setSubOrganizationOf(entities\w3c\Organization $subOrganizationOf) {
         $this->subOrganizationOf = $subOrganizationOf;
         return $this;
     }

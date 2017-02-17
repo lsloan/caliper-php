@@ -2,7 +2,6 @@
 namespace IMSGlobal\Caliper\entities\annotation;
 
 use IMSGlobal\Caliper\entities\Entity;
-use IMSGlobal\Caliper\entities\EntityType;
 
 /**
  * A Selector which describes a range of text based on its start and end positions

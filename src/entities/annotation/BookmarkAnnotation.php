@@ -17,7 +17,7 @@ class BookmarkAnnotation extends Annotation {
     }
 
     /** @return string bookmarkNotes */
-    public function  getBookmarkNotes() {
+    public function getBookmarkNotes() {
         return $this->bookmarkNotes;
     }
 
@@ -25,7 +25,7 @@ class BookmarkAnnotation extends Annotation {
      * @param string $bookmarkNotes
      * @return $this|BookmarkAnnotation
      */
-    public function  setBookmarkNotes($bookmarkNotes) {
+    public function setBookmarkNotes($bookmarkNotes) {
         $this->bookmarkNotes = $bookmarkNotes;
         return $this;
     }
