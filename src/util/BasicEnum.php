@@ -92,4 +92,13 @@ abstract class BasicEnum implements \JsonSerializable {
     public function getValue() {
         return $this->value;
     }
+
+    /**
+     * Useful for comparing a BasicEnum object with a string
+     *
+     * @return string
+     */
+    function __toString() {
+        return strval($this->getValue());
+    }
 }
