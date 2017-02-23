@@ -9,7 +9,7 @@ use IMSGlobal\Caliper\util\ClassUtil;
 abstract class Entity extends ClassUtil implements \JsonSerializable, entities\schemadotorg\Thing {
     /** @var string */
     protected $id;
-    /** @var Context */
+    /** @var Context|null */
     protected $context;
     /** @var Type */
     private $type;
@@ -30,7 +30,8 @@ abstract class Entity extends ClassUtil implements \JsonSerializable, entities\s
     }
 
     public function jsonSerialize() {
-        return [
+        return $this->removeChildEntitySameContexts([
+            '@context' => $this->getContext(),
             'id' => $this->getId(),
             'type' => $this->getType(),
             'name' => $this->getName(),
@@ -38,7 +39,34 @@ abstract class Entity extends ClassUtil implements \JsonSerializable, entities\s
             'extensions' => $this->getExtensions(),
             'dateCreated' => util\TimestampUtil::formatTimeISO8601MillisUTC($this->getDateCreated()),
             'dateModified' => util\TimestampUtil::formatTimeISO8601MillisUTC($this->getDateModified()),
-        ];
+        ]);
+    }
+
+    /**
+     * @param array $serializationData Object property array (from $this->jsonSerialize())
+     * @return array $serializationData with possible updates
+     */
+    protected function removeChildEntitySameContexts(array $serializationData) {
+        return parent::removeChildEntitySameContextsBase($serializationData, $this);
+    }
+
+    /** @return Context|null */
+    public function getContext() {
+        return $this->context;
+    }
+
+    /**
+     * @param Context|null $context
+     * @throws \InvalidArgumentException Context object or null required
+     * @return $this|Entity
+     */
+    public function setContext($context) {
+        if (is_null($context) || ($context instanceof Context)) {
+            $this->context = $context;
+            return $this;
+        }
+
+        throw new \InvalidArgumentException(__METHOD__ . ': instance of Context expected');
     }
 
     /** @return string id */
@@ -48,6 +76,7 @@ abstract class Entity extends ClassUtil implements \JsonSerializable, entities\s
 
     /**
      * @param string $id
+     * @throws \InvalidArgumentException string required
      * @return $this|Entity
      */
     public function setId($id) {
@@ -80,6 +109,7 @@ abstract class Entity extends ClassUtil implements \JsonSerializable, entities\s
 
     /**
      * @param string $name
+     * @throws \InvalidArgumentException string required
      * @return $this|Entity
      */
     public function setName($name) {
@@ -98,6 +128,7 @@ abstract class Entity extends ClassUtil implements \JsonSerializable, entities\s
 
     /**
      * @param string $description
+     * @throws \InvalidArgumentException string required
      * @return $this|Entity
      */
     public function setDescription($description) {
@@ -116,6 +147,7 @@ abstract class Entity extends ClassUtil implements \JsonSerializable, entities\s
 
     /**
      * @param \array[]|null $extensions An array of associative arrays
+     * @throws \InvalidArgumentException array of associative arrays or null required
      * @return Entity
      */
     public function setExtensions($extensions) {
@@ -165,18 +197,6 @@ abstract class Entity extends ClassUtil implements \JsonSerializable, entities\s
         return $this;
     }
 
-    /** @return Context */
-    public function getContext() {
-        return $this->context;
-    }
 
-    /**
-     * @param Context $context
-     * @return $this|Entity
-     */
-    public function setContext(Context $context) {
-        $this->context = $context;
-        return $this;
-    }
 }
 

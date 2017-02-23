@@ -1,6 +1,9 @@
 <?php
 namespace IMSGlobal\Caliper\util;
 
+use IMSGlobal\Caliper\entities\Entity;
+use IMSGlobal\Caliper\events\Event;
+
 /**
  * Class ClassUtil
  *
@@ -15,5 +18,35 @@ class ClassUtil {
      */
     static public function className() {
         return get_called_class();
+    }
+
+    /**
+     * Examine the serialization data of Caliper Entity objects that are the children
+     * (either directly or in an array) of a given Caliper object.  Remove the
+     * context from each child if it and the specified parent context are the same.
+     *
+     * "When data storage reaches the ceiling, you need contextual healing."
+     *
+     * @param array $serializationData Object property array (from $this->jsonSerialize())
+     * @param Entity|Event $parent
+     * @return array $serializationData with possible updates
+     */
+    protected function removeChildEntitySameContextsBase(array $serializationData, $parent) {
+        $contextProperty = $parent->getContext()->getPropertyName();
+
+        foreach ($serializationData as &$value) {
+            if ($value instanceof \JsonSerializable) {
+                $value = $value->jsonSerialize();
+                if (is_array($value) && array_key_exists($contextProperty, $value)) {
+                    if ($value[$contextProperty] == $parent->getContext()) {
+                        $value[$contextProperty] = null;
+                    }
+                }
+            } elseif (is_array($value)) {
+                $value = self::removeChildEntitySameContextsBase($value, $parent);
+            }
+        }
+
+        return $serializationData;
     }
 }

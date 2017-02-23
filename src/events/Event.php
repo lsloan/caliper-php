@@ -49,7 +49,7 @@ abstract class Event extends util\ClassUtil implements \JsonSerializable {
             $this->setUuid(uniqid());
         }
 
-        return [
+        return $this->removeChildEntitySameContexts([
             '@context' => $this->getContext(),
             'type' => $this->getType(),
             'actor' => $this->getActor(),
@@ -65,7 +65,7 @@ abstract class Event extends util\ClassUtil implements \JsonSerializable {
             'session' => $this->getSession(),
             'uuid' => $this->getUuid(),
             'federatedSession' => $this->getFederatedSession(),
-        ];
+        ]);
     }
 
     /** @return string */
@@ -80,6 +80,14 @@ abstract class Event extends util\ClassUtil implements \JsonSerializable {
     public function setUuid($uuid) {
         $this->uuid = strval($uuid);
         return $this;
+    }
+
+    /**
+     * @param array $serializationData Object property array (from $this->jsonSerialize())
+     * @return array $serializationData with possible updates
+     */
+    protected function removeChildEntitySameContexts(array $serializationData) {
+        return parent::removeChildEntitySameContextsBase($serializationData, $this);
     }
 
     /** @return context\Context context */
@@ -145,6 +153,7 @@ abstract class Event extends util\ClassUtil implements \JsonSerializable {
 
     /**
      * @param object $object
+     * @throws \InvalidArgumentException object required
      * @return $this|Event
      */
     public function setObject($object) {
@@ -289,6 +298,7 @@ abstract class Event extends util\ClassUtil implements \JsonSerializable {
 
     /**
      * @param \array[]|null $extensions An array of associative arrays
+     * @throws \InvalidArgumentException array of associative arrays or null required
      * @return Event
      */
     public function setExtensions($extensions) {

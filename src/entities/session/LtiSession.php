@@ -13,9 +13,9 @@ class LtiSession extends Session {
     }
 
     public function jsonSerialize() {
-        return array_merge(parent::jsonSerialize(), [
+        return $this->removeChildEntitySameContexts(array_merge(parent::jsonSerialize(), [
             'launchParameters' => $this->getLaunchParameters(),
-        ]);
+        ]));
     }
 
     /** @return mixed */
