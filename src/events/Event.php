@@ -64,6 +64,7 @@ abstract class Event extends util\ClassUtil implements \JsonSerializable {
             'membership' => $this->getMembership(),
             'session' => $this->getSession(),
             'uuid' => $this->getUuid(),
+            'extensions' => $this->getExtensions(),
             'federatedSession' => $this->getFederatedSession(),
         ]);
     }
@@ -277,20 +278,6 @@ abstract class Event extends util\ClassUtil implements \JsonSerializable {
         return $this;
     }
 
-    /** @return entities\session\LtiSession */
-    public function getFederatedSession() {
-        return $this->federatedSession;
-    }
-
-    /**
-     * @param entities\session\LtiSession $federatedSession
-     * @return $this|Event
-     */
-    public function setFederatedSession(entities\session\LtiSession $federatedSession) {
-        $this->federatedSession = $federatedSession;
-        return $this;
-    }
-
     /** @return \array[] */
     public function getExtensions() {
         return $this->extensions;
@@ -317,6 +304,20 @@ abstract class Event extends util\ClassUtil implements \JsonSerializable {
         }
 
         $this->extensions = $extensions;
+        return $this;
+    }
+
+    /** @return entities\session\LtiSession */
+    public function getFederatedSession() {
+        return $this->federatedSession;
+    }
+
+    /**
+     * @param entities\session\LtiSession $federatedSession
+     * @return $this|Event
+     */
+    public function setFederatedSession(entities\session\LtiSession $federatedSession) {
+        $this->federatedSession = $federatedSession;
         return $this;
     }
 }
