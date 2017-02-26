@@ -109,6 +109,19 @@ class HttpRequestor extends Requestor {
         return $status;
     }
 
+    /**
+     * @param object $data
+     * @param Options $options
+     * @return string
+     */
+    public function serializeData($data, Options $options = null) {
+        if (is_null($options)) {
+            $options = $this->getOptions();
+        }
+
+        return parent::serializeData($data, $options);
+    }
+
     /** @return Options */
     public function getOptions() {
         return $this->options;
@@ -121,18 +134,5 @@ class HttpRequestor extends Requestor {
     public function setOptions($options) {
         $this->options = $options;
         return $this;
-    }
-
-    /**
-     * @param object $data
-     * @param Options $options
-     * @return string
-     */
-    public function serializeData($data, Options $options = null) {
-        if (is_null($options)) {
-            $options = $this->getOptions();
-        }
-
-        return parent::serializeData($data, $options);
     }
 }

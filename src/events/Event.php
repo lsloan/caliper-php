@@ -33,7 +33,7 @@ abstract class Event extends util\ClassUtil implements \JsonSerializable {
     private $membership;
     /** @var entities\session\Session */
     private $session;
-    /** @var entities\session\Session */
+    /** @var entities\session\LtiSession */
     private $federatedSession;
     /** @var array[] */
     private $extensions;
@@ -49,7 +49,7 @@ abstract class Event extends util\ClassUtil implements \JsonSerializable {
             $this->setUuid(uniqid());
         }
 
-        return [
+        return $this->removeChildEntitySameContexts([
             '@context' => $this->getContext(),
             'type' => $this->getType(),
             'actor' => $this->getActor(),
@@ -57,16 +57,38 @@ abstract class Event extends util\ClassUtil implements \JsonSerializable {
             'object' => $this->getObject(),
             'target' => $this->getTarget(),
             'generated' => $this->getGenerated(),
+            'referrer' => $this->getReferrer(),
             'eventTime' => util\TimestampUtil::formatTimeISO8601MillisUTC($this->getEventTime()),
             'edApp' => $this->getEdApp(),
             'group' => $this->getGroup(),
             'membership' => $this->getMembership(),
             'session' => $this->getSession(),
             'uuid' => $this->getUuid(),
-            'federatedSession' => (!is_null($this->getFederatedSession()))
-                ? $this->getFederatedSession()->getId()
-                : null,
-        ];
+            'extensions' => $this->getExtensions(),
+            'federatedSession' => $this->getFederatedSession(),
+        ]);
+    }
+
+    /** @return string */
+    public function getUuid() {
+        return $this->uuid;
+    }
+
+    /**
+     * @param string $uuid
+     * @return Event
+     */
+    public function setUuid($uuid) {
+        $this->uuid = strval($uuid);
+        return $this;
+    }
+
+    /**
+     * @param array $serializationData Object property array (from $this->jsonSerialize())
+     * @return array $serializationData with possible updates
+     */
+    protected function removeChildEntitySameContexts(array $serializationData) {
+        return parent::removeChildEntitySameContextsBase($serializationData, $this);
     }
 
     /** @return context\Context context */
@@ -132,6 +154,7 @@ abstract class Event extends util\ClassUtil implements \JsonSerializable {
 
     /**
      * @param object $object
+     * @throws \InvalidArgumentException object required
      * @return $this|Event
      */
     public function setObject($object) {
@@ -168,6 +191,20 @@ abstract class Event extends util\ClassUtil implements \JsonSerializable {
      */
     public function setGenerated(entities\Generatable $generated) {
         $this->generated = $generated;
+        return $this;
+    }
+
+    /** @return entities\Referrable */
+    public function getReferrer() {
+        return $this->referrer;
+    }
+
+    /**
+     * @param entities\Referrable $referrer
+     * @return $this
+     */
+    public function setReferrer(entities\Referrable $referrer) {
+        $this->referrer = $referrer;
         return $this;
     }
 
@@ -228,34 +265,6 @@ abstract class Event extends util\ClassUtil implements \JsonSerializable {
     }
 
     /** @return entities\session\Session */
-    public function getFederatedSession() {
-        return $this->federatedSession;
-    }
-
-    /**
-     * @param entities\session\Session $federatedSession
-     * @return $this|Event
-     */
-    public function setFederatedSession(entities\session\Session $federatedSession) {
-        $this->federatedSession = $federatedSession;
-        return $this;
-    }
-
-    /** @return entities\Referrable */
-    public function getReferrer() {
-        return $this->referrer;
-    }
-
-    /**
-     * @param entities\Referrable $referrer
-     * @return $this
-     */
-    public function setReferrer(entities\Referrable $referrer) {
-        $this->referrer = $referrer;
-        return $this;
-    }
-
-    /** @return entities\session\Session */
     public function getSession() {
         return $this->session;
     }
@@ -276,6 +285,7 @@ abstract class Event extends util\ClassUtil implements \JsonSerializable {
 
     /**
      * @param \array[]|null $extensions An array of associative arrays
+     * @throws \InvalidArgumentException array of associative arrays or null required
      * @return Event
      */
     public function setExtensions($extensions) {
@@ -297,17 +307,17 @@ abstract class Event extends util\ClassUtil implements \JsonSerializable {
         return $this;
     }
 
-    /** @return string */
-    public function getUuid() {
-        return $this->uuid;
+    /** @return entities\session\LtiSession */
+    public function getFederatedSession() {
+        return $this->federatedSession;
     }
 
     /**
-     * @param string $uuid
-     * @return Event
+     * @param entities\session\LtiSession $federatedSession
+     * @return $this|Event
      */
-    public function setUuid($uuid) {
-        $this->uuid = strval($uuid);
+    public function setFederatedSession(entities\session\LtiSession $federatedSession) {
+        $this->federatedSession = $federatedSession;
         return $this;
     }
 }

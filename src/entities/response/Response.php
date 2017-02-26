@@ -38,20 +38,6 @@ abstract class Response extends entities\Entity implements entities\Generatable 
         ]);
     }
 
-    /** @return entities\DigitalResource assignable */
-    public function getAssignable() {
-        return $this->assignable;
-    }
-
-    /**
-     * @param entities\DigitalResource $assignable
-     * @return $this|Response
-     */
-    public function setAssignable(entities\DigitalResource $assignable) {
-        $this->assignable = $assignable;
-        return $this;
-    }
-
     /** @return entities\foaf\Agent actor */
     public function getActor() {
         return $this->actor;
@@ -66,6 +52,20 @@ abstract class Response extends entities\Entity implements entities\Generatable 
         return $this;
     }
 
+    /** @return entities\DigitalResource assignable */
+    public function getAssignable() {
+        return $this->assignable;
+    }
+
+    /**
+     * @param entities\DigitalResource $assignable
+     * @return $this|Response
+     */
+    public function setAssignable(entities\DigitalResource $assignable) {
+        $this->assignable = $assignable;
+        return $this;
+    }
+
     /** @return entities\assignable\Attempt attempt */
     public function getAttempt() {
         return $this->attempt;
@@ -77,34 +77,6 @@ abstract class Response extends entities\Entity implements entities\Generatable 
      */
     public function setAttempt(entities\assignable\Attempt $attempt) {
         $this->attempt = $attempt;
-        return $this;
-    }
-
-    /** @return \DateTime startedAtTime */
-    public function getStartedAtTime() {
-        return $this->startedAtTime;
-    }
-
-    /**
-     * @param \DateTime $startedAtTime
-     * @return $this|Response
-     */
-    public function setStartedAtTime(\DateTime $startedAtTime) {
-        $this->startedAtTime = $startedAtTime;
-        return $this;
-    }
-
-    /** @return \DateTime endedAtTime */
-    public function getEndedAtTime() {
-        return $this->endedAtTime;
-    }
-
-    /**
-     * @param \DateTime $endedAtTime
-     * @return $this|Response
-     */
-    public function setEndedAtTime(\DateTime $endedAtTime) {
-        $this->endedAtTime = $endedAtTime;
         return $this;
     }
 
@@ -123,6 +95,34 @@ abstract class Response extends entities\Entity implements entities\Generatable 
         }
 
         $this->duration = $duration;
+        return $this;
+    }
+
+    /** @return \DateTime endedAtTime */
+    public function getEndedAtTime() {
+        return $this->endedAtTime;
+    }
+
+    /**
+     * @param \DateTime $endedAtTime
+     * @return $this|Response
+     */
+    public function setEndedAtTime(\DateTime $endedAtTime) {
+        $this->endedAtTime = $endedAtTime;
+        return $this;
+    }
+
+    /** @return \DateTime startedAtTime */
+    public function getStartedAtTime() {
+        return $this->startedAtTime;
+    }
+
+    /**
+     * @param \DateTime $startedAtTime
+     * @return $this|Response
+     */
+    public function setStartedAtTime(\DateTime $startedAtTime) {
+        $this->startedAtTime = $startedAtTime;
         return $this;
     }
 

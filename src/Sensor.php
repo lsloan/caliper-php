@@ -1,8 +1,8 @@
 <?php
 namespace IMSGlobal\Caliper;
 
-use IMSGlobal\Caliper\events\Event;
 use IMSGlobal\Caliper\entities\Entity;
+use IMSGlobal\Caliper\events\Event;
 
 class Sensor {
     /** @var Client[] */
@@ -22,7 +22,7 @@ class Sensor {
 
         $this->setId($id);
     }
-    
+
     /** @return string id */
     public function getId() {
         return $this->id;
@@ -34,7 +34,7 @@ class Sensor {
      * @throws \InvalidArgumentException if $id is not a string
      */
     public function setId($id) {
-        if (! is_string($id)) {
+        if (!is_string($id)) {
             throw new \InvalidArgumentException(__METHOD__ . ': string expected');
         }
 

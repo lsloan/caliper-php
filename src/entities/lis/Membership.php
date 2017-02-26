@@ -19,12 +19,12 @@ class Membership extends entities\Entity implements entities\w3c\Membership {
     }
 
     public function jsonSerialize() {
-        return array_merge(parent::jsonSerialize(), [
+        return $this->removeChildEntitySameContexts(array_merge(parent::jsonSerialize(), [
             'member' => $this->getMember(),
             'organization' => $this->getOrganization(),
             'roles' => $this->getRoles(),
             'status' => $this->getStatus(),
-        ]);
+        ]));
     }
 
     /** @return entities\agent\Person member */

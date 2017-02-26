@@ -23,8 +23,14 @@ function createClassCode($fixture) {
 
     if (is_object($fixture)) {
         $properties = get_object_vars($fixture);
-        // FIXME: Find places where "NoType" gets used; prevent it.
-        $type = @$properties['type'] ?: 'NoType';
+
+        $type = @$properties['type'] ?: null;
+        if (is_null($type)) {
+            $code[] = '(';
+            $code[] = str_replace('stdClass::__set_state', '', var_export($properties, $noPrint = true)) . ')';
+            return $code;
+        }
+
         $id = (@$properties['id']) ?: null;
         if (is_string($id)) $id = var_export($id, $noPrint = true);
 
@@ -56,14 +62,15 @@ function createClassCode($fixture) {
 
             if (is_string($value) &&
                 (stristr($property, 'date') !== false || stristr($property, 'time') !== false) &&
-                date_create($value) !== false
+                date_create($value, new DateTimeZone('UTC')) !== false
             ) {
                 $code[] = ["new \\DateTime('$value'))"];
                 continue;
             }
 
             if (in_array($property, ['action', 'status'])) {
-                $code[] = "new $propertyCapitalized($propertyCapitalized::" . strtoupper($value) . '))';
+                $enumValue = strtoupper(ltrim(preg_replace('/([A-Z])/', '_$1', $value), '_'));
+                $code[] = "new $propertyCapitalized($propertyCapitalized::" . strtoupper($enumValue) . '))';
                 continue;
             }
 
@@ -112,6 +119,7 @@ require_once realpath(dirname(__FILE__) . \'/../CaliperTestCase.php\');
 
 use IMSGlobal\Caliper\actions\Action;
 use IMSGlobal\Caliper\entities\DigitalResource;
+use IMSGlobal\Caliper\entities\DigitalResourceCollection;
 use IMSGlobal\Caliper\entities\DigitalResourceType;
 use IMSGlobal\Caliper\entities\EntityType;
 use IMSGlobal\Caliper\entities\LearningContext;
@@ -157,6 +165,7 @@ use IMSGlobal\Caliper\entities\response\ResponseType;
 use IMSGlobal\Caliper\entities\response\SelectTextResponse;
 use IMSGlobal\Caliper\entities\response\TrueFalseResponse;
 use IMSGlobal\Caliper\entities\session\Session;
+use IMSGlobal\Caliper\entities\session\LtiSession;
 use IMSGlobal\Caliper\events\AnnotationEvent;
 use IMSGlobal\Caliper\events\AssessmentEvent;
 use IMSGlobal\Caliper\events\AssessmentItemEvent;

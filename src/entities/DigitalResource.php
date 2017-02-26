@@ -38,7 +38,7 @@ class DigitalResource extends Entity implements Referrable, Targetable, Creative
     private $learningObjectives = [];
     /** @var string[] */
     private $keywords = [];
-    /** @var CreativeWork */
+    /** @var Entity|null */
     private $isPartOf;
     /** @var \DateTime */
     private $datePublished;
@@ -47,47 +47,20 @@ class DigitalResource extends Entity implements Referrable, Targetable, Creative
 
     public function __construct($id) {
         parent::__construct($id);
-        $this->setType(new DigitalResourceType(DigitalResourceType::ASSIGNABLE_DIGITAL_RESOURCE));
-    }
-
-    /**
-     * @return Agent[]
-     */
-    public function getCreators() {
-        return $this->creators;
-    }
-
-    /**
-     * @param Agent[] $creators
-     * @return DigitalResource
-     */
-    public function setCreators($creators) {
-        if (!is_array($creators)) {
-            $creators = [$creators];
-        }
-
-        foreach ($creators as $aCreator) {
-            if (!($aCreator instanceof Agent)) {
-                // Using `Agent::className()` here is tricky.  Using static string for expediency.
-                throw new \InvalidArgumentException(
-                    __METHOD__ . ': array of Agent expected');
-            }
-        }
-
-        $this->creators = $creators;
-        return $this;
+        $this->setType(new EntityType(EntityType::DIGITAL_RESOURCE));
     }
 
     public function jsonSerialize() {
-        return array_merge(parent::jsonSerialize(), [
+        return $this->removeChildEntitySameContexts(array_merge(parent::jsonSerialize(), [
             'objectType' => $this->getObjectTypes(),
             'mediaType' => $this->getMediaType(),
+            'creators' => $this->getCreators(),
             'learningObjectives' => $this->getLearningObjectives(),
             'keywords' => $this->getKeywords(),
             'isPartOf' => $this->getIsPartOf(),
             'datePublished' => TimestampUtil::formatTimeISO8601MillisUTC($this->getDatePublished()),
             'version' => $this->getVersion(),
-        ]);
+        ]));
     }
 
     /**
@@ -101,6 +74,7 @@ class DigitalResource extends Entity implements Referrable, Targetable, Creative
     /**
      * @deprecated 1.2 Redundant.  See "@type".
      * @param string|string[] $objectTypes
+     * @throws \InvalidArgumentException array must contain only strings
      * @return $this|DigitalResource
      */
     public function setObjectTypes($objectTypes) {
@@ -125,6 +99,7 @@ class DigitalResource extends Entity implements Referrable, Targetable, Creative
 
     /**
      * @param string $mediaType
+     * @throws \InvalidArgumentException string required
      * @return DigitalResource
      */
     public function setMediaType($mediaType) {
@@ -136,6 +111,35 @@ class DigitalResource extends Entity implements Referrable, Targetable, Creative
         return $this;
     }
 
+    /**
+     * @return Agent[]
+     */
+    public function getCreators() {
+        return $this->creators;
+    }
+
+    /**
+     * @param Agent[] $creators
+     * @throws \InvalidArgumentException array of Agent required
+     * @return DigitalResource|$this
+     */
+    public function setCreators($creators) {
+        if (!is_array($creators)) {
+            $creators = [$creators];
+        }
+
+        foreach ($creators as $aCreator) {
+            if (!($aCreator instanceof Agent)) {
+                // Using `Agent::className()` here is tricky.  Using static string for expediency.
+                throw new \InvalidArgumentException(
+                    __METHOD__ . ': array of Agent expected');
+            }
+        }
+
+        $this->creators = $creators;
+        return $this;
+    }
+
     /** @return LearningObjective[] learningObjectives */
     public function getLearningObjectives() {
         return $this->learningObjectives;
@@ -143,6 +147,7 @@ class DigitalResource extends Entity implements Referrable, Targetable, Creative
 
     /**
      * @param LearningObjective|LearningObjective[] $learningObjectives
+     * @throws \InvalidArgumentException array must contain only strings
      * @return $this|DigitalResource
      */
     public function setLearningObjectives($learningObjectives) {
@@ -167,6 +172,7 @@ class DigitalResource extends Entity implements Referrable, Targetable, Creative
 
     /**
      * @param string|string[] $keywords
+     * @throws \InvalidArgumentException array must contain only strings
      * @return $this|DigitalResource
      */
     public function setKeywords($keywords) {
@@ -184,16 +190,16 @@ class DigitalResource extends Entity implements Referrable, Targetable, Creative
         return $this;
     }
 
-    /** @return CreativeWork isPartOf */
+    /** @return Entity|null isPartOf */
     public function getIsPartOf() {
         return $this->isPartOf;
     }
 
     /**
-     * @param CreativeWork $isPartOf
+     * @param Entity|null $isPartOf
      * @return $this|DigitalResource
      */
-    public function setIsPartOf(CreativeWork $isPartOf) {
+    public function setIsPartOf(Entity $isPartOf) {
         $this->isPartOf = $isPartOf;
         return $this;
     }
@@ -221,6 +227,7 @@ class DigitalResource extends Entity implements Referrable, Targetable, Creative
 
     /**
      * @param string $version
+     * @throws \InvalidArgumentException string required
      * @return $this|DigitalResource
      */
     public function setVersion($version) {
@@ -232,4 +239,3 @@ class DigitalResource extends Entity implements Referrable, Targetable, Creative
         return $this;
     }
 }
-
