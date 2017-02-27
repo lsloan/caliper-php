@@ -6,7 +6,7 @@ use IMSGlobal\Caliper\context;
 use IMSGlobal\Caliper\entities;
 use IMSGlobal\Caliper\util;
 
-abstract class Event extends util\ClassUtil implements \JsonSerializable {
+class Event extends util\ClassUtil implements \JsonSerializable {
     /** @var context\Context */
     private $context;
     /** @var EventType */
@@ -42,6 +42,7 @@ abstract class Event extends util\ClassUtil implements \JsonSerializable {
 
     public function __construct() {
         $this->setContext(new context\Context(context\Context::CONTEXT));
+        $this->setType(new EventType(EventType::EVENT));
     }
 
     public function jsonSerialize() {
