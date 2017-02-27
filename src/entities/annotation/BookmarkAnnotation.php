@@ -11,9 +11,9 @@ class BookmarkAnnotation extends Annotation {
     }
 
     public function jsonSerialize() {
-        return array_merge(parent::jsonSerialize(), [
+        return $this->removeChildEntitySameContexts(array_merge(parent::jsonSerialize(), [
             'bookmarkNotes' => $this->getBookmarkNotes(),
-        ]);
+        ]));
     }
 
     /** @return string bookmarkNotes */

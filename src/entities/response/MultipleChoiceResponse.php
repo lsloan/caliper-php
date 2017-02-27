@@ -11,9 +11,9 @@ class MultipleChoiceResponse extends Response {
     }
 
     public function jsonSerialize() {
-        return array_merge(parent::jsonSerialize(), [
+        return $this->removeChildEntitySameContexts(array_merge(parent::jsonSerialize(), [
             'value' => $this->getValue(),
-        ]);
+        ]));
     }
 
     /** @return string value */
@@ -23,6 +23,7 @@ class MultipleChoiceResponse extends Response {
 
     /**
      * @param string $value
+     * @throws \InvalidArgumentException string required
      * @return $this|MultipleChoiceResponse
      */
     public function setValue($value) {

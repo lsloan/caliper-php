@@ -13,10 +13,10 @@ class HighlightAnnotation extends Annotation {
     }
 
     public function jsonSerialize() {
-        return array_merge(parent::jsonSerialize(), [
+        return $this->removeChildEntitySameContexts(array_merge(parent::jsonSerialize(), [
             'selection' => $this->getSelection(),
             'selectionText' => $this->getSelectionText()
-        ]);
+        ]));
     }
 
     /**
@@ -44,6 +44,7 @@ class HighlightAnnotation extends Annotation {
 
     /**
      * @param string $selectionText
+     * @throws \InvalidArgumentException string required
      * @return $this|HighlightAnnotation
      */
     public function setSelectionText($selectionText) {

@@ -24,14 +24,14 @@ class Attempt extends entities\Entity implements entities\Generatable {
     }
 
     public function jsonSerialize() {
-        return array_merge(parent::jsonSerialize(), [
+        return $this->removeChildEntitySameContexts(array_merge(parent::jsonSerialize(), [
             'assignable' => $this->getAssignable(),
             'actor' => $this->getActor(),
             'count' => $this->getCount(),
             'startedAtTime' => TimestampUtil::formatTimeISO8601MillisUTC($this->getStartedAtTime()),
             'endedAtTime' => TimestampUtil::formatTimeISO8601MillisUTC($this->getEndedAtTime()),
             'duration' => $this->getDuration(),
-        ]);
+        ]));
     }
 
     /** @return entities\DigitalResource assignable */
@@ -69,6 +69,7 @@ class Attempt extends entities\Entity implements entities\Generatable {
 
     /**
      * @param int $count
+     * @throws \InvalidArgumentException int required
      * @return $this|Attempt
      */
     public function setCount($count) {
@@ -115,6 +116,7 @@ class Attempt extends entities\Entity implements entities\Generatable {
 
     /**
      * @param string|null $duration (ISO 8601 interval)
+     * @throws \InvalidArgumentException ISO 8601 interval string required
      * @return $this|Attempt
      */
     public function setDuration($duration) {

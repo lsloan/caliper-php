@@ -11,9 +11,9 @@ class FillinBlankResponse extends Response {
     }
 
     public function jsonSerialize() {
-        return array_merge(parent::jsonSerialize(), [
+        return $this->removeChildEntitySameContexts(array_merge(parent::jsonSerialize(), [
             'values' => $this->getValues(),
-        ]);
+        ]));
     }
 
     /** @return string[] values */
@@ -23,6 +23,7 @@ class FillinBlankResponse extends Response {
 
     /**
      * @param string|string[] $values
+     * @throws \InvalidArgumentException array of only string required
      * @return $this|FillinBlankResponse
      */
     public function setValues($values) {
