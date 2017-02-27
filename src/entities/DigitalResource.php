@@ -156,8 +156,8 @@ class DigitalResource extends Entity implements Referrable, Targetable, Creative
         }
 
         foreach ($learningObjectives as $aLearningObjective) {
-            if (!is_string($aLearningObjective)) {
-                throw new \InvalidArgumentException(__METHOD__ . ': array of string expected');
+            if (!($aLearningObjective instanceof LearningObjective)) {
+                throw new \InvalidArgumentException(__METHOD__ . ': array of LearningObjective expected');
             }
         }
 

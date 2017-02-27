@@ -12,9 +12,9 @@ abstract class MediaObject extends entities\DigitalResource implements entities\
     }
 
     public function jsonSerialize() {
-        return array_merge(parent::jsonSerialize(), [
+        return $this->removeChildEntitySameContexts(array_merge(parent::jsonSerialize(), [
             'duration' => $this->getDuration(),
-        ]);
+        ]));
     }
 
     /** @return string|null duration (ISO 8601 interval) */
@@ -24,6 +24,7 @@ abstract class MediaObject extends entities\DigitalResource implements entities\
 
     /**
      * @param string|null $duration (ISO 8601 interval)
+     * @throws \InvalidArgumentException ISO 8601 interval string required
      * @return $this|MediaObject
      */
     public function setDuration($duration) {

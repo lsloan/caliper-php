@@ -11,7 +11,7 @@ class Session extends entities\Entity implements entities\Generatable, entities\
     private $startedAtTime;
     /** @var \DateTime */
     private $endedAtTime;
-    /** @var string (seconds) */
+    /** @var string|null ISO 8601 interval */
     private $duration;
 
     public function __construct($id) {
@@ -20,12 +20,12 @@ class Session extends entities\Entity implements entities\Generatable, entities\
     }
 
     public function jsonSerialize() {
-        return array_merge(parent::jsonSerialize(), [
+        return $this->removeChildEntitySameContexts(array_merge(parent::jsonSerialize(), [
             'actor' => $this->getActor(),
             'startedAtTime' => util\TimestampUtil::formatTimeISO8601MillisUTC($this->getStartedAtTime()),
             'endedAtTime' => util\TimestampUtil::formatTimeISO8601MillisUTC($this->getEndedAtTime()),
             'duration' => $this->getDurationFormatted(),
-        ]);
+        ]));
     }
 
     /** @return entities\foaf\Agent actor */
@@ -79,18 +79,25 @@ class Session extends entities\Entity implements entities\Generatable, entities\
         return 'PT' . $this->getDuration() . 'S';
     }
 
-    /** @return string duration (seconds) */
+    /** @return string|null duration (ISO 8601 interval) */
     public function getDuration() {
         return $this->duration;
     }
 
     /**
-     * @param string $duration (seconds)
+     * @param string|null $duration (ISO 8601 interval)
+     * @throws \InvalidArgumentException ISO 8601 interval string required
      * @return $this|Session
      */
     public function setDuration($duration) {
-        if (!is_string($duration)) {
-            throw new \InvalidArgumentException(__METHOD__ . ': string expected');
+        if (!is_null($duration)) {
+            $duration = strval($duration);
+
+            try {
+                $_ = new \DateInterval($duration);
+            } catch (\Exception $exception) {
+                throw new \InvalidArgumentException(__METHOD__ . ': ISO 8601 interval string expected');
+            }
         }
 
         $this->duration = $duration;
