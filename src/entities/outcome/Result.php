@@ -2,12 +2,16 @@
 namespace IMSGlobal\Caliper\entities\outcome;
 
 use IMSGlobal\Caliper\entities;
+use IMSGlobal\Caliper\entities\assignable\Attempt;
 
+/*
+ * TODO: Check the requirements of class properties.
+ * The specification (https://github.com/IMSGlobal/caliper-spec/blob/master/caliper.md#739-result)
+ * is incomplete, so it's not known whether any of the properties are optional.
+ */
 class Result extends entities\Entity implements entities\Generatable {
-    /** @var entities\DigitalResource */
-    private $assignable;
-    /** @var entities\foaf\Agent */
-    private $actor;
+    /** @var Attempt|null */
+    private $attempt;
     /** @var double */
     private $normalScore;
     /** @var double */
@@ -31,13 +35,8 @@ class Result extends entities\Entity implements entities\Generatable {
     }
 
     public function jsonSerialize() {
-        return array_merge(parent::jsonSerialize(), [
-            'assignable' => (!is_null($this->getAssignable()))
-                ? $this->getAssignable()->getId()
-                : null,
-            'actor' => (!is_null($this->getActor()))
-                ? $this->getActor()->getId()
-                : null,
+        return $this->removeChildEntitySameContexts(array_merge(parent::jsonSerialize(), [
+            'attempt' => $this->getAttempt(),
             'normalScore' => $this->getNormalScore(),
             'penaltyScore' => $this->getPenaltyScore(),
             'extraCreditScore' => $this->getExtraCreditScore(),
@@ -46,35 +45,26 @@ class Result extends entities\Entity implements entities\Generatable {
             'curveFactor' => $this->getCurveFactor(),
             'comment' => $this->getComment(),
             'scoredBy' => $this->getScoredBy(),
-        ]);
+        ]));
     }
 
-    /** @return entities\DigitalResource assignable */
-    public function getAssignable() {
-        return $this->assignable;
-    }
-
-    /**
-     * @param entities\DigitalResource $assignable
-     * @return $this|Result
-     */
-    public function setAssignable(entities\DigitalResource $assignable) {
-        $this->assignable = $assignable;
-        return $this;
-    }
-
-    /** @return entities\foaf\Agent actor */
-    public function getActor() {
-        return $this->actor;
+    /** @return Attempt|null */
+    public function getAttempt() {
+        return $this->attempt;
     }
 
     /**
-     * @param entities\foaf\Agent $actor
+     * @param Attempt|null $attempt
+     * @throws \InvalidArgumentException Attempt required
      * @return $this|Result
      */
-    public function setActor(entities\foaf\Agent $actor) {
-        $this->actor = $actor;
-        return $this;
+    public function setAttempt($attempt) {
+        if (is_null($attempt) || ($attempt instanceof Attempt)) {
+            $this->attempt = $attempt;
+            return $this;
+        }
+
+        throw new \InvalidArgumentException(__METHOD__ . ': Attempt expected');
     }
 
     /** @return double normalScore */
@@ -84,6 +74,7 @@ class Result extends entities\Entity implements entities\Generatable {
 
     /**
      * @param double $normalScore
+     * @throws \InvalidArgumentException double required
      * @return $this|Result
      */
     public function setNormalScore($normalScore) {
@@ -102,6 +93,7 @@ class Result extends entities\Entity implements entities\Generatable {
 
     /**
      * @param double $penaltyScore
+     * @throws \InvalidArgumentException double required
      * @return $this|Result
      */
     public function setPenaltyScore($penaltyScore) {
@@ -120,6 +112,7 @@ class Result extends entities\Entity implements entities\Generatable {
 
     /**
      * @param double $extraCreditScore
+     * @throws \InvalidArgumentException double required
      * @return $this|Result
      */
     public function setExtraCreditScore($extraCreditScore) {
@@ -138,6 +131,7 @@ class Result extends entities\Entity implements entities\Generatable {
 
     /**
      * @param double $totalScore
+     * @throws \InvalidArgumentException double required
      * @return $this|Result
      */
     public function setTotalScore($totalScore) {
@@ -156,6 +150,7 @@ class Result extends entities\Entity implements entities\Generatable {
 
     /**
      * @param double $curvedTotalScore
+     * @throws \InvalidArgumentException double required
      * @return $this|Result
      */
     public function setCurvedTotalScore($curvedTotalScore) {
@@ -174,6 +169,7 @@ class Result extends entities\Entity implements entities\Generatable {
 
     /**
      * @param double $curveFactor
+     * @throws \InvalidArgumentException double required
      * @return $this|Result
      */
     public function setCurveFactor($curveFactor) {
@@ -192,6 +188,7 @@ class Result extends entities\Entity implements entities\Generatable {
 
     /**
      * @param string $comment
+     * @throws \InvalidArgumentException string required
      * @return $this|Result
      */
     public function setComment($comment) {
@@ -217,4 +214,3 @@ class Result extends entities\Entity implements entities\Generatable {
         return $this;
     }
 }
-
