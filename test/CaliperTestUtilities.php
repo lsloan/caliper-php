@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Class TestUtilities
+ * Class CaliperTestUtilities
  *
  * Requires PHP 5.6.6 or greater for the "JSON_PRESERVE_ZERO_FRACTION" constant.  This isn't an
  * unreasonable requirement for development purposes.  The rest of caliper-php works with PHP 5.4.
  */
-class TestUtilities {
+class CaliperTestUtilities {
     private static function formatJson($json) {
         $objects = json_decode($json);
         self::ksortObjectsRecursive($objects);
