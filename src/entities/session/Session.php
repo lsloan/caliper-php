@@ -2,16 +2,17 @@
 namespace IMSGlobal\Caliper\entities\session;
 
 use IMSGlobal\Caliper\entities;
+use IMSGlobal\Caliper\entities\foaf\Agent;
 use IMSGlobal\Caliper\util;
 
 class Session extends entities\Entity implements entities\Generatable, entities\Targetable {
-    /** @var entities\foaf\Agent */
-    private $actor;
+    /** @var Agent|null */
+    private $user;
     /** @var \DateTime */
     private $startedAtTime;
     /** @var \DateTime */
     private $endedAtTime;
-    /** @var string (seconds) */
+    /** @var string|null ISO 8601 interval */
     private $duration;
 
     public function __construct($id) {
@@ -20,26 +21,31 @@ class Session extends entities\Entity implements entities\Generatable, entities\
     }
 
     public function jsonSerialize() {
-        return array_merge(parent::jsonSerialize(), [
-            'actor' => $this->getActor(),
+        return $this->removeChildEntitySameContexts(array_merge(parent::jsonSerialize(), [
+            'user' => $this->getUser(),
             'startedAtTime' => util\TimestampUtil::formatTimeISO8601MillisUTC($this->getStartedAtTime()),
             'endedAtTime' => util\TimestampUtil::formatTimeISO8601MillisUTC($this->getEndedAtTime()),
-            'duration' => $this->getDurationFormatted(),
-        ]);
+            'duration' => $this->getDuration(),
+        ]));
     }
 
-    /** @return entities\foaf\Agent actor */
-    public function getActor() {
-        return $this->actor;
+    /** @return Agent|null user */
+    public function getUser() {
+        return $this->user;
     }
 
     /**
-     * @param entities\foaf\Agent $actor
+     * @param Agent|null $user
+     * @throws \InvalidArgumentException Agent required
      * @return $this|Session
      */
-    public function setActor(entities\foaf\Agent $actor) {
-        $this->actor = $actor;
-        return $this;
+    public function setUser($user) {
+        if (is_null($user) || ($user instanceof Agent)) {
+            $this->user = $user;
+            return $this;
+        }
+
+        throw new \InvalidArgumentException(__METHOD__ . ': Agent expected');
     }
 
     /** @return \DateTime startedAtTime */
@@ -70,27 +76,25 @@ class Session extends entities\Entity implements entities\Generatable, entities\
         return $this;
     }
 
-    /** @return null|string Duration in seconds formatted according to ISO 8601 ("PTnnnnS") */
-    public function getDurationFormatted() {
-        if ($this->getDuration() === null) {
-            return null;
-        }
-
-        return 'PT' . $this->getDuration() . 'S';
-    }
-
-    /** @return string duration (seconds) */
+    /** @return string|null duration (ISO 8601 interval) */
     public function getDuration() {
         return $this->duration;
     }
 
     /**
-     * @param string $duration (seconds)
+     * @param string|null $duration (ISO 8601 interval)
+     * @throws \InvalidArgumentException ISO 8601 interval string required
      * @return $this|Session
      */
     public function setDuration($duration) {
-        if (!is_string($duration)) {
-            throw new \InvalidArgumentException(__METHOD__ . ': string expected');
+        if (!is_null($duration)) {
+            $duration = strval($duration);
+
+            try {
+                $_ = new \DateInterval($duration);
+            } catch (\Exception $exception) {
+                throw new \InvalidArgumentException(__METHOD__ . ': ISO 8601 interval string expected');
+            }
         }
 
         $this->duration = $duration;
