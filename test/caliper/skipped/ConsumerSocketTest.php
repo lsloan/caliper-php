@@ -1,5 +1,4 @@
 <?php
-require_once realpath(dirname(__FILE__) . '/caliper/CaliperTestCase.php');
 
 /**
  * These tests may require an eventstore endpoint

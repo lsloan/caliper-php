@@ -7,8 +7,8 @@ class ApiTest extends PHPUnit_Framework_TestCase {
 
     function setUp() {
         date_default_timezone_set('UTC');
-        $this->markTestSkipped('Fix these tests to use a readily available server or setup/mock their own server');
-        IMSGlobal\Caliper\Sensor::init("testapiKey");
+        $this->markTestSkipped('TODO: Update these tests to use a testing server or mock their own.');
+        IMSGlobal\Caliper\Sensor::init('testapiKey');
     }
 
     /**
@@ -32,7 +32,6 @@ class ApiTest extends PHPUnit_Framework_TestCase {
      * @group caliper
      */
     function testSend() {
-    	$this->markTestSkipped('Fix this test to not instantiate Event()');
         $caliperEvent = new IMSGlobal\Caliper\events\Event();
         $caliperEvent->setAction("HILIGHT");
         $caliperEvent->setLearningContext(array(
