@@ -3,18 +3,6 @@ require_once realpath(dirname(__FILE__) . '/../../vendor/autoload.php');
 
 define('CALIPER_LIB_PATH', realpath(dirname(__FILE__) . '/..'));
 
-require_once 'TestAgentEntities.php';
-require_once 'TestAnnotationEntities.php';
-require_once 'TestAssessmentEntities.php';
-require_once 'TestAssignableEntities.php';
-require_once 'TestEntities.php';
-require_once 'TestLisEntities.php';
-require_once 'TestMediaEntities.php';
-require_once 'TestReadingEntities.php';
-require_once 'TestRequests.php';
-require_once 'TestResponseEntities.php';
-require_once 'TestSessionEntities.php';
-require_once 'TestTimes.php';
 require_once realpath(dirname(__FILE__) . '/../util/TestUtilities.php');
 
 class CaliperTestCase extends PHPUnit_Framework_TestCase {
