@@ -202,7 +202,7 @@ class Event extends util\ClassUtil implements \JsonSerializable {
 
     /**
      * @param entities\Referrable $referrer
-     * @return $this
+     * @return $this|Event
      */
     public function setReferrer(entities\Referrable $referrer) {
         $this->referrer = $referrer;

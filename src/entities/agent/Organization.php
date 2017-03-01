@@ -29,7 +29,7 @@ class Organization extends entities\Entity implements entities\foaf\Agent, entit
 
     /**
      * @param entities\foaf\Agent[] $members
-     * @return $this
+     * @return $this|Organization
      */
     public function setMembers($members) {
         if (!is_null($members)) {
@@ -43,7 +43,7 @@ class Organization extends entities\Entity implements entities\foaf\Agent, entit
                 }
             }
         }
-        
+
         $this->members = $members;
         return $this;
     }
