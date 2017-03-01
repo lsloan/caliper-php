@@ -62,7 +62,7 @@ class Membership extends entities\Entity implements entities\w3c\Membership {
 
     /**
      * @param entities\w3c\Role|entities\w3c\Role[] $roles
-     * @return Membership|$this
+     * @return $this|Membership
      */
     public function setRoles($roles) {
         if (!is_array($roles)) {

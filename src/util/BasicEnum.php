@@ -14,11 +14,12 @@ namespace IMSGlobal\Caliper\util;
  */
 abstract class BasicEnum implements \JsonSerializable {
     const __BASICENUM_DEFAULT_KEY = '__default';
-    private static $constCacheArray = NULL;
+    private static $constCacheArray = null;
     private $value;
 
     /**
      * Instantiate a BasicEnum object with the specified value.
+     *
      * @param mixed|null $value
      */
     public function __construct($value = null) {

@@ -77,6 +77,25 @@ class Attempt extends entities\Entity implements entities\Generatable {
         throw new \InvalidArgumentException(__METHOD__ . ': Agent expected');
     }
 
+    /** @return Attempt|null */
+    public function getIsPartOf() {
+        return $this->isPartOf;
+    }
+
+    /**
+     * @param Attempt|null $isPartOf
+     * @throws \InvalidArgumentException Attempt required
+     * @return $this|Attempt
+     */
+    public function setIsPartOf($isPartOf) {
+        if (is_null($isPartOf) || ($isPartOf instanceof Attempt)) {
+            $this->isPartOf = $isPartOf;
+            return $this;
+        }
+
+        throw new \InvalidArgumentException(__METHOD__ . ': Attempt expected');
+    }
+
     /** @return int count */
     public function getCount() {
         return $this->count;
@@ -147,24 +166,5 @@ class Attempt extends entities\Entity implements entities\Generatable {
 
         $this->duration = $duration;
         return $this;
-    }
-
-    /** @return Attempt|null */
-    public function getIsPartOf() {
-        return $this->isPartOf;
-    }
-
-    /**
-     * @param Attempt|null $isPartOf
-     * @throws \InvalidArgumentException Attempt required
-     * @return $this|Attempt
-     */
-    public function setIsPartOf($isPartOf) {
-        if (is_null($isPartOf) || ($isPartOf instanceof Attempt)) {
-            $this->isPartOf = $isPartOf;
-            return $this;
-        }
-
-        throw new \InvalidArgumentException(__METHOD__ . ': Attempt expected');
     }
 }
