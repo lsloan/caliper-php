@@ -3,7 +3,9 @@ namespace IMSGlobal\Caliper\util;
 
 class TimestampUtil {
     /**
-     * Given a \DateTime object, return a string representation in ISO 8601 format, including milliseconds, in UTC.
+     * Given a \DateTime object, return a string representation in ISO 8601 format, including
+     * milliseconds, in UTC.
+     *
      * @param \DateTime $timestamp
      * @return string formatted timestamp
      */

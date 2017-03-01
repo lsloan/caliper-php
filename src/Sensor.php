@@ -73,6 +73,7 @@ class Sensor {
 
     /**
      * Send learning events
+     *
      * @param Sensor $sensor
      * @param Event|Event[] $events
      * @throws \InvalidArgumentException if $events doesn't contain Event objects
@@ -98,6 +99,7 @@ class Sensor {
 
     /**
      * Ensures that some clients are set.
+     *
      * @throws \RuntimeException if no clients are registered
      */
     private function checkClients() {
@@ -110,6 +112,7 @@ class Sensor {
 
     /**
      * Describe entities
+     *
      * @param Sensor $sensor
      * @param Entity|Entity[] $entities
      * @throws \InvalidArgumentException if $events doesn't contain Entity objects

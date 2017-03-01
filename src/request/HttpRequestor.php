@@ -63,7 +63,7 @@ class HttpRequestor extends Requestor {
             );
 
             $request->setOptions([
-                'timeout' => $this->getOptions()->getConnectionTimeout()
+                'timeout' => $this->getOptions()->getConnectionTimeout(),
             ]);
 
             $client = (new \http\Client)->enqueue($request)->send();

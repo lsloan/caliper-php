@@ -9,6 +9,7 @@ use IMSGlobal\Caliper\entities\assignable\Attempt;
  * The specification (https://github.com/IMSGlobal/caliper-spec/blob/master/caliper.md#739-result)
  * is incomplete, so it's not known whether any of the properties are optional.
  */
+
 class Result extends entities\Entity implements entities\Generatable {
     /** @var Attempt|null */
     private $attempt;
