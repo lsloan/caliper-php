@@ -7,19 +7,6 @@
  * unreasonable requirement for development purposes.  The rest of caliper-php works with PHP 5.4.
  */
 class CaliperTestUtilities {
-    private static function formatJson($json) {
-        $objects = json_decode($json);
-        self::ksortObjectsRecursive($objects);
-
-        return json_encode($objects, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT | JSON_PRESERVE_ZERO_FRACTION);
-    }
-
-    private static function writeJsonFile($jsonFilePath, $formattedJson) {
-        if (file_put_contents($jsonFilePath, $formattedJson) === false) {
-            throw new PHPUnit_Runner_Exception("Error writing '${$jsonFilePath}'");
-        }
-    }
-
     public static function saveFormattedFixtureAndTestJson($fixtureJson, $testJson,
                                                            $filename, $outputDirectoryPath) {
         if ($outputDirectoryPath !== false) {
@@ -28,6 +15,19 @@ class CaliperTestUtilities {
             self::writeJsonFile($outputDirectoryPath . DIRECTORY_SEPARATOR . $filename . '_fixture.json',
                 self::formatJson($fixtureJson));
         }
+    }
+
+    private static function writeJsonFile($jsonFilePath, $formattedJson) {
+        if (file_put_contents($jsonFilePath, $formattedJson) === false) {
+            throw new PHPUnit_Runner_Exception("Error writing '${$jsonFilePath}'");
+        }
+    }
+
+    private static function formatJson($json) {
+        $objects = json_decode($json);
+        self::ksortObjectsRecursive($objects);
+
+        return json_encode($objects, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT | JSON_PRESERVE_ZERO_FRACTION);
     }
 
     public static function ksortObjectsRecursive(&$data, $sortFlags = SORT_REGULAR) {

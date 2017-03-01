@@ -16,23 +16,13 @@ class EntityMembershipTest extends CaliperTestCase {
     function setUp() {
         parent::setUp();
 
-        $this->setTestObject(
-            (new Membership('https://example.edu/terms/201601/courses/7/sections/1/rosters/1/members/554433'))
-                ->setMember(
-                    (new Person('https://example.edu/users/554433'))
-                )
-                ->setOrganization(
-                    (new CourseSection('https://example.edu/terms/201601/courses/7/sections/1'))
-                        ->setSubOrganizationOf(
-                            (new CourseOffering('https://example.edu/terms/201601/courses/7'))
-                        )
-                )
-                ->setRoles(
-                    [new Role(Role::LEARNER)])
-                ->setStatus(
-                    new Status(Status::ACTIVE))
-                ->setDateCreated(
-                    new \DateTime('2016-11-01T06:00:00.000Z'))
-        );
+        $this->setTestObject((new Membership('https://example.edu/terms/201601/courses/7/sections/1/rosters/1/members/554433'))
+            ->setMember(new Person('https://example.edu/users/554433'))
+            ->setOrganization((new CourseSection('https://example.edu/terms/201601/courses/7/sections/1'))
+                ->setSubOrganizationOf(new CourseOffering('https://example.edu/terms/201601/courses/7'))
+            )
+            ->setRoles([new Role(Role::LEARNER)])
+            ->setStatus(new Status(Status::ACTIVE))
+            ->setDateCreated(new \DateTime('2016-11-01T06:00:00.000Z')));
     }
 }

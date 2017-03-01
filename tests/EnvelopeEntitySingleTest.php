@@ -25,7 +25,7 @@ class EnvelopeEntitySingleTest extends CaliperTestCase {
                     ])
                     ->setIsPartOf((new DigitalResourceCollection('https://example.edu/terms/201601/courses/7/sections/1/resources/1'))
                         ->setName('Course Assets')
-                        ->setIsPartOf((new CourseSection('https://example.edu/terms/201601/courses/7/sections/1')))
+                        ->setIsPartOf(new CourseSection('https://example.edu/terms/201601/courses/7/sections/1'))
                     )
                     ->setDateCreated(new \DateTime('2016-08-02T11:32:00.000Z')),
             ])

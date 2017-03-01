@@ -10,7 +10,6 @@ use IMSGlobal\Caliper\entities\lis\CourseSection;
  * PHPUnit grouping
  * @group needsWork
  */
-
 class ConsumerSocketTest extends PHPUnit_Framework_TestCase {
 
     private $client;
@@ -19,7 +18,7 @@ class ConsumerSocketTest extends PHPUnit_Framework_TestCase {
 
     function setUp() {
         $this->client = new IMSGlobal\Caliper\Client('testApiKey', [
-            'consumer' => 'socket'
+            'consumer' => 'socket',
         ]);
 
         // $this->caliperEntity = new IMSGlobal\Caliper\entities\Entity();
@@ -31,7 +30,7 @@ class ConsumerSocketTest extends PHPUnit_Framework_TestCase {
     function testTimeout() {
         $client = new IMSGlobal\Caliper\Client('testApiKey', [
             'timeout' => 0.01,
-            'consumer' => 'socket'
+            'consumer' => 'socket',
         ]);
 
 
@@ -64,7 +63,7 @@ class ConsumerSocketTest extends PHPUnit_Framework_TestCase {
             'error_handler' => function ($errno, $errmsg) {
                 if ($errno != 400)
                     throw new Exception('Response is not 400');
-            }
+            },
         ];
 
         $client = new IMSGlobal\Caliper\Client('x', $options);
@@ -82,7 +81,7 @@ class ConsumerSocketTest extends PHPUnit_Framework_TestCase {
     function testLargeMessage() {
         $options = [
             'debug' => true,
-            'consumer' => 'socket'
+            'consumer' => 'socket',
         ];
 
         $client = new IMSGlobal\Caliper\Client('testApiKey', $options);
@@ -101,7 +100,6 @@ class ConsumerSocketTest extends PHPUnit_Framework_TestCase {
             ->setDateCreated(new \DateTime())
             ->setCategory('Engineering')
             ->setDescription($large_message_body);
-
 
 
         $client->describe($ce);

@@ -23,102 +23,48 @@ class EventAssessmentItemCompletedTest extends CaliperTestCase {
     function setUp() {
         parent::setUp();
 
-        $this->setTestObject(
-            (new AssessmentItemEvent())
-                ->setActor(
-                    (new Person('https://example.edu/users/554433'))
+        $this->setTestObject((new AssessmentItemEvent())
+            ->setActor(new Person('https://example.edu/users/554433'))
+            ->setAction(new Action(Action::COMPLETED))
+            ->setObject((new Attempt('https://example.edu/terms/201601/courses/7/sections/1/assess/1/items/3/users/554433/attempts/1'))
+                ->setAssignee(new Person('https://example.edu/users/554433'))
+                ->setAssignable((new AssessmentItem('https://example.edu/terms/201601/courses/7/sections/1/assess/1/items/3'))
+                    ->setName('Assessment Item 3')
+                    ->setIsPartOf(new Assessment('https://example.edu/terms/201601/courses/7/sections/1/assess/1'))
                 )
-                ->setAction(
-                    new Action(Action::COMPLETED))
-                ->setObject(
-                    (new Attempt('https://example.edu/terms/201601/courses/7/sections/1/assess/1/items/3/users/554433/attempts/1'))
-                        ->setAssignee(
-                            (new Person('https://example.edu/users/554433'))
-                        )
-                        ->setAssignable(
-                            (new AssessmentItem('https://example.edu/terms/201601/courses/7/sections/1/assess/1/items/3'))
-                                ->setName(
-                                    'Assessment Item 3'
-                                )
-                                ->setIsPartOf(
-                                    (new Assessment('https://example.edu/terms/201601/courses/7/sections/1/assess/1'))
-                                )
-                        )
-                        ->setIsPartOf(
-                            (new Attempt('https://example.edu/terms/201601/courses/7/sections/1/assess/1/users/554433/attempts/1'))
-                        )
-                        ->setCount(
-                            1
-                        )
-                        ->setDateCreated(
-                            new \DateTime('2016-11-15T10:15:02.000Z'))
-                        ->setStartedAtTime(
-                            new \DateTime('2016-11-15T10:15:02.000Z'))
-                        ->setEndedAtTime(
-                            new \DateTime('2016-11-15T10:15:12.000Z'))
-                )
-                ->setGenerated(
-                    (new FillinBlankResponse('https://example.edu/terms/201601/courses/7/sections/1/assess/1/items/3/users/554433/responses/1'))
-                        ->setAttempt(
-                            (new Attempt('https://example.edu/terms/201601/courses/7/sections/1/assess/1/items/3/users/554433/attempts/1'))
-                        )
-                        ->setDateCreated(
-                            new \DateTime('2016-11-15T10:15:12.000Z'))
-                        ->setStartedAtTime(
-                            new \DateTime('2016-11-15T10:15:02.000Z'))
-                        ->setEndedAtTime(
-                            new \DateTime('2016-11-15T10:15:12.000Z'))
-                        ->setValues(
-                            [
-                                'subject'
-                                ,
-                                'object'
-                                ,
-                                'predicate'
-                                ,
-                            ]
-                        )
-                )
-                ->setEventTime(
-                    new \DateTime('2016-11-15T10:15:12.000Z'))
-                ->setEdApp(
-                    (new SoftwareApplication('https://example.edu'))
-                        ->setVersion(
-                            'v2'
-                        )
-                )
-                ->setGroup(
-                    (new CourseSection('https://example.edu/terms/201601/courses/7/sections/1'))
-                        ->setCourseNumber(
-                            'CPS 435-01'
-                        )
-                        ->setAcademicSession(
-                            'Fall 2016'
-                        )
-                )
-                ->setMembership(
-                    (new Membership('https://example.edu/terms/201601/courses/7/sections/1/rosters/1'))
-                        ->setMember(
-                            (new Person('https://example.edu/users/554433'))
-                        )
-                        ->setOrganization(
-                            (new CourseSection('https://example.edu/terms/201601/courses/7/sections/1'))
-                        )
-                        ->setRoles(
-                            [new Role(Role::LEARNER)])
-                        ->setStatus(
-                            new Status(Status::ACTIVE))
-                        ->setDateCreated(
-                            new \DateTime('2016-08-01T06:00:00.000Z'))
-                )
-                ->setSession(
-                    (new Session('https://example.edu/sessions/1f6442a482de72ea6ad134943812bff564a76259'))
-                        ->setStartedAtTime(
-                            new \DateTime('2016-11-15T10:00:00.000Z'))
-                )
-                ->setUuid(
-                    'e5891791-3d27-4df1-a272-091806a43dfb'
-                )
+                ->setIsPartOf(new Attempt('https://example.edu/terms/201601/courses/7/sections/1/assess/1/users/554433/attempts/1'))
+                ->setCount(1)
+                ->setDateCreated(new \DateTime('2016-11-15T10:15:02.000Z'))
+                ->setStartedAtTime(new \DateTime('2016-11-15T10:15:02.000Z'))
+                ->setEndedAtTime(new \DateTime('2016-11-15T10:15:12.000Z')))
+            ->setGenerated((new FillinBlankResponse('https://example.edu/terms/201601/courses/7/sections/1/assess/1/items/3/users/554433/responses/1'))
+                ->setAttempt(new Attempt('https://example.edu/terms/201601/courses/7/sections/1/assess/1/items/3/users/554433/attempts/1'))
+                ->setDateCreated(new \DateTime('2016-11-15T10:15:12.000Z'))
+                ->setStartedAtTime(new \DateTime('2016-11-15T10:15:02.000Z'))
+                ->setEndedAtTime(new \DateTime('2016-11-15T10:15:12.000Z'))
+                ->setValues([
+                    'subject',
+                    'object',
+                    'predicate',
+                ])
+            )
+            ->setEventTime(new \DateTime('2016-11-15T10:15:12.000Z'))
+            ->setEdApp((new SoftwareApplication('https://example.edu'))
+                ->setVersion('v2')
+            )
+            ->setGroup((new CourseSection('https://example.edu/terms/201601/courses/7/sections/1'))
+                ->setCourseNumber('CPS 435-01')
+                ->setAcademicSession('Fall 2016')
+            )
+            ->setMembership((new Membership('https://example.edu/terms/201601/courses/7/sections/1/rosters/1'))
+                ->setMember(new Person('https://example.edu/users/554433'))
+                ->setOrganization(new CourseSection('https://example.edu/terms/201601/courses/7/sections/1'))
+                ->setRoles([new Role(Role::LEARNER)])
+                ->setStatus(new Status(Status::ACTIVE))
+                ->setDateCreated(new \DateTime('2016-08-01T06:00:00.000Z')))
+            ->setSession((new Session('https://example.edu/sessions/1f6442a482de72ea6ad134943812bff564a76259'))
+                ->setStartedAtTime(new \DateTime('2016-11-15T10:00:00.000Z')))
+            ->setUuid('e5891791-3d27-4df1-a272-091806a43dfb')
         );
     }
 }
