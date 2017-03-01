@@ -23,6 +23,8 @@ class EnvelopeEventSingleTest extends CaliperTestCase {
         parent::setUp();
 
         $this->setTestObject((new \IMSGlobal\Caliper\request\Envelope())
+            ->setSensorId(new Sensor('https://example.edu/sensors/1'))
+            ->setSendTime(new \DateTime('2016-11-15T11:05:01.000Z'))
             ->setData([
                 (new AssessmentEvent())
                     ->setActor(new Person('https://example.edu/users/554433'))
@@ -36,7 +38,8 @@ class EnvelopeEventSingleTest extends CaliperTestCase {
                         ->setAssignee(new Person('https://example.edu/users/554433'))
                         ->setCount(1)
                         ->setDateCreated(new \DateTime('2016-11-15T10:15:00.000Z'))
-                        ->setStartedAtTime(new \DateTime('2016-11-15T10:15:00.000Z')))
+                        ->setStartedAtTime(new \DateTime('2016-11-15T10:15:00.000Z'))
+                    )
                     ->setGroup((new CourseSection('https://example.edu/terms/201601/courses/7/sections/1'))
                         ->setAcademicSession('Fall 2016')
                         ->setCourseNumber('CPS 435-01')
@@ -46,7 +49,8 @@ class EnvelopeEventSingleTest extends CaliperTestCase {
                         ->setMember(new Person('https://example.edu/users/554433'))
                         ->setOrganization(new CourseSection('https://example.edu/terms/201601/courses/7/sections/1'))
                         ->setRoles(new Role(Role::LEARNER))
-                        ->setStatus(new Status(Status::ACTIVE)))
+                        ->setStatus(new Status(Status::ACTIVE))
+                    )
                     ->setObject((new Assessment('https://example.edu/terms/201601/courses/7/sections/1/assess/1'))
                         ->setDateToStartOn(new \DateTime('2016-11-14T05:00:00.000Z'))
                         ->setDateToSubmit(new \DateTime('2016-11-18T11:59:59.000Z'))
@@ -57,10 +61,10 @@ class EnvelopeEventSingleTest extends CaliperTestCase {
                         ->setVersion('1.0')
                     )
                     ->setSession((new Session('https://example.edu/sessions/1f6442a482de72ea6ad134943812bff564a76259'))
-                        ->setStartedAtTime(new \DateTime('2016-11-15T10:00:00.000Z')))
+                        ->setStartedAtTime(new \DateTime('2016-11-15T10:00:00.000Z'))
+                    )
                     ->setUuid('c51570e4-f8ed-4c18-bb3a-dfe51b2cc594'),
             ])
-            ->setSendTime(new \DateTime('2016-11-15T11:05:01.000Z'))
-            ->setSensorId(new Sensor('https://example.edu/sensors/1')));
+        );
     }
 }
