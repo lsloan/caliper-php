@@ -5,7 +5,7 @@ use IMSGlobal\Caliper\entities\agent\Organization;
 
 
 /**
- * @requires PHP 5.4
+ * @requires PHP 5.6.28
  */
 class EntityOrganizationTest extends CaliperTestCase {
     function setUp() {

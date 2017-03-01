@@ -9,7 +9,7 @@ use IMSGlobal\Caliper\entities\response\MultipleResponseResponse;
 
 
 /**
- * @requires PHP 5.4
+ * @requires PHP 5.6.28
  */
 class EntityMultipleResponseResponseTest extends CaliperTestCase {
     function setUp() {

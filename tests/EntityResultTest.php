@@ -9,7 +9,7 @@ use IMSGlobal\Caliper\entities\outcome\Result;
 
 
 /**
- * @requires PHP 5.4
+ * @requires PHP 5.6.28
  */
 class EntityResultTest extends CaliperTestCase {
     function setUp() {

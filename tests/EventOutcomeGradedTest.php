@@ -12,7 +12,7 @@ use IMSGlobal\Caliper\events\OutcomeEvent;
 
 
 /**
- * @requires PHP 5.4
+ * @requires PHP 5.6.28
  */
 class EventOutcomeGradedTest extends CaliperTestCase {
     function setUp() {

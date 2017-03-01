@@ -8,7 +8,7 @@ use IMSGlobal\Caliper\entities\lis\CourseSection;
 
 
 /**
- * @requires PHP 5.4
+ * @requires PHP 5.6.28
  */
 class EntityDigitalResourceTest extends CaliperTestCase {
     function setUp() {

@@ -9,7 +9,7 @@ use IMSGlobal\Caliper\entities\response\SelectTextResponse;
 
 
 /**
- * @requires PHP 5.4
+ * @requires PHP 5.6.28
  */
 class EntitySelectTextResponseTest extends CaliperTestCase {
     function setUp() {

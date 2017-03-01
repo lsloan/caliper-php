@@ -7,7 +7,7 @@ use IMSGlobal\Caliper\entities\reading\Chapter;
 
 
 /**
- * @requires PHP 5.4
+ * @requires PHP 5.6.28
  */
 class EntityBookmarkAnnotationTest extends CaliperTestCase {
     function setUp() {

@@ -9,7 +9,7 @@ use IMSGlobal\Caliper\events\SessionEvent;
 
 
 /**
- * @requires PHP 5.4
+ * @requires PHP 5.6.28
  */
 class EventSessionLoggedOutTest extends CaliperTestCase {
     function setUp() {

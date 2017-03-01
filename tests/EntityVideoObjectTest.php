@@ -5,7 +5,7 @@ use IMSGlobal\Caliper\entities\media\VideoObject;
 
 
 /**
- * @requires PHP 5.4
+ * @requires PHP 5.6.28
  */
 class EntityVideoObjectTest extends CaliperTestCase {
     function setUp() {

@@ -14,7 +14,7 @@ use IMSGlobal\Caliper\events\ViewEvent;
 
 
 /**
- * @requires PHP 5.4
+ * @requires PHP 5.6.28
  */
 class EventViewViewedTest extends CaliperTestCase {
     function setUp() {

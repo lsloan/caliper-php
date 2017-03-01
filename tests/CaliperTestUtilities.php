@@ -3,8 +3,7 @@
 /**
  * Class CaliperTestUtilities
  *
- * Requires PHP 5.6.6 or greater for the "JSON_PRESERVE_ZERO_FRACTION" constant.  This isn't an
- * unreasonable requirement for development purposes.  The rest of caliper-php works with PHP 5.4.
+ * @requires PHP 5.6.28
  */
 class CaliperTestUtilities {
     public static function saveFormattedFixtureAndTestJson($fixtureJson, $testJson,

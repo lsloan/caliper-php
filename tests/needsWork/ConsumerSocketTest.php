@@ -5,7 +5,7 @@ use IMSGlobal\Caliper\entities\lis\CourseSection;
  * These tests may require an eventstore endpoint
  *
  * @requires extension fix_these_tests
- * @requires PHP 5.4
+ * @requires PHP 5.6.28
  *
  * PHPUnit grouping
  * @group needsWork

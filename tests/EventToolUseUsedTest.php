@@ -13,7 +13,7 @@ use IMSGlobal\Caliper\events\ToolUseEvent;
 
 
 /**
- * @requires PHP 5.4
+ * @requires PHP 5.6.28
  */
 class EventToolUseUsedTest extends CaliperTestCase {
     function setUp() {
