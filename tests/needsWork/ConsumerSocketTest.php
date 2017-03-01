@@ -1,10 +1,14 @@
 <?php
+use IMSGlobal\Caliper\entities\lis\CourseSection;
 
 /**
  * These tests may require an eventstore endpoint
  *
  * @requires extension fix_these_tests
- * @requires PHP 5.4
+ * @requires PHP 5.6.28
+ *
+ * PHPUnit grouping
+ * @group needsWork
  */
 class ConsumerSocketTest extends PHPUnit_Framework_TestCase {
 
@@ -14,22 +18,19 @@ class ConsumerSocketTest extends PHPUnit_Framework_TestCase {
 
     function setUp() {
         $this->client = new IMSGlobal\Caliper\Client('testApiKey', [
-            'consumer' => 'socket'
+            'consumer' => 'socket',
         ]);
 
-        $this->caliperEntity = new IMSGlobal\Caliper\entities\Entity();
-        $this->caliperEntity->setId('course-1234');
-        $this->caliperEntity->setType('course');
-        $this->caliperEntity->setProperties([
-            'program' => 'Engineering',
-            'start-date' => time()
-        ]);
+        // $this->caliperEntity = new IMSGlobal\Caliper\entities\Entity();
+        $this->caliperEntity = (new CourseSection('_:course-1234'))
+            ->setDateCreated(new \DateTime())
+            ->setCategory('Engineering');
     }
 
     function testTimeout() {
         $client = new IMSGlobal\Caliper\Client('testApiKey', [
             'timeout' => 0.01,
-            'consumer' => 'socket'
+            'consumer' => 'socket',
         ]);
 
 
@@ -62,7 +63,7 @@ class ConsumerSocketTest extends PHPUnit_Framework_TestCase {
             'error_handler' => function ($errno, $errmsg) {
                 if ($errno != 400)
                     throw new Exception('Response is not 400');
-            }
+            },
         ];
 
         $client = new IMSGlobal\Caliper\Client('x', $options);
@@ -80,25 +81,26 @@ class ConsumerSocketTest extends PHPUnit_Framework_TestCase {
     function testLargeMessage() {
         $options = [
             'debug' => true,
-            'consumer' => 'socket'
+            'consumer' => 'socket',
         ];
 
         $client = new IMSGlobal\Caliper\Client('testApiKey', $options);
 
-        $large_message_body = '';
+        $large_message_body = str_repeat('a', 10000);
 
-        for ($i = 0; $i < 10000; $i++) {
-            $large_message_body .= 'a';
-        }
+        // $ce = new IMSGlobal\Caliper\entities\Entity();
+        // $ce->setId('course-1234');
+        // $ce->setType('course');
+        // $ce->setProperties([
+        //     'program' => 'Engineering',
+        //     'start-date' => time(),
+        //     'big_property' => $large_message_body
+        // ]);
+        $ce = (new CourseSection('_:course-1234'))
+            ->setDateCreated(new \DateTime())
+            ->setCategory('Engineering')
+            ->setDescription($large_message_body);
 
-        $ce = new IMSGlobal\Caliper\entities\Entity();
-        $ce->setId('course-1234');
-        $ce->setType('course');
-        $ce->setProperties([
-            'program' => 'Engineering',
-            'start-date' => time(),
-            'big_property' => $large_message_body
-        ]);
 
         $client->describe($ce);
 

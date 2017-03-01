@@ -1,7 +1,11 @@
 <?php
+use IMSGlobal\Caliper\entities\lis\CourseSection;
 
 /**
- * @requires PHP 5.4
+ * @requires PHP 5.6.28
+ *
+ * PHPUnit grouping
+ * @group needsWork
  */
 class ApiTest extends PHPUnit_Framework_TestCase {
 
@@ -11,33 +15,24 @@ class ApiTest extends PHPUnit_Framework_TestCase {
         IMSGlobal\Caliper\Sensor::init('testapiKey');
     }
 
-    /**
-     * @group caliper
-     */
     function testDescribe() {
-    	$this->markTestSkipped('Fix this test to not instantiate abstract class Entity()');
-        $caliperEntity = new IMSGlobal\Caliper\entities\Entity();
-        $caliperEntity->setId("course-1234");
-        $caliperEntity->setType("course");
-        $caliperEntity->setProperties(array(
-            "program" => "Engineering",
-            "start-date" => time(),
-        ));
+        $this->markTestSkipped('Fix this test to not instantiate abstract class Entity()');
+        // $caliperEntity = new IMSGlobal\Caliper\entities\Entity();
+        $caliperEntity = (new CourseSection('_:course-1234'))
+            ->setDateCreated(new \DateTime())
+            ->setCategory('Engineering');
 
         $described = IMSGlobal\Caliper\Sensor::describe($caliperEntity);
         $this->assertTrue($described);
     }
 
-    /**
-     * @group caliper
-     */
     function testSend() {
         $caliperEvent = new IMSGlobal\Caliper\events\Event();
         $caliperEvent->setAction("HILIGHT");
-        $caliperEvent->setLearningContext(array(
+        $caliperEvent->setLearningContext([
             "courseId" => "course-1234",
             "userId" => "user-1234",
-        ));
+        ]);
 
         $sent = IMSGlobal\Caliper\Sensor::send($caliperEvent);
         $this->assertTrue($sent);
