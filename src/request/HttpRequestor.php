@@ -43,7 +43,7 @@ class HttpRequestor extends Requestor {
             }
         }
 
-        $envelope = $this->createEnvelope($sensor, new \DateTime(), $items);
+        $envelope = $this->createEnvelope($sensor, $items);
         $payload = $this->serializeData($envelope);
 
         $headers = [
