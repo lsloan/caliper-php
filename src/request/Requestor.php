@@ -13,7 +13,7 @@ abstract class Requestor {
      * @param Sensor $sensor
      * @param Entity|Event|Entity[]|Event[] $data
      * @param \DateTime $sendTime For accuracy, use an object that includes fractional seconds.
-     *     See {@see \IMSGlobal\Caliper\util\TimestampUtil::getTimeWithMicroseconds}
+     *     See {@see TimestampUtil::getTimeWithMicroseconds()}
      * @return Envelope
      */
     public function createEnvelope(Sensor $sensor, $data, \DateTime $sendTime = null) {
