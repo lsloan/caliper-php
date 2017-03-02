@@ -29,7 +29,7 @@ class TimestampUtil {
      *
      * @return \DateTime timestamp
      */
-    static function getCurrentDateTimeWithMicroseconds() {
+    static function getTimeWithMicroseconds() {
         return \DateTime::createFromFormat('U.u', number_format(microtime($returnFloat = true), 6, '.', ''));
     }
 }
