@@ -43,7 +43,7 @@ class EventForumSubscribedTest extends CaliperTestCase {
                 ->setDateCreated(new \DateTime('2016-08-01T06:00:00.000Z')))
             ->setSession((new Session('https://example.edu/sessions/1f6442a482de72ea6ad134943812bff564a76259'))
                 ->setStartedAtTime(new \DateTime('2016-11-15T10:00:00.000Z')))
-            ->setUuid('a2f41f9c-d57d-4400-b3fe-716b9026334e')
+            ->setId('urn:uuid:a2f41f9c-d57d-4400-b3fe-716b9026334e')
         );
     }
 }

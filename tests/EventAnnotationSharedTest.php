@@ -52,7 +52,7 @@ class EventAnnotationSharedTest extends CaliperTestCase {
                 ->setDateCreated(new \DateTime('2016-08-01T06:00:00.000Z')))
             ->setSession((new Session('https://example.edu/sessions/1f6442a482de72ea6ad134943812bff564a76259'))
                 ->setStartedAtTime(new \DateTime('2016-11-15T10:00:00.000Z')))
-            ->setUuid('3bdab9e6-11cd-4a0f-9d09-8e363994176b')
+            ->setId('urn:uuid:3bdab9e6-11cd-4a0f-9d09-8e363994176b')
         );
     }
 }

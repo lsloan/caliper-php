@@ -16,7 +16,7 @@ class EventSessionLoggedInExtendedTest extends CaliperTestCase {
         parent::setUp();
 
         $this->setTestObject((new SessionEvent())
-            ->setUuid('4ec2c31e-3ec0-4fe1-a017-b81561b075d7')
+            ->setId('urn:uuid:4ec2c31e-3ec0-4fe1-a017-b81561b075d7')
             ->setActor(new Person('https://example.edu/users/554433'))
             ->setAction(new Action(Action::LOGGED_IN))
             ->setObject((new SoftwareApplication('https://example.edu'))

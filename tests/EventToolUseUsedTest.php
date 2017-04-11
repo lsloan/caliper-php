@@ -37,7 +37,7 @@ class EventToolUseUsedTest extends CaliperTestCase {
                 ->setDateCreated(new \DateTime('2016-08-01T06:00:00.000Z')))
             ->setSession((new Session('https://example.edu/sessions/1f6442a482de72ea6ad134943812bff564a76259'))
                 ->setStartedAtTime(new \DateTime('2016-11-15T10:00:00.000Z')))
-            ->setUuid('7e10e4f3-a0d8-4430-95bd-783ffae4d916')
+            ->setId('urn:uuid:7e10e4f3-a0d8-4430-95bd-783ffae4d916')
         );
     }
 }

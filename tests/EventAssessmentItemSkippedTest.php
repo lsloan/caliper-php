@@ -51,7 +51,7 @@ class EventAssessmentItemSkippedTest extends CaliperTestCase {
                 ->setDateCreated(new \DateTime('2016-08-01T06:00:00.000Z')))
             ->setSession((new Session('https://example.edu/sessions/1f6442a482de72ea6ad134943812bff564a76259'))
                 ->setStartedAtTime(new \DateTime('2016-11-15T10:00:00.000Z')))
-            ->setUuid('04e27704-73bf-4d3c-912c-1b2da40aef8f')
+            ->setId('urn:uuid:04e27704-73bf-4d3c-912c-1b2da40aef8f')
         );
     }
 }
