@@ -46,7 +46,7 @@ class EventThreadMarkedAsReadTest extends CaliperTestCase {
                 ->setDateCreated(new \DateTime('2016-08-01T06:00:00.000Z')))
             ->setSession((new Session('https://example.edu/sessions/1f6442a482de72ea6ad134943812bff564a76259'))
                 ->setStartedAtTime(new \DateTime('2016-11-15T10:00:00.000Z')))
-            ->setUuid('6b20c5ba-301c-4e56-85a0-2f3d9a94c249')
+            ->setId('urn:uuid:6b20c5ba-301c-4e56-85a0-2f3d9a94c249')
         );
     }
 }

@@ -24,7 +24,7 @@ class EventBasicModifiedExtendedTest extends CaliperTestCase {
                 ->setVersion('2')
             )
             ->setEventTime(new \DateTime('2016-11-15T10:15:00.000Z'))
-            ->setUuid('5973dcd9-3126-4dcc-8fd8-8153a155361c')
+            ->setId('urn:uuid:5973dcd9-3126-4dcc-8fd8-8153a155361c')
             ->setExtensions([
                 [
                     '@context' => [

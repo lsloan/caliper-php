@@ -23,7 +23,7 @@ class EventBasicCreatedTest extends CaliperTestCase {
                 ->setVersion('1')
             )
             ->setEventTime(new \DateTime('2016-11-15T10:15:00.000Z'))
-            ->setUuid('3a648e68-f00d-4c08-aa59-8738e1884f2c')
+            ->setId('urn:uuid:3a648e68-f00d-4c08-aa59-8738e1884f2c')
         );
     }
 }

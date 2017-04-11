@@ -43,7 +43,7 @@ class EventViewViewedTest extends CaliperTestCase {
                 ->setDateCreated(new \DateTime('2016-08-01T06:00:00.000Z')))
             ->setSession((new Session('https://example.edu/sessions/1f6442a482de72ea6ad134943812bff564a76259'))
                 ->setStartedAtTime(new \DateTime('2016-11-15T10:00:00.000Z')))
-            ->setUuid('cd088ca7-c044-405c-bb41-0b2a8506f907')
+            ->setId('urn:uuid:cd088ca7-c044-405c-bb41-0b2a8506f907')
         );
     }
 }

@@ -44,7 +44,7 @@ class EventNavigationNavigatedToFedSessionTest extends CaliperTestCase {
                 ->setDateCreated(new \DateTime('2016-08-01T06:00:00.000Z')))
             ->setSession((new Session('https://example.com/sessions/b533eb02823f31024e6b7f53436c42fb99b31241'))
                 ->setStartedAtTime(new \DateTime('2016-11-15T10:00:00.000Z')))
-            ->setUuid('4be6d29d-5728-44cd-8a8f-3d3f07e46b61')
+            ->setId('urn:uuid:4be6d29d-5728-44cd-8a8f-3d3f07e46b61')
             ->setFederatedSession((new LtiSession('https://example.com/sessions/b533eb02823f31024e6b7f53436c42fb99b31241'))
                 ->setUser(new Person('https://example.edu/users/554433'))
                 ->setLaunchParameters([

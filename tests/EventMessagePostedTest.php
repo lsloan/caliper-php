@@ -53,7 +53,7 @@ class EventMessagePostedTest extends CaliperTestCase {
                 ->setDateCreated(new \DateTime('2016-08-01T06:00:00.000Z')))
             ->setSession((new Session('https://example.edu/sessions/1f6442a482de72ea6ad134943812bff564a76259'))
                 ->setStartedAtTime(new \DateTime('2016-11-15T10:00:00.000Z')))
-            ->setUuid('0d015a85-abf5-49ee-abb1-46dbd57fe64e')
+            ->setId('urn:uuid:0d015a85-abf5-49ee-abb1-46dbd57fe64e')
         );
     }
 }

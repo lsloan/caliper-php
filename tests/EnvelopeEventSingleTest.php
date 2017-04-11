@@ -63,7 +63,7 @@ class EnvelopeEventSingleTest extends CaliperTestCase {
                     ->setSession((new Session('https://example.edu/sessions/1f6442a482de72ea6ad134943812bff564a76259'))
                         ->setStartedAtTime(new \DateTime('2016-11-15T10:00:00.000Z'))
                     )
-                    ->setUuid('c51570e4-f8ed-4c18-bb3a-dfe51b2cc594'),
+                    ->setId('urn:uuid:c51570e4-f8ed-4c18-bb3a-dfe51b2cc594'),
             ])
         );
     }

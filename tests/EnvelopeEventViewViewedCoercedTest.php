@@ -91,7 +91,7 @@ class EnvelopeEventViewViewedCoercedTest extends CaliperTestCase {
                     ->setSession((new Session('https://example.edu/sessions/1f6442a482de72ea6ad134943812bff564a76259'))
                         ->setContext(new TestContext(TestContext::NULL))
                         ->setStartedAtTime(new \DateTime('2016-11-15T10:00:00.000Z')))
-                    ->setUuid('e6f54458-19e3-47e3-bc18-43f231c74a45'),
+                    ->setId('urn:uuid:e6f54458-19e3-47e3-bc18-43f231c74a45'),
             ])
         );
     }

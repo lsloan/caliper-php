@@ -16,7 +16,7 @@ class EventSessionTimedOutTest extends CaliperTestCase {
         parent::setUp();
 
         $this->setTestObject((new SessionEvent())
-            ->setUuid('4e61cf6c-ffbe-45bc-893f-afe7ad4079dc')
+            ->setId('urn:uuid:4e61cf6c-ffbe-45bc-893f-afe7ad4079dc')
             ->setActor(new SoftwareApplication('https://example.edu'))
             ->setAction(new Action(Action::TIMED_OUT))
             ->setObject((new Session('https://example.edu/sessions/7d6b88adf746f0692e2e873308b78c60fb13a864'))

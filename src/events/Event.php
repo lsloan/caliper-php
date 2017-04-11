@@ -38,7 +38,7 @@ class Event extends util\ClassUtil implements \JsonSerializable {
     /** @var array[] */
     private $extensions;
     /** @var string */
-    private $uuid;
+    private $id;
 
     public function __construct() {
         $this->setContext(new context\Context(context\Context::CONTEXT));
@@ -46,8 +46,8 @@ class Event extends util\ClassUtil implements \JsonSerializable {
     }
 
     public function jsonSerialize() {
-        if ($this->getUuid() === null) {
-            $this->setUuid(uniqid());
+        if ($this->getId() === null) {
+            $this->setId(uniqid());
         }
 
         return $this->removeChildEntitySameContexts([
@@ -64,23 +64,23 @@ class Event extends util\ClassUtil implements \JsonSerializable {
             'group' => $this->getGroup(),
             'membership' => $this->getMembership(),
             'session' => $this->getSession(),
-            'uuid' => $this->getUuid(),
+            'id' => $this->getId(),
             'extensions' => $this->getExtensions(),
             'federatedSession' => $this->getFederatedSession(),
         ]);
     }
 
     /** @return string */
-    public function getUuid() {
-        return $this->uuid;
+    public function getId() {
+        return $this->id;
     }
 
     /**
-     * @param string $uuid
+     * @param string $id
      * @return Event
      */
-    public function setUuid($uuid) {
-        $this->uuid = strval($uuid);
+    public function setId($id) {
+        $this->id = strval($id);
         return $this;
     }
 

@@ -53,7 +53,7 @@ class EnvelopeEventBatchTest extends CaliperTestCase {
                         ->setDateCreated(new \DateTime('2016-08-01T06:00:00.000Z')))
                     ->setSession((new Session('https://example.edu/sessions/1f6442a482de72ea6ad134943812bff564a76259'))
                         ->setStartedAtTime(new \DateTime('2016-11-15T10:00:00.000Z')))
-                    ->setUuid('72f66ce5-d2ec-44cc-bce5-41602e1015dc'),
+                    ->setId('urn:uuid:72f66ce5-d2ec-44cc-bce5-41602e1015dc'),
                 (new AnnotationEvent())
                     ->setActor(new Person('https://example.edu/users/554433'))
                     ->setAction(new Action(Action::BOOKMARKED))
@@ -83,7 +83,7 @@ class EnvelopeEventBatchTest extends CaliperTestCase {
                         ->setDateCreated(new \DateTime('2016-08-01T06:00:00.000Z')))
                     ->setSession((new Session('https://example.edu/sessions/1f6442a482de72ea6ad134943812bff564a76259'))
                         ->setStartedAtTime(new \DateTime('2016-11-15T10:00:00.000Z')))
-                    ->setUuid('c0afa013-64df-453f-b0a6-50f3efbe4cc0'),
+                    ->setId('urn:uuid:c0afa013-64df-453f-b0a6-50f3efbe4cc0'),
                 (new ViewEvent())
                     ->setActor(new Person('https://example.edu/users/554433'))
                     ->setAction(new Action(Action::VIEWED))
@@ -107,7 +107,7 @@ class EnvelopeEventBatchTest extends CaliperTestCase {
                         ->setDateCreated(new \DateTime('2016-08-01T06:00:00.000Z')))
                     ->setSession((new Session('https://example.edu/sessions/1f6442a482de72ea6ad134943812bff564a76259'))
                         ->setStartedAtTime(new \DateTime('2016-11-15T10:00:00.000Z')))
-                    ->setUuid('94bad4bd-a7b1-4c3e-ade4-2253efe65172'),
+                    ->setId('urn:uuid:94bad4bd-a7b1-4c3e-ade4-2253efe65172'),
             ])
         );
     }

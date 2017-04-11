@@ -43,7 +43,7 @@ class EventOutcomeGradedTest extends CaliperTestCase {
                 ->setCourseNumber('CPS 435-01')
                 ->setAcademicSession('Fall 2016')
             )
-            ->setUuid('a50ca17f-5971-47bb-8fca-4e6e6879001d')
+            ->setId('urn:uuid:a50ca17f-5971-47bb-8fca-4e6e6879001d')
         );
     }
 }

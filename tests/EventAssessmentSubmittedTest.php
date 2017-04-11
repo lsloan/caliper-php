@@ -57,7 +57,7 @@ class EventAssessmentSubmittedTest extends CaliperTestCase {
                 ->setDateCreated(new \DateTime('2016-08-01T06:00:00.000Z')))
             ->setSession((new Session('https://example.edu/sessions/1f6442a482de72ea6ad134943812bff564a76259'))
                 ->setStartedAtTime(new \DateTime('2016-11-15T10:00:00.000Z')))
-            ->setUuid('dad88464-0c20-4a19-a1ba-ddf2f9c3ff33')
+            ->setId('urn:uuid:dad88464-0c20-4a19-a1ba-ddf2f9c3ff33')
         );
     }
 }
