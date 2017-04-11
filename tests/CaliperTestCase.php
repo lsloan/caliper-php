@@ -3,6 +3,7 @@ require_once realpath(dirname(__FILE__) . '/../vendor/autoload.php');
 
 define('CALIPER_LIB_PATH', realpath(dirname(__FILE__) . '/..'));
 
+require_once 'CaliperTestClasses.php';
 require_once 'CaliperTestUtilities.php';
 
 class CaliperTestCase extends PHPUnit_Framework_TestCase {
