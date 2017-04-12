@@ -11,8 +11,13 @@ class EntityPersonTest extends CaliperTestCase {
     function setUp() {
         parent::setUp();
 
-        $this->setTestObject((new Person('https://example.edu/users/554433'))
-            ->setDateCreated(new \DateTime('2016-08-01T06:00:00.000Z'))
-            ->setDateModified(new \DateTime('2016-09-02T11:30:00.000Z')));
+
+        $this->setTestObject(
+            (new Person('https://example.edu/users/554433'))
+                ->setDateCreated(
+                    new \DateTime('2016-08-01T06:00:00.000Z'))
+                ->setDateModified(
+                    new \DateTime('2016-09-02T11:30:00.000Z'))
+        );
     }
 }

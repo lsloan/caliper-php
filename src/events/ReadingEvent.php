@@ -13,8 +13,8 @@ class ReadingEvent extends Event {
      *
      * @deprecated 1.2
      */
-    public function __construct() {
-        parent::__construct();
+    public function __construct($id = null) {
+        parent::__construct($id);
         $this->setType(new EventType(EventType::READING));
     }
 }
