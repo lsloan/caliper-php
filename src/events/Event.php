@@ -40,9 +40,10 @@ class Event extends util\ClassUtil implements \JsonSerializable {
     /** @var string */
     private $id;
 
-    public function __construct() {
-        $this->setContext(new context\Context(context\Context::CONTEXT));
-        $this->setType(new EventType(EventType::EVENT));
+    public function __construct($id = null) {
+        $this->setId($id)
+            ->setType(new EventType(EventType::EVENT))
+            ->setContext(new context\Context(context\Context::CONTEXT));
     }
 
     public function jsonSerialize() {
@@ -80,7 +81,11 @@ class Event extends util\ClassUtil implements \JsonSerializable {
      * @return Event
      */
     public function setId($id) {
-        $this->id = strval($id);
+        if (!is_null($id)) {
+            $id = strval($id);
+        }
+
+        $this->id = $id;
         return $this;
     }
 
