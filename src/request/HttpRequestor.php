@@ -43,7 +43,7 @@ class HttpRequestor extends Requestor {
             }
         }
 
-        $envelope = $this->createEnvelope($sensor, new \DateTime(), $items);
+        $envelope = $this->createEnvelope($sensor, $items);
         $payload = $this->serializeData($envelope);
 
         $headers = [
@@ -63,7 +63,7 @@ class HttpRequestor extends Requestor {
             );
 
             $request->setOptions([
-                'timeout' => $this->getOptions()->getConnectionTimeout()
+                'timeout' => $this->getOptions()->getConnectionTimeout(),
             ]);
 
             $client = (new \http\Client)->enqueue($request)->send();

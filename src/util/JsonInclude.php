@@ -6,7 +6,8 @@ namespace IMSGlobal\Caliper\util;
  *
  * Inspired by JsonInclude.Include from Jackson, a JSON library for Java.
  *
- * See: http://fasterxml.github.io/jackson-annotations/javadoc/2.0.5/com/fasterxml/jackson/annotation/JsonInclude.Include.html
+ * See:
+ * http://fasterxml.github.io/jackson-annotations/javadoc/2.0.5/com/fasterxml/jackson/annotation/JsonInclude.Include.html
  */
 class JsonInclude extends BasicEnum {
     const

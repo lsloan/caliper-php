@@ -15,7 +15,7 @@ class HighlightAnnotation extends Annotation {
     public function jsonSerialize() {
         return $this->removeChildEntitySameContexts(array_merge(parent::jsonSerialize(), [
             'selection' => $this->getSelection(),
-            'selectionText' => $this->getSelectionText()
+            'selectionText' => $this->getSelectionText(),
         ]));
     }
 

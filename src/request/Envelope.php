@@ -17,7 +17,7 @@ class Envelope implements \JsonSerializable {
     private $data;
 
     public function __construct() {
-        $this->setSendTime(new \DateTime());
+        $this->setSendTime(util\TimestampUtil::getTimeWithMicroseconds());
         $this->setDataVersion(Context::CONTEXT);
     }
 

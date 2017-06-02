@@ -20,30 +20,60 @@ class EventForumSubscribedTest extends CaliperTestCase {
     function setUp() {
         parent::setUp();
 
-        $this->setTestObject((new ForumEvent())
-            ->setActor(new Person('https://example.edu/users/554433'))
-            ->setAction(new Action(Action::SUBSCRIBED))
-            ->setObject((new Forum('https://example.edu/terms/201601/courses/7/sections/1/forums/1'))
-                ->setName('Caliper Forum')
-                ->setIsPartOf(new CourseSection('https://example.edu/terms/201601/courses/7/sections/1'))
-                ->setDateCreated(new \DateTime('2016-09-14T11:00:00.000Z')))
-            ->setEventTime(new \DateTime('2016-11-15T10:16:00.000Z'))
-            ->setEdApp((new SoftwareApplication('https://example.edu/forums'))
-                ->setVersion('v2')
-            )
-            ->setGroup((new CourseSection('https://example.edu/terms/201601/courses/7/sections/1'))
-                ->setCourseNumber('CPS 435-01')
-                ->setAcademicSession('Fall 2016')
-            )
-            ->setMembership((new Membership('https://example.edu/terms/201601/courses/7/sections/1/rosters/1'))
-                ->setMember(new Person('https://example.edu/users/554433'))
-                ->setOrganization(new CourseSection('https://example.edu/terms/201601/courses/7/sections/1'))
-                ->setRoles([new Role(Role::LEARNER)])
-                ->setStatus(new Status(Status::ACTIVE))
-                ->setDateCreated(new \DateTime('2016-08-01T06:00:00.000Z')))
-            ->setSession((new Session('https://example.edu/sessions/1f6442a482de72ea6ad134943812bff564a76259'))
-                ->setStartedAtTime(new \DateTime('2016-11-15T10:00:00.000Z')))
-            ->setUuid('a2f41f9c-d57d-4400-b3fe-716b9026334e')
+
+        $this->setTestObject(
+            (new ForumEvent('urn:uuid:a2f41f9c-d57d-4400-b3fe-716b9026334e'))
+                ->setActor(
+                    (new Person('https://example.edu/users/554433'))
+                )
+                ->setAction(
+                    new Action(Action::SUBSCRIBED))
+                ->setObject(
+                    (new Forum('https://example.edu/terms/201601/courses/7/sections/1/forums/1'))
+                        ->setName(
+                            'Caliper Forum'
+                        )
+                        ->setIsPartOf(
+                            (new CourseSection('https://example.edu/terms/201601/courses/7/sections/1'))
+                        )
+                        ->setDateCreated(
+                            new \DateTime('2016-09-14T11:00:00.000Z'))
+                )
+                ->setEventTime(
+                    new \DateTime('2016-11-15T10:16:00.000Z'))
+                ->setEdApp(
+                    (new SoftwareApplication('https://example.edu/forums'))
+                        ->setVersion(
+                            'v2'
+                        )
+                )
+                ->setGroup(
+                    (new CourseSection('https://example.edu/terms/201601/courses/7/sections/1'))
+                        ->setCourseNumber(
+                            'CPS 435-01'
+                        )
+                        ->setAcademicSession(
+                            'Fall 2016'
+                        )
+                )
+                ->setMembership(
+                    (new Membership('https://example.edu/terms/201601/courses/7/sections/1/rosters/1'))
+                        ->setMember(
+                            new MemberReference('https://example.edu/users/554433'))
+                        ->setOrganization(
+                            new OrganizationReference('https://example.edu/terms/201601/courses/7/sections/1'))
+                        ->setRoles(
+                            [new Role(Role::LEARNER)])
+                        ->setStatus(
+                            new Status(Status::ACTIVE))
+                        ->setDateCreated(
+                            new \DateTime('2016-08-01T06:00:00.000Z'))
+                )
+                ->setSession(
+                    (new Session('https://example.edu/sessions/1f6442a482de72ea6ad134943812bff564a76259'))
+                        ->setStartedAtTime(
+                            new \DateTime('2016-11-15T10:00:00.000Z'))
+                )
         );
     }
 }

@@ -100,7 +100,7 @@ class DigitalResource extends Entity implements Referrable, Targetable, Creative
     /**
      * @param string $mediaType
      * @throws \InvalidArgumentException string required
-     * @return DigitalResource
+     * @return $this|DigitalResource
      */
     public function setMediaType($mediaType) {
         if (!is_string($mediaType)) {
@@ -121,7 +121,7 @@ class DigitalResource extends Entity implements Referrable, Targetable, Creative
     /**
      * @param Agent[] $creators
      * @throws \InvalidArgumentException array of Agent required
-     * @return DigitalResource|$this
+     * @return $this|DigitalResource
      */
     public function setCreators($creators) {
         if (!is_array($creators)) {

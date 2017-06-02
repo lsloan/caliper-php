@@ -43,7 +43,8 @@ class JsonUtil {
     }
 
     /**
-     * Return function for use with array_filter() to keep only nonempty structures and nonnull values.
+     * Return function for use with array_filter() to keep only nonempty structures and nonnull
+     * values.
      *
      * This method returns a function so it's not necessary to specify the filter function to
      * array_filter() by using its name in a string.

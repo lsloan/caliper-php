@@ -38,16 +38,17 @@ class Event extends util\ClassUtil implements \JsonSerializable {
     /** @var array[] */
     private $extensions;
     /** @var string */
-    private $uuid;
+    private $id;
 
-    public function __construct() {
-        $this->setContext(new context\Context(context\Context::CONTEXT));
-        $this->setType(new EventType(EventType::EVENT));
+    public function __construct($id = null) {
+        $this->setId($id)
+            ->setType(new EventType(EventType::EVENT))
+            ->setContext(new context\Context(context\Context::CONTEXT));
     }
 
     public function jsonSerialize() {
-        if ($this->getUuid() === null) {
-            $this->setUuid(uniqid());
+        if ($this->getId() === null) {
+            $this->setId(uniqid());
         }
 
         return $this->removeChildEntitySameContexts([
@@ -64,23 +65,27 @@ class Event extends util\ClassUtil implements \JsonSerializable {
             'group' => $this->getGroup(),
             'membership' => $this->getMembership(),
             'session' => $this->getSession(),
-            'uuid' => $this->getUuid(),
+            'id' => $this->getId(),
             'extensions' => $this->getExtensions(),
             'federatedSession' => $this->getFederatedSession(),
         ]);
     }
 
     /** @return string */
-    public function getUuid() {
-        return $this->uuid;
+    public function getId() {
+        return $this->id;
     }
 
     /**
-     * @param string $uuid
+     * @param string $id
      * @return Event
      */
-    public function setUuid($uuid) {
-        $this->uuid = strval($uuid);
+    public function setId($id) {
+        if (!is_null($id)) {
+            $id = strval($id);
+        }
+
+        $this->id = $id;
         return $this;
     }
 
@@ -202,7 +207,7 @@ class Event extends util\ClassUtil implements \JsonSerializable {
 
     /**
      * @param entities\Referrable $referrer
-     * @return $this
+     * @return $this|Event
      */
     public function setReferrer(entities\Referrable $referrer) {
         $this->referrer = $referrer;

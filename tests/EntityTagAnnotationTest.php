@@ -3,7 +3,7 @@ require_once 'CaliperTestCase.php';
 
 use IMSGlobal\Caliper\entities\agent\Person;
 use IMSGlobal\Caliper\entities\annotation\TagAnnotation;
-use IMSGlobal\Caliper\entities\reading\Chapter;
+use IMSGlobal\Caliper\entities\Page;
 
 
 /**
@@ -13,14 +13,27 @@ class EntityTagAnnotationTest extends CaliperTestCase {
     function setUp() {
         parent::setUp();
 
-        $this->setTestObject((new TagAnnotation('https://example.edu/users/554433/etexts/201/tags/3'))
-            ->setAnnotator(new Person('https://example.edu/users/554433'))
-            ->setAnnotated(new Chapter('https://example.edu/etexts/201.epub#epubcfi(/6/4[chap01]!/4[body01]/12[para06]/1:97)'))
-            ->setTags([
-                'profile',
-                'event',
-                'entity',
-            ])
-            ->setDateCreated(new \DateTime('2016-08-01T09:00:00.000Z')));
+
+        $this->setTestObject(
+            (new TagAnnotation('https://example.com/users/554433/texts/imscaliperimplguide/tags/3'))
+                ->setAnnotator(
+                    (new Person('https://example.edu/users/554433'))
+                )
+                ->setAnnotated(
+                    (new Page('https://example.com/#/texts/imscaliperimplguide/cfi/6/10!/4/2/2/2@0:0'))
+                )
+                ->setTags(
+                    [
+                        'profile'
+                        ,
+                        'event'
+                        ,
+                        'entity'
+                        ,
+                    ]
+                )
+                ->setDateCreated(
+                    new \DateTime('2016-08-01T09:00:00.000Z'))
+        );
     }
 }

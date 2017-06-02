@@ -3,7 +3,9 @@ namespace IMSGlobal\Caliper\util;
 
 class Type {
     /**
-     * Return true if the argument is an array and all of its keys are strings.  Otherwise, return false.
+     * Return true if the argument is an array and all of its keys are strings.  Otherwise, return
+     * false.
+     *
      * @param array $array
      * @return bool formatted timestamp
      */

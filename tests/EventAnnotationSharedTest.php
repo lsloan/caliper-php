@@ -21,38 +21,78 @@ class EventAnnotationSharedTest extends CaliperTestCase {
     function setUp() {
         parent::setUp();
 
-        $this->setTestObject((new AnnotationEvent())
-            ->setActor(new Person('https://example.edu/users/554433'))
-            ->setAction(new Action(Action::SHARED))
-            ->setObject((new Document('https://example.edu/etexts/201.epub'))
-                ->setName('IMS Caliper Implementation Guide')
-                ->setVersion('1.1')
-            )
-            ->setGenerated((new SharedAnnotation('https://example.edu/users/554433/etexts/201/shares/1'))
-                ->setAnnotator(new Person('https://example.edu/users/554433'))
-                ->setAnnotated(new Document('https://example.edu/etexts/201.epub'))
-                ->setWithAgents([
-                    (new Person('https://example.edu/users/657585')),
-                    (new Person('https://example.edu/users/667788')),
-                ])
-                ->setDateCreated(new \DateTime('2016-11-15T10:15:00.000Z')))
-            ->setEventTime(new \DateTime('2016-11-15T10:15:00.000Z'))
-            ->setEdApp((new SoftwareApplication('https://example.edu'))
-                ->setVersion('1.2.3')
-            )
-            ->setGroup((new CourseSection('https://example.edu/terms/201601/courses/7/sections/1'))
-                ->setCourseNumber('CPS 435-01')
-                ->setAcademicSession('Fall 2016')
-            )
-            ->setMembership((new Membership('https://example.edu/terms/201601/courses/7/sections/1/rosters/1'))
-                ->setMember(new Person('https://example.edu/users/554433'))
-                ->setOrganization(new CourseSection('https://example.edu/terms/201601/courses/7/sections/1'))
-                ->setRoles([new Role(Role::LEARNER)])
-                ->setStatus(new Status(Status::ACTIVE))
-                ->setDateCreated(new \DateTime('2016-08-01T06:00:00.000Z')))
-            ->setSession((new Session('https://example.edu/sessions/1f6442a482de72ea6ad134943812bff564a76259'))
-                ->setStartedAtTime(new \DateTime('2016-11-15T10:00:00.000Z')))
-            ->setUuid('3bdab9e6-11cd-4a0f-9d09-8e363994176b')
+
+        $this->setTestObject(
+            (new AnnotationEvent('urn:uuid:3bdab9e6-11cd-4a0f-9d09-8e363994176b'))
+                ->setActor(
+                    (new Person('https://example.edu/users/554433'))
+                )
+                ->setAction(
+                    new Action(Action::SHARED))
+                ->setObject(
+                    (new Document('https://example.com/#/texts/imscaliperimplguide'))
+                        ->setName(
+                            'IMS Caliper Implementation Guide'
+                        )
+                        ->setVersion(
+                            '1.1'
+                        )
+                )
+                ->setGenerated(
+                    (new SharedAnnotation('https://example.com/users/554433/texts/imscaliperimplguide/shares/1'))
+                        ->setAnnotator(
+                            new AnnotatorReference('https://example.edu/users/554433'))
+                        ->setAnnotated(
+                            new AnnotatedReference('https://example.com/#/texts/imscaliperimplguide'))
+                        ->setWithAgents(
+                            [
+                                (new Person('https://example.edu/users/657585'))
+                                ,
+                                (new Person('https://example.edu/users/667788'))
+                                ,
+                            ]
+                        )
+                        ->setDateCreated(
+                            new \DateTime('2016-11-15T10:15:00.000Z'))
+                )
+                ->setEventTime(
+                    new \DateTime('2016-11-15T10:15:00.000Z'))
+                ->setEdApp(
+                    (new SoftwareApplication('https://example.com/reader'))
+                        ->setName(
+                            'ePub Reader'
+                        )
+                        ->setVersion(
+                            '1.2.3'
+                        )
+                )
+                ->setGroup(
+                    (new CourseSection('https://example.edu/terms/201601/courses/7/sections/1'))
+                        ->setCourseNumber(
+                            'CPS 435-01'
+                        )
+                        ->setAcademicSession(
+                            'Fall 2016'
+                        )
+                )
+                ->setMembership(
+                    (new Membership('https://example.edu/terms/201601/courses/7/sections/1/rosters/1'))
+                        ->setMember(
+                            new MemberReference('https://example.edu/users/554433'))
+                        ->setOrganization(
+                            new OrganizationReference('https://example.edu/terms/201601/courses/7/sections/1'))
+                        ->setRoles(
+                            [new Role(Role::LEARNER)])
+                        ->setStatus(
+                            new Status(Status::ACTIVE))
+                        ->setDateCreated(
+                            new \DateTime('2016-08-01T06:00:00.000Z'))
+                )
+                ->setSession(
+                    (new Session('https://example.com/sessions/1f6442a482de72ea6ad134943812bff564a76259'))
+                        ->setStartedAtTime(
+                            new \DateTime('2016-11-15T10:00:00.000Z'))
+                )
         );
     }
 }

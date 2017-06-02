@@ -30,7 +30,7 @@ class Message extends DigitalResource {
     /**
      * @param null|string $body
      * @throws \InvalidArgumentException string required
-     * @return Message\$this
+     * @return $this|Message
      */
     public function setBody($body) {
         if (is_null($body) || is_string($body)) {
@@ -49,7 +49,7 @@ class Message extends DigitalResource {
     /**
      * @param Message|null $replyTo
      * @throws \InvalidArgumentException Message required
-     * @return Message|$this
+     * @return $this|Message
      */
     public function setReplyTo($replyTo) {
         if (!is_null($replyTo) && !($replyTo instanceof Message)) {
@@ -68,7 +68,7 @@ class Message extends DigitalResource {
     /**
      * @param DigitalResource|DigitalResource[]|null $attachments
      * @throws \InvalidArgumentException array of DigitalResource required
-     * @return Message|$this
+     * @return $this|Message
      */
     public function setAttachments($attachments) {
         if (!is_null($attachments)) {

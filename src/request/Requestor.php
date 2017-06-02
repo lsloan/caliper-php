@@ -11,15 +11,19 @@ use IMSGlobal\Caliper\util\JsonUtil;
 abstract class Requestor {
     /**
      * @param Sensor $sensor
-     * @param \DateTime $sendTime
      * @param Entity|Event|Entity[]|Event[] $data
+     * @param \DateTime $sendTime For accuracy, use an object that includes fractional seconds.
+     *     See {@see TimestampUtil::getTimeWithMicroseconds()}
      * @return Envelope
      */
-    public function createEnvelope(Sensor $sensor, \DateTime $sendTime, $data) {
-        return (new Envelope())
+    public function createEnvelope(Sensor $sensor, $data, \DateTime $sendTime = null) {
+        $envelope = (new Envelope())
             ->setSensorId($sensor)
-            ->setSendTime($sendTime)
             ->setData($data);
+
+        if (!is_null($sendTime)) $envelope->setSendTime($sendTime);
+
+        return $envelope;
     }
 
     /**
