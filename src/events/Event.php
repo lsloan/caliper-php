@@ -15,7 +15,7 @@ class Event extends util\ClassUtil implements \JsonSerializable {
     private $actor;
     /** @var actions\Action */
     private $action;
-    /** @var object */
+    /** @var entities\Entity */
     private $object;
     /** @var entities\Targetable */
     private $target;
@@ -153,23 +153,23 @@ class Event extends util\ClassUtil implements \JsonSerializable {
         return $this;
     }
 
-    /** @return object object */
+    /** @return entities\Entity object */
     public function getObject() {
         return $this->object;
     }
 
     /**
-     * @param object $object
-     * @throws \InvalidArgumentException object required
+     * @param entities\Entity $object
+     * @throws \InvalidArgumentException Entity required
      * @return $this|Event
      */
     public function setObject($object) {
-        if (!is_object($object)) {
-            throw new \InvalidArgumentException(__METHOD__ . ': object expected');
+        if (is_null($object) || ($object instanceof entities\Entity)) {
+            $this->object = $object;
+            return $this;
         }
 
-        $this->object = $object;
-        return $this;
+        throw new \InvalidArgumentException(__METHOD__ . ': Entity expected');
     }
 
     /** @return entities\Targetable target */
