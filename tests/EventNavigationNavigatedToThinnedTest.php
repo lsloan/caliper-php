@@ -20,7 +20,7 @@ class EventNavigationNavigatedToThinnedTest extends CaliperTestCase {
                 ->setAction(
                     new Action(Action::NAVIGATED_TO))
                 ->setObject(
-                    new ObjectReference('https://example.edu/terms/201601/courses/7/sections/1/pages/2'))
+                    new DigitalResourceReference('https://example.edu/terms/201601/courses/7/sections/1/pages/2'))
                 ->setEventTime(
                     new \DateTime('2016-11-15T10:15:00.000Z'))
                 ->setReferrer(

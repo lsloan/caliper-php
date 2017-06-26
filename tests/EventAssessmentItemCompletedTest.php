@@ -32,34 +32,51 @@ class EventAssessmentItemCompletedTest extends CaliperTestCase {
                 ->setAction(
                     new Action(Action::COMPLETED))
                 ->setObject(
-                    (new Attempt('https://example.edu/terms/201601/courses/7/sections/1/assess/1/items/3/users/554433/attempts/1'))
-                        ->setAssignee(
-                            new AssigneeReference('https://example.edu/users/554433'))
-                        ->setAssignable(
-                            (new AssessmentItem('https://example.edu/terms/201601/courses/7/sections/1/assess/1/items/3'))
-                                ->setName(
-                                    'Assessment Item 3'
-                                )
-                                ->setIsPartOf(
-                                    (new Assessment('https://example.edu/terms/201601/courses/7/sections/1/assess/1'))
-                                )
+                    (new AssessmentItem('https://example.edu/terms/201601/courses/7/sections/1/assess/1/items/3'))
+                        ->setName(
+                            'Assessment Item 3'
                         )
                         ->setIsPartOf(
-                            new IsPartOfReference('https://example.edu/terms/201601/courses/7/sections/1/assess/1/users/554433/attempts/1'))
-                        ->setCount(
-                            1
+                            (new Assessment('https://example.edu/terms/201601/courses/7/sections/1/assess/1'))
                         )
-                        ->setDateCreated(
-                            new \DateTime('2016-11-15T10:15:02.000Z'))
-                        ->setStartedAtTime(
-                            new \DateTime('2016-11-15T10:15:02.000Z'))
-                        ->setEndedAtTime(
-                            new \DateTime('2016-11-15T10:15:12.000Z'))
+                        ->setDateToStartOn(new \DateTime('2016-11-14T05:00:00.000Z'))
+                        ->setDateToSubmit(new \DateTime('2016-11-18T11:59:59.000Z'))
+                        ->setIsTimeDependent(false)
+                        ->setMaxAttempts(2)
+                        ->setMaxScore(1)
+                        ->setMaxSubmits(2)
+                        ->setVersion('1.0')
                 )
+                // ->setObject(
+                // )
                 ->setGenerated(
                     (new FillinBlankResponse('https://example.edu/terms/201601/courses/7/sections/1/assess/1/items/3/users/554433/responses/1'))
                         ->setAttempt(
-                            new AttemptReference('https://example.edu/terms/201601/courses/7/sections/1/assess/1/items/3/users/554433/attempts/1'))
+                            (new Attempt('https://example.edu/terms/201601/courses/7/sections/1/assess/1/items/3/users/554433/attempts/1'))
+                                ->setAssignee(
+                                    new AssigneeReference('https://example.edu/users/554433'))
+                                ->setAssignable(
+                                    (new AssessmentItem('https://example.edu/terms/201601/courses/7/sections/1/assess/1/items/3'))
+                                        ->setName(
+                                            'Assessment Item 3'
+                                        )
+                                        ->setIsPartOf(
+                                            (new Assessment('https://example.edu/terms/201601/courses/7/sections/1/assess/1'))
+                                        )
+                                )
+                                ->setIsPartOf(
+                                    new IsPartOfReference('https://example.edu/terms/201601/courses/7/sections/1/assess/1/users/554433/attempts/1'))
+                                ->setCount(
+                                    1
+                                )
+                                ->setDateCreated(
+                                    new \DateTime('2016-11-15T10:15:02.000Z'))
+                                ->setStartedAtTime(
+                                    new \DateTime('2016-11-15T10:15:02.000Z'))
+                                ->setEndedAtTime(
+                                    new \DateTime('2016-11-15T10:15:12.000Z'))
+                        // new AttemptReference('https://example.edu/terms/201601/courses/7/sections/1/assess/1/items/3/users/554433/attempts/1')
+                        )
                         ->setDateCreated(
                             new \DateTime('2016-11-15T10:15:12.000Z'))
                         ->setStartedAtTime(
