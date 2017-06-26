@@ -13,17 +13,17 @@ use IMSGlobal\Caliper\entities\assignable\Attempt;
 class Result extends entities\Entity implements entities\Generatable {
     /** @var Attempt|null */
     private $attempt;
-    /** @var double */
+    /** @var float */
     private $normalScore;
-    /** @var double */
+    /** @var float */
     private $penaltyScore;
-    /** @var double */
+    /** @var float */
     private $extraCreditScore;
-    /** @var double */
+    /** @var float */
     private $totalScore;
-    /** @var double */
+    /** @var float */
     private $curvedTotalScore;
-    /** @var double */
+    /** @var float */
     private $curveFactor;
     /** @var string */
     private $comment;
@@ -68,114 +68,114 @@ class Result extends entities\Entity implements entities\Generatable {
         throw new \InvalidArgumentException(__METHOD__ . ': Attempt expected');
     }
 
-    /** @return double normalScore */
+    /** @return float normalScore */
     public function getNormalScore() {
         return $this->normalScore;
     }
 
     /**
-     * @param double $normalScore
-     * @throws \InvalidArgumentException double required
+     * @param float $normalScore
+     * @throws \InvalidArgumentException float required
      * @return $this|Result
      */
     public function setNormalScore($normalScore) {
-        if (!is_double($normalScore)) {
-            throw new \InvalidArgumentException(__METHOD__ . ': double expected');
+        if (!is_float($normalScore)) {
+            throw new \InvalidArgumentException(__METHOD__ . ': float expected');
         }
 
         $this->normalScore = $normalScore;
         return $this;
     }
 
-    /** @return double penaltyScore */
+    /** @return float penaltyScore */
     public function getPenaltyScore() {
         return $this->penaltyScore;
     }
 
     /**
-     * @param double $penaltyScore
-     * @throws \InvalidArgumentException double required
+     * @param float $penaltyScore
+     * @throws \InvalidArgumentException float required
      * @return $this|Result
      */
     public function setPenaltyScore($penaltyScore) {
-        if (!is_double($penaltyScore)) {
-            throw new \InvalidArgumentException(__METHOD__ . ': double expected');
+        if (!is_float($penaltyScore)) {
+            throw new \InvalidArgumentException(__METHOD__ . ': float expected');
         }
 
         $this->penaltyScore = $penaltyScore;
         return $this;
     }
 
-    /** @return double extraCreditScore */
+    /** @return float extraCreditScore */
     public function getExtraCreditScore() {
         return $this->extraCreditScore;
     }
 
     /**
-     * @param double $extraCreditScore
-     * @throws \InvalidArgumentException double required
+     * @param float $extraCreditScore
+     * @throws \InvalidArgumentException float required
      * @return $this|Result
      */
     public function setExtraCreditScore($extraCreditScore) {
-        if (!is_double($extraCreditScore)) {
-            throw new \InvalidArgumentException(__METHOD__ . ': double expected');
+        if (!is_float($extraCreditScore)) {
+            throw new \InvalidArgumentException(__METHOD__ . ': float expected');
         }
 
         $this->extraCreditScore = $extraCreditScore;
         return $this;
     }
 
-    /** @return double totalScore */
+    /** @return float totalScore */
     public function getTotalScore() {
         return $this->totalScore;
     }
 
     /**
-     * @param double $totalScore
-     * @throws \InvalidArgumentException double required
+     * @param float $totalScore
+     * @throws \InvalidArgumentException float required
      * @return $this|Result
      */
     public function setTotalScore($totalScore) {
-        if (!is_double($totalScore)) {
-            throw new \InvalidArgumentException(__METHOD__ . ': double expected');
+        if (!is_float($totalScore)) {
+            throw new \InvalidArgumentException(__METHOD__ . ': float expected');
         }
 
         $this->totalScore = $totalScore;
         return $this;
     }
 
-    /** @return double curvedTotalScore */
+    /** @return float curvedTotalScore */
     public function getCurvedTotalScore() {
         return $this->curvedTotalScore;
     }
 
     /**
-     * @param double $curvedTotalScore
-     * @throws \InvalidArgumentException double required
+     * @param float $curvedTotalScore
+     * @throws \InvalidArgumentException float required
      * @return $this|Result
      */
     public function setCurvedTotalScore($curvedTotalScore) {
-        if (!is_double($curvedTotalScore)) {
-            throw new \InvalidArgumentException(__METHOD__ . ': double expected');
+        if (!is_float($curvedTotalScore)) {
+            throw new \InvalidArgumentException(__METHOD__ . ': float expected');
         }
 
         $this->curvedTotalScore = $curvedTotalScore;
         return $this;
     }
 
-    /** @return double curveFactor */
+    /** @return float curveFactor */
     public function getCurveFactor() {
         return $this->curveFactor;
     }
 
     /**
-     * @param double $curveFactor
-     * @throws \InvalidArgumentException double required
+     * @param float $curveFactor
+     * @throws \InvalidArgumentException float required
      * @return $this|Result
      */
     public function setCurveFactor($curveFactor) {
-        if (!is_double($curveFactor)) {
-            throw new \InvalidArgumentException(__METHOD__ . ': double expected');
+        if (!is_float($curveFactor)) {
+            throw new \InvalidArgumentException(__METHOD__ . ': float expected');
         }
 
         $this->curveFactor = $curveFactor;
