@@ -15,14 +15,26 @@ class SessionEvent extends Event {
         $this->setType(new EventType(EventType::SESSION));
     }
 
-    /** @return Session object */
+    /** @return SoftwareApplication|Session object */
     public function getObject() {
         return $this->object;
     }
 
     /**
-     * @param Session $object
+     * Caliper specifications for _`SessionEvent`_ state the _`object`_ property's
+     * type depends on the value of the objects' _`action`_ property:
+     *
+     * <pre>
+     * Action -> Object type
+     * `Action::LOGGED_IN` -> `SoftwareApplication`
+     * `Action::LOGGED_OUT` -> `SoftwareApplication`
+     * `Action::TIMED_OUT` -> `Session`
+     * </pre>
+     *
+     * @param SoftwareApplication|Session $object
+     * @throws \InvalidArgumentException SoftwareApplication expected
      * @throws \InvalidArgumentException Session expected
+     * @throws \InvalidArgumentException Action must be set before Object
      * @return $this|AssessmentEvent
      */
     public function setObject($object) {
