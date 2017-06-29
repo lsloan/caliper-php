@@ -34,6 +34,7 @@ class EntityType extends \IMSGlobal\Caliper\util\BasicEnum implements Type {
         PERSON = 'Person',
         RESPONSE = 'Response',
         RESULT = 'Result',
+        SCORE = 'Score',
         SELECTTEXT = 'SelectTextResponse',
         SESSION = 'Session',
         SHARED_ANNOTATION = 'SharedAnnotation',
