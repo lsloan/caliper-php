@@ -7,7 +7,6 @@ use IMSGlobal\Caliper\entities\assessment\Assessment;
 use IMSGlobal\Caliper\entities\assignable\Attempt;
 use IMSGlobal\Caliper\entities\outcome\Result;
 
-
 /**
  * @requires PHP 5.6.28
  */
@@ -39,22 +38,19 @@ class EntityResultTest extends CaliperTestCase {
                             'PT50M30S'
                         )
                 )
-                ->setComment(
-                    'Well done.'
-                )
-                ->setNormalScore(
+                ->setMaxResultScore(
                     15.0
                 )
-                ->setPenaltyScore(
-                    0.0
-                )
-                ->setTotalScore(
-                    15.0
+                ->setResultScore(
+                    10.0
                 )
                 ->setScoredBy(
                     (new SoftwareApplication('https://example.edu/autograder'))
                         ->setDateCreated(
                             new \DateTime('2016-11-15T10:55:58.000Z'))
+                )
+                ->setComment(
+                    'Consider retaking the assessment.'
                 )
                 ->setDateCreated(
                     new \DateTime('2016-11-15T10:56:00.000Z'))
