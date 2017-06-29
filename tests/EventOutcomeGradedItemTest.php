@@ -9,7 +9,7 @@ use IMSGlobal\Caliper\entities\assessment\AssessmentItem;
 use IMSGlobal\Caliper\entities\assignable\Attempt;
 use IMSGlobal\Caliper\entities\lis\CourseSection;
 use IMSGlobal\Caliper\entities\outcome\Score;
-use IMSGlobal\Caliper\events\OutcomeEvent;
+use IMSGlobal\Caliper\events\GradeEvent;
 
 /**
  * @requires PHP 5.6.28
@@ -20,7 +20,7 @@ class EventOutcomeGradedItemTest extends CaliperTestCase {
 
 
         $this->setTestObject(
-            (new OutcomeEvent('urn:uuid:12c05c4e-253f-4073-9f29-5786f3ff3f36'))
+            (new GradeEvent('urn:uuid:12c05c4e-253f-4073-9f29-5786f3ff3f36'))
                 ->setActor(
                     (new SoftwareApplication('https://example.edu/autograder'))
                         ->setVersion(
