@@ -1,7 +1,8 @@
 <?php
+
 namespace IMSGlobal\Caliper\entities\reading;
 
-use IMSGlobal\Caliper\entities;
+use \IMSGlobal\Caliper\entities;
 
 /**
  *         Representation of an EPUB 3 Volume
@@ -12,8 +13,8 @@ use IMSGlobal\Caliper\entities;
  *
  */
 class EPubPart extends entities\DigitalResource implements entities\schemadotorg\CreativeWork {
-    public function __construct($id) {
-        parent::__construct($id);
-        $this->setType(new entities\DigitalResourceType(entities\DigitalResourceType::EPUB_PART));
-    }
+  public function __construct($id) {
+    parent::__construct($id);
+    $this->setType(new entities\DigitalResourceType(entities\DigitalResourceType::EPUB_PART));
+  }
 }

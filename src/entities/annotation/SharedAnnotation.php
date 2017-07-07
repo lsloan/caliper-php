@@ -1,11 +1,12 @@
 <?php
+
 namespace IMSGlobal\Caliper\entities\annotation;
 
-use IMSGlobal\Caliper\entities\foaf\Agent;
+use \IMSGlobal\Caliper\entities;
 
 class SharedAnnotation extends Annotation {
-    /** @var Agent[]|null */
-    public $withAgents;
+    /** @var entities\foaf\Agent[] */
+    public $withAgents = [];
 
     public function __construct($id) {
         parent::__construct($id);
@@ -13,32 +14,29 @@ class SharedAnnotation extends Annotation {
     }
 
     public function jsonSerialize() {
-        return $this->removeChildEntitySameContexts(array_merge(parent::jsonSerialize(), [
+        return array_merge(parent::jsonSerialize(), [
             'withAgents' => $this->getWithAgents(),
-        ]));
+        ]);
     }
 
-    /** @return Agent[]|null withAgents */
+    /** @return entities\foaf\Agent[] withAgents */
     public function getWithAgents() {
         return $this->withAgents;
     }
 
     /**
-     * @param Agent|Agent[]|null $withAgents
-     * @throws \InvalidArgumentException array of Agent required
+     * @param entities\foaf\Agent|\foaf\Agent[] $withAgents
      * @return $this|SharedAnnotation
      */
     public function setWithAgents($withAgents) {
-        if (!is_null($withAgents)) {
-            if (!is_array($withAgents)) {
-                $withAgents = [$withAgents];
-            }
+        if (!is_array($withAgents)) {
+            $withAgents = [$withAgents];
+        }
 
-            foreach ($withAgents as $aWithAgents) {
-                if (!($aWithAgents instanceof Agent)) {
-                    // FIXME: After PHP 5.5 is a requirement, change "Agent" string to "::class".
-                    throw new \InvalidArgumentException(__METHOD__ . ': array of Agent expected');
-                }
+        foreach ($withAgents as $aWithAgents) {
+            if (!($aWithAgents instanceof entities\foaf\Agent)) {
+                // FIXME: After PHP 5.5 is a requirement, change "IMSGlobal\Caliper\entities\foaf\Agent" string to "::class".
+                throw new \InvalidArgumentException(__METHOD__ . ': array of \IMSGlobal\Caliper\entities\foaf\Agent expected');
             }
         }
 

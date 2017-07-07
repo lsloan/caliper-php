@@ -2,20 +2,29 @@
 
 namespace IMSGlobal\Caliper\entities\outcome;
 
-use IMSGlobal\Caliper\entities;
-use IMSGlobal\Caliper\entities\assignable\Attempt;
+use \IMSGlobal\Caliper\entities;
 
 class Result extends entities\Entity implements entities\Generatable {
-    /** @var Attempt|null */
-    private $attempt;
-    /** @var float */
-    private $maxResultScore;
-    /** @var float */
-    private $resultScore;
-    /** @var entities\foaf\Agent */
-    private $scoredBy;
+    /** @var entities\DigitalResource */
+    private $assignable;
+    /** @var \foaf\Agent */
+    private $actor;
+    /** @var double */
+    private $normalScore;
+    /** @var double */
+    private $penaltyScore;
+    /** @var double */
+    private $extraCreditScore;
+    /** @var double */
+    private $totalScore;
+    /** @var double */
+    private $curvedTotalScore;
+    /** @var double */
+    private $curveFactor;
     /** @var string */
     private $comment;
+    /** @var \foaf\Agent */
+    private $scoredBy;
 
     public function __construct($id) {
         parent::__construct($id);
@@ -23,69 +32,157 @@ class Result extends entities\Entity implements entities\Generatable {
     }
 
     public function jsonSerialize() {
-        return $this->removeChildEntitySameContexts(array_merge(parent::jsonSerialize(), [
-            'attempt' => $this->getAttempt(),
-            'maxResultScore' => $this->getMaxResultScore(),
-            'resultScore' => $this->getResultScore(),
+        return array_merge(parent::jsonSerialize(), [
+            'assignable' => (!is_null($this->getAssignable()))
+                ? $this->getAssignable()->getId()
+                : null,
+            'actor' => (!is_null($this->getActor()))
+                ? $this->getActor()->getId()
+                : null,
+            'normalScore' => $this->getNormalScore(),
+            'penaltyScore' => $this->getPenaltyScore(),
+            'extraCreditScore' => $this->getExtraCreditScore(),
+            'totalScore' => $this->getTotalScore(),
+            'curvedTotalScore' => $this->getCurvedTotalScore(),
+            'curveFactor' => $this->getCurveFactor(),
             'comment' => $this->getComment(),
             'scoredBy' => $this->getScoredBy(),
-        ]));
+        ]);
     }
 
-    /** @return Attempt|null */
-    public function getAttempt() {
-        return $this->attempt;
-    }
-
-    /**
-     * @param Attempt|null $attempt
-     * @throws \InvalidArgumentException Attempt required
-     * @return $this|Result
-     */
-    public function setAttempt($attempt) {
-        if (is_null($attempt) || ($attempt instanceof Attempt)) {
-            $this->attempt = $attempt;
-            return $this;
-        }
-
-        throw new \InvalidArgumentException(__METHOD__ . ': Attempt expected');
-    }
-
-    /** @return float maxResultScore */
-    public function getMaxResultScore() {
-        return $this->maxResultScore;
+    /** @return entities\DigitalResource assignable */
+    public function getAssignable() {
+        return $this->assignable;
     }
 
     /**
-     * @param float $maxResultScore
-     * @throws \InvalidArgumentException float required
+     * @param entities\DigitalResource $assignable
      * @return $this|Result
      */
-    public function setMaxResultScore($maxResultScore) {
-        if (!is_float($maxResultScore)) {
-            throw new \InvalidArgumentException(__METHOD__ . ': float expected');
-        }
-
-        $this->maxResultScore = $maxResultScore;
+    public function setAssignable(entities\DigitalResource $assignable) {
+        $this->assignable = $assignable;
         return $this;
     }
 
-    /** @return float resultScore */
-    public function getResultScore() {
-        return $this->resultScore;
+    /** @return entities\foaf\Agent actor */
+    public function getActor() {
+        return $this->actor;
     }
 
     /**
-     * @param float $resultScore
-     * @throws \InvalidArgumentException float required
+     * @param entities\foaf\Agent $actor
      * @return $this|Result
      */
-    public function setResultScore($resultScore) {
-        if (!is_float($resultScore)) {
-            throw new \InvalidArgumentException(__METHOD__ . ': float expected');
+    public function setActor(entities\foaf\Agent $actor) {
+        $this->actor = $actor;
+        return $this;
+    }
+
+    /** @return double normalScore */
+    public function getNormalScore() {
+        return $this->normalScore;
+    }
+
+    /**
+     * @param double $normalScore
+     * @return $this|Result
+     */
+    public function setNormalScore($normalScore) {
+        if (!is_double($normalScore)) {
+            throw new \InvalidArgumentException(__METHOD__ . ': double expected');
         }
 
-        $this->resultScore = $resultScore;
+        $this->normalScore = $normalScore;
+        return $this;
+    }
+
+    /** @return double penaltyScore */
+    public function getPenaltyScore() {
+        return $this->penaltyScore;
+    }
+
+    /**
+     * @param double $penaltyScore
+     * @return $this|Result
+     */
+    public function setPenaltyScore($penaltyScore) {
+        if (!is_double($penaltyScore)) {
+            throw new \InvalidArgumentException(__METHOD__ . ': double expected');
+        }
+
+        $this->penaltyScore = $penaltyScore;
+        return $this;
+    }
+
+    /** @return double extraCreditScore */
+    public function getExtraCreditScore() {
+        return $this->extraCreditScore;
+    }
+
+    /**
+     * @param double $extraCreditScore
+     * @return $this|Result
+     */
+    public function setExtraCreditScore($extraCreditScore) {
+        if (!is_double($extraCreditScore)) {
+            throw new \InvalidArgumentException(__METHOD__ . ': double expected');
+        }
+
+        $this->extraCreditScore = $extraCreditScore;
+        return $this;
+    }
+
+    /** @return double totalScore */
+    public function getTotalScore() {
+        return $this->totalScore;
+    }
+
+    /**
+     * @param double $totalScore
+     * @return $this|Result
+     */
+    public function setTotalScore($totalScore) {
+        if (!is_double($totalScore)) {
+            throw new \InvalidArgumentException(__METHOD__ . ': double expected');
+        }
+
+        $this->totalScore = $totalScore;
+        return $this;
+    }
+
+    /** @return double curvedTotalScore */
+    public function getCurvedTotalScore() {
+        return $this->curvedTotalScore;
+    }
+
+    /**
+     * @param double $curvedTotalScore
+     * @return $this|Result
+     */
+    public function setCurvedTotalScore($curvedTotalScore) {
+        if (!is_double($curvedTotalScore)) {
+            throw new \InvalidArgumentException(__METHOD__ . ': double expected');
+        }
+
+        $this->curvedTotalScore = $curvedTotalScore;
+        return $this;
+    }
+
+    /** @return double curveFactor */
+    public function getCurveFactor() {
+        return $this->curveFactor;
+    }
+
+    /**
+     * @param double $curveFactor
+     * @return $this|Result
+     */
+    public function setCurveFactor($curveFactor) {
+        if (!is_double($curveFactor)) {
+            throw new \InvalidArgumentException(__METHOD__ . ': double expected');
+        }
+
+        $this->curveFactor = $curveFactor;
         return $this;
     }
 
@@ -96,7 +193,6 @@ class Result extends entities\Entity implements entities\Generatable {
 
     /**
      * @param string $comment
-     * @throws \InvalidArgumentException string required
      * @return $this|Result
      */
     public function setComment($comment) {
@@ -108,7 +204,7 @@ class Result extends entities\Entity implements entities\Generatable {
         return $this;
     }
 
-    /** @return entities\foaf\Agent scoredBy */
+    /** @return \foaf\Agent scoredBy */
     public function getScoredBy() {
         return $this->scoredBy;
     }
@@ -122,3 +218,4 @@ class Result extends entities\Entity implements entities\Generatable {
         return $this;
     }
 }
+

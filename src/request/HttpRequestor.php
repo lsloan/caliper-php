@@ -1,18 +1,18 @@
 <?php
+
 namespace IMSGlobal\Caliper\request;
 
-use IMSGlobal\Caliper\entities\Entity;
-use IMSGlobal\Caliper\events\Event;
-use IMSGlobal\Caliper\Options;
+use \IMSGlobal\Caliper\entities\Entity;
+use \IMSGlobal\Caliper\events\Event;
 
-class HttpRequestor extends Requestor {
+class HttpRequestor extends EventStoreRequestor {
     private $options;
 
     /**
      * @param \IMSGlobal\Caliper\Options $options
      * @throws \RuntimeException if "http" (AKA pecl_http) or "curl" extensions not loaded
      */
-    public function __construct(Options $options) {
+    public function __construct(\IMSGlobal\Caliper\Options $options) {
         if (!extension_loaded('http') && !extension_loaded('curl')) {
             throw new \RuntimeException('Caliper ' . __CLASS__ . ' requires one of the PHP extensions: "http" (AKA pecl_http) or "curl".');
         }
@@ -43,8 +43,11 @@ class HttpRequestor extends Requestor {
             }
         }
 
-        $envelope = $this->createEnvelope($sensor, $items);
-        $payload = $this->serializeData($envelope);
+        $envelope = (new Envelope())
+            ->setSensorId($sensor)
+            ->setData($items);
+
+        $payload = json_encode($envelope, $this->getOptions()->getJsonEncodeOptions());
 
         $headers = [
             'Content-Type' => 'application/json',
@@ -63,7 +66,7 @@ class HttpRequestor extends Requestor {
             );
 
             $request->setOptions([
-                'timeout' => $this->getOptions()->getConnectionTimeout(),
+                'timeout' => $this->getOptions()->getConnectionTimeout()
             ]);
 
             $client = (new \http\Client)->enqueue($request)->send();
@@ -107,19 +110,6 @@ class HttpRequestor extends Requestor {
         }
 
         return $status;
-    }
-
-    /**
-     * @param object $data
-     * @param Options $options
-     * @return string
-     */
-    public function serializeData($data, Options $options = null) {
-        if (is_null($options)) {
-            $options = $this->getOptions();
-        }
-
-        return parent::serializeData($data, $options);
     }
 
     /** @return Options */

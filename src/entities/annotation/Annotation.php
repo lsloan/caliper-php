@@ -1,9 +1,8 @@
 <?php
+
 namespace IMSGlobal\Caliper\entities\annotation;
 
-use IMSGlobal\Caliper\entities;
-use IMSGlobal\Caliper\entities\DigitalResource;
-use IMSGlobal\Caliper\entities\foaf\Agent;
+use \IMSGlobal\Caliper\entities;
 
 /**
  *         The super-class of all Annotation types.
@@ -13,58 +12,34 @@ use IMSGlobal\Caliper\entities\foaf\Agent;
  *
  */
 abstract class Annotation extends entities\Entity implements entities\Generatable {
-    /** @var Agent|null */
-    private $annotator;
-    /** @var DigitalResource|null */
+    /** @var DigitalResource */
     private $annotated;
 
-    public function __construct($id) {
+    public function  __construct($id) {
         parent::__construct($id);
         $this->setType(new entities\EntityType(entities\EntityType::ANNOTATION));
     }
 
     public function jsonSerialize() {
-        return $this->removeChildEntitySameContexts(array_merge(parent::jsonSerialize(), [
-            'annotator' => $this->getAnnotator(),
-            'annotated' => $this->getAnnotated(),
-        ]));
+        return array_merge(parent::jsonSerialize(), [
+            'annotated' => (!is_null($this->getAnnotated()))
+                ? $this->getAnnotated()->getId()
+                : null,
+        ]);
     }
 
-    /** @return Agent|null annotator */
-    public function getAnnotator() {
-        return $this->annotator;
-    }
-
-    /**
-     * @param Agent|null $annotator
-     * @throws \InvalidArgumentException Agent required
-     * @return $this|Annotation
-     */
-    public function setAnnotator($annotator) {
-        if (is_null($annotator) || ($annotator instanceof Agent)) {
-            $this->annotator = $annotator;
-            return $this;
-        }
-
-        throw new \InvalidArgumentException(__METHOD__ . ': Agent expected');
-    }
-
-    /** @return DigitalResource|null annotated */
-    public function getAnnotated() {
+    /** @return entities\DigitalResource annotated */
+    public function  getAnnotated() {
         return $this->annotated;
     }
 
     /**
-     * @param DigitalResource|null $annotated
-     * @throws \InvalidArgumentException DigitalResource required
+     * @param entities\DigitalResource $annotated
      * @return $this|Annotation
      */
-    public function setAnnotated($annotated) {
-        if (is_null($annotated) || ($annotated instanceof DigitalResource)) {
-            $this->annotated = $annotated;
-            return $this;
-        }
-
-        throw new \InvalidArgumentException(__METHOD__ . ': DigitalResource expected');
+    public function setAnnotated(entities\DigitalResource $annotated) {
+        $this->annotated = $annotated;
+        return $this;
     }
 }
+

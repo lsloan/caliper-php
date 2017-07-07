@@ -1,99 +1,70 @@
 <?php
+
 namespace IMSGlobal\Caliper\entities\assignable;
 
-use IMSGlobal\Caliper\entities;
-use IMSGlobal\Caliper\entities\DigitalResource;
-use IMSGlobal\Caliper\entities\foaf\Agent;
-use IMSGlobal\Caliper\util\TimestampUtil;
+use \IMSGlobal\Caliper\entities;
+use \IMSGlobal\Caliper\util;
 
 class Attempt extends entities\Entity implements entities\Generatable {
-    /** @var DigitalResource|null */
+    /** @var entities\DigitalResource */
     private $assignable;
-    /** @var Agent|null */
-    private $assignee;
-    /** @var Attempt|null */
-    private $isPartOf;
-    /** @var int|null */
+    /** @var entities\foaf\Agent */
+    private $actor;
+    /** @var int */
     private $count;
     /** @var \DateTime */
     private $startedAtTime;
     /** @var \DateTime */
     private $endedAtTime;
-    /** @var string|null ISO 8601 interval */
+    /** @var string */
     private $duration;
 
-    public function __construct($id) {
+    public function  __construct($id) {
         parent::__construct($id);
         $this->setType(new entities\EntityType(entities\EntityType::ATTEMPT));
     }
 
     public function jsonSerialize() {
-        return $this->removeChildEntitySameContexts(array_merge(parent::jsonSerialize(), [
-            'assignable' => $this->getAssignable(),
-            'assignee' => $this->getAssignee(),
-            'isPartOf' => $this->getIsPartOf(),
+        return array_merge(parent::jsonSerialize(), [
+            'assignable' => (!is_null($this->getAssignable()))
+                ? $this->getAssignable()->getId()
+                : null,
+            'actor' => (!is_null($this->getActor()))
+                ? $this->getActor()->getId()
+                : null,
             'count' => $this->getCount(),
-            'startedAtTime' => TimestampUtil::formatTimeISO8601MillisUTC($this->getStartedAtTime()),
-            'endedAtTime' => TimestampUtil::formatTimeISO8601MillisUTC($this->getEndedAtTime()),
-            'duration' => $this->getDuration(),
-        ]));
+            'startedAtTime' => util\TimestampUtil::formatTimeISO8601MillisUTC($this->getStartedAtTime()),
+            'endedAtTime' => util\TimestampUtil::formatTimeISO8601MillisUTC($this->getEndedAtTime()),
+            'duration' => $this->getDurationFormatted(),
+        ]);
     }
 
-    /** @return DigitalResource assignable */
+    /** @return entities\DigitalResource assignable */
     public function getAssignable() {
         return $this->assignable;
     }
 
     /**
-     * @param DigitalResource|null $assignable
-     * @throws \InvalidArgumentException DigitalResource required
+     * @param entities\DigitalResource $assignable
      * @return $this|Attempt
      */
-    public function setAssignable($assignable) {
-        if (is_null($assignable) || ($assignable instanceof DigitalResource)) {
-            $this->assignable = $assignable;
-            return $this;
-        }
-
-        throw new \InvalidArgumentException(__METHOD__ . ': DigitalResource expected');
+    public function setAssignable(entities\DigitalResource $assignable) {
+        $this->assignable = $assignable;
+        return $this;
     }
 
-    /** @return Agent assignee */
-    public function getAssignee() {
-        return $this->assignee;
+    /** @return entities\foaf\Agent actor */
+    public function getActor() {
+        return $this->actor;
     }
 
     /**
-     * @param Agent|null $assignee
-     * @throws \InvalidArgumentException Agent required
+     * @param entities\foaf\Agent $actor
      * @return $this|Attempt
      */
-    public function setAssignee($assignee) {
-        if (is_null($assignee) || ($assignee instanceof Agent)) {
-            $this->assignee = $assignee;
-            return $this;
-        }
-
-        throw new \InvalidArgumentException(__METHOD__ . ': Agent expected');
-    }
-
-    /** @return Attempt|null */
-    public function getIsPartOf() {
-        return $this->isPartOf;
-    }
-
-    /**
-     * @param Attempt|null $isPartOf
-     * @throws \InvalidArgumentException Attempt required
-     * @return $this|Attempt
-     */
-    public function setIsPartOf($isPartOf) {
-        if (is_null($isPartOf) || ($isPartOf instanceof Attempt)) {
-            $this->isPartOf = $isPartOf;
-            return $this;
-        }
-
-        throw new \InvalidArgumentException(__METHOD__ . ': Attempt expected');
+    public function setActor(entities\foaf\Agent $actor) {
+        $this->actor = $actor;
+        return $this;
     }
 
     /** @return int count */
@@ -102,17 +73,16 @@ class Attempt extends entities\Entity implements entities\Generatable {
     }
 
     /**
-     * @param int|null $count
-     * @throws \InvalidArgumentException int required
+     * @param int $count
      * @return $this|Attempt
      */
     public function setCount($count) {
-        if (is_null($count) || is_int($count)) {
-            $this->count = $count;
-            return $this;
+        if (!is_int($count)) {
+            throw new \InvalidArgumentException(__METHOD__ . ': int expected');
         }
 
-        throw new \InvalidArgumentException(__METHOD__ . ': int expected');
+        $this->count = $count;
+        return $this;
     }
 
     /** @return \DateTime startedAtTime */
@@ -143,25 +113,27 @@ class Attempt extends entities\Entity implements entities\Generatable {
         return $this;
     }
 
-    /** @return string|null duration (ISO 8601 interval) */
+    /** @return null|string Duration in seconds formatted according to ISO 8601 ("PTnnnnS") */
+    public function getDurationFormatted() {
+        if ($this->getDuration() === null) {
+            return null;
+        }
+
+        return 'PT' . $this->getDuration() . 'S';
+    }
+
+    /** @return string duration */
     public function getDuration() {
         return $this->duration;
     }
 
     /**
-     * @param string|null $duration (ISO 8601 interval)
-     * @throws \InvalidArgumentException ISO 8601 interval string required
+     * @param string $duration
      * @return $this|Attempt
      */
     public function setDuration($duration) {
-        if (!is_null($duration)) {
-            $duration = strval($duration);
-
-            try {
-                $_ = new \DateInterval($duration);
-            } catch (\Exception $exception) {
-                throw new \InvalidArgumentException(__METHOD__ . ': ISO 8601 interval string expected');
-            }
+        if (!is_string($duration)) {
+            throw new \InvalidArgumentException(__METHOD__ . ': string expected');
         }
 
         $this->duration = $duration;

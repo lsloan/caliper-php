@@ -1,16 +1,16 @@
 <?php
+
 namespace IMSGlobal\Caliper\entities\assessment;
 
-use IMSGlobal\Caliper\entities\assignable\AssignableDigitalResource;
-use IMSGlobal\Caliper\entities\assignable\AssignableDigitalResourceType;
+use \IMSGlobal\Caliper\entities\assignable;
 
-class AssessmentItem extends AssignableDigitalResource {
+class AssessmentItem extends assignable\AssignableDigitalResource {
     /** @var bool */
     private $isTimeDependent;
 
     public function __construct($id) {
         parent::__construct($id);
-        $this->setType(new AssignableDigitalResourceType(AssignableDigitalResourceType::ASSESSMENT_ITEM));
+        $this->setType(new assignable\AssignableDigitalResourceType(assignable\AssignableDigitalResourceType::ASSESSMENT_ITEM));
     }
 
     public function jsonSerialize() {

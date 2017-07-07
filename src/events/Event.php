@@ -2,100 +2,58 @@
 
 namespace IMSGlobal\Caliper\events;
 
-use IMSGlobal\Caliper\actions;
-use IMSGlobal\Caliper\context;
-use IMSGlobal\Caliper\entities;
-use IMSGlobal\Caliper\util;
+use \IMSGlobal\Caliper\context;
+use \IMSGlobal\Caliper\entities;
+use \IMSGlobal\Caliper\actions;
+use \IMSGlobal\Caliper\util;
 
-class Event extends util\ClassUtil implements \JsonSerializable {
-    /** @var context\Context */
+abstract class Event extends \IMSGlobal\Caliper\util\ClassUtil implements \JsonSerializable {
+    /** @var Context */
     private $context;
     /** @var EventType */
     private $type;
-    /** @var entities\foaf\Agent */
+    /** @var \foaf\Agent */
     private $actor;
-    /** @var actions\Action */
+    /** @var Action */
     private $action;
-    /** @var entities\Entity */
+    /** @var object */
     private $object;
-    /** @var entities\Targetable */
+    /** @var Targetable */
     private $target;
-    /** @var entities\Generatable */
+    /** @var Generatable */
     private $generated;
-    /** @var entities\Referrable */
-    private $referrer;
-    /** @var \DateTime */
+    /** @var DateTime */
     private $eventTime;
-    /** @var entities\agent\SoftwareApplication */
+    /** @var SoftwareApplication */
     private $edApp;
-    /** @var entities\agent\Organization */
+    /** @var Organization */
     private $group;
-    /** @var entities\lis\Membership */
+    /** @var Membership */
     private $membership;
-    /** @var entities\session\Session */
-    private $session;
-    /** @var entities\session\LtiSession */
+    /** @var Session */
     private $federatedSession;
-    /** @var \array[] */
-    private $extensions;
-    /** @var string */
-    private $id;
 
-    public function __construct($id = null) {
-        $this->setId($id)
-            ->setType(new EventType(EventType::EVENT))
-            ->setContext(new context\Context(context\Context::CONTEXT));
+    public function __construct() {
+        $this->setContext(new context\Context(context\Context::CONTEXT));
     }
 
     public function jsonSerialize() {
-        if ($this->getId() === null) {
-            $this->setId(uniqid());
-        }
-
-        return $this->removeChildEntitySameContexts([
+        return [
             '@context' => $this->getContext(),
-            'type' => $this->getType(),
+            '@type' => $this->getType(),
             'actor' => $this->getActor(),
             'action' => $this->getAction(),
             'object' => $this->getObject(),
             'target' => $this->getTarget(),
             'generated' => $this->getGenerated(),
-            'referrer' => $this->getReferrer(),
             'eventTime' => util\TimestampUtil::formatTimeISO8601MillisUTC($this->getEventTime()),
             'edApp' => $this->getEdApp(),
             'group' => $this->getGroup(),
             'membership' => $this->getMembership(),
-            'session' => $this->getSession(),
-            'id' => $this->getId(),
-            'extensions' => $this->getExtensions(),
-            'federatedSession' => $this->getFederatedSession(),
-        ]);
-    }
-
-    /** @return string */
-    public function getId() {
-        return $this->id;
-    }
-
-    /**
-     * @param string $id
-     * @return Event
-     */
-    public function setId($id) {
-        if (!is_null($id)) {
-            $id = strval($id);
-        }
-
-        $this->id = $id;
-        return $this;
-    }
-
-    /**
-     * @param array $serializationData Object property array (from $this->jsonSerialize())
-     * @return array $serializationData with possible updates
-     */
-    protected function removeChildEntitySameContexts(array $serializationData) {
-        return parent::removeChildEntitySameContextsBase($serializationData, $this);
+            'federatedSession' => (!is_null($this->getFederatedSession()))
+                ? $this->getFederatedSession()->getId()
+                : null,
+        ];
     }
 
     /** @return context\Context context */
@@ -146,7 +104,7 @@ class Event extends util\ClassUtil implements \JsonSerializable {
     }
 
     /**
-     * @param actions\Action $action
+     * @param Action $action
      * @return $this|Event
      */
     public function setAction(actions\Action $action) {
@@ -154,26 +112,25 @@ class Event extends util\ClassUtil implements \JsonSerializable {
         return $this;
     }
 
-    /** @return entities\Entity object */
+    /** @return object object */
     public function getObject() {
         return $this->object;
     }
 
     /**
-     * @param entities\Entity $object
-     * @throws \InvalidArgumentException Entity required
+     * @param object $object
      * @return $this|Event
      */
     public function setObject($object) {
-        if (is_null($object) || ($object instanceof entities\Entity)) {
-            $this->object = $object;
-            return $this;
+        if (!is_object($object)) {
+            throw new \InvalidArgumentException(__METHOD__ . ': object expected');
         }
 
-        throw new \InvalidArgumentException(__METHOD__ . ': Entity expected');
+        $this->object = $object;
+        return $this;
     }
 
-    /** @return entities\Targetable target */
+    /** @return Targetable target */
     public function getTarget() {
         return $this->target;
     }
@@ -188,7 +145,7 @@ class Event extends util\ClassUtil implements \JsonSerializable {
     }
 
     /** @return entities\Generatable generated */
-    public function getGenerated() {
+    public function  getGenerated() {
         return $this->generated;
     }
 
@@ -198,20 +155,6 @@ class Event extends util\ClassUtil implements \JsonSerializable {
      */
     public function setGenerated(entities\Generatable $generated) {
         $this->generated = $generated;
-        return $this;
-    }
-
-    /** @return entities\Referrable */
-    public function getReferrer() {
-        return $this->referrer;
-    }
-
-    /**
-     * @param entities\Referrable $referrer
-     * @return $this|Event
-     */
-    public function setReferrer(entities\Referrable $referrer) {
-        $this->referrer = $referrer;
         return $this;
     }
 
@@ -243,7 +186,7 @@ class Event extends util\ClassUtil implements \JsonSerializable {
         return $this;
     }
 
-    /** @return entities\agent\Organization group */
+    /** @return Organization group */
     public function getGroup() {
         return $this->group;
     }
@@ -263,7 +206,7 @@ class Event extends util\ClassUtil implements \JsonSerializable {
     }
 
     /**
-     * @param entities\w3c\Membership $membership
+     * @param entities\w3c\Membership|object $membership
      * @return $this|Event
      */
     public function setMembership(entities\w3c\Membership $membership) {
@@ -271,50 +214,18 @@ class Event extends util\ClassUtil implements \JsonSerializable {
         return $this;
     }
 
-    /** @return entities\session\Session */
-    public function getSession() {
-        return $this->session;
-    }
-
-    /**
-     * @param entities\session\Session $session
-     * @return Event
-     */
-    public function setSession(entities\session\Session $session) {
-        $this->session = $session;
-        return $this;
-    }
-
-    /** @return \array[]|null */
-    public function getExtensions() {
-        return $this->extensions;
-    }
-
-    /**
-     * @param \array[]|null $extensions An associative array
-     * @throws \InvalidArgumentException associative array expected
-     * @return $this|Event
-     */
-    public function setExtensions($extensions) {
-        if (($extensions !== null) && !util\Type::isStringKeyedArray($extensions)) {
-            throw new \InvalidArgumentException(__METHOD__ . ': associative array expected');
-        }
-
-        $this->extensions = $extensions;
-        return $this;
-    }
-
-    /** @return entities\session\LtiSession */
+    /** @return Session */
     public function getFederatedSession() {
         return $this->federatedSession;
     }
 
     /**
-     * @param entities\session\LtiSession $federatedSession
+     * @param entities\session\Session $federatedSession
      * @return $this|Event
      */
-    public function setFederatedSession(entities\session\LtiSession $federatedSession) {
+    public function setFederatedSession(entities\session\Session $federatedSession) {
         $this->federatedSession = $federatedSession;
         return $this;
     }
 }
+

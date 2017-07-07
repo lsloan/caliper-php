@@ -1,50 +1,50 @@
 <?php
+
 namespace IMSGlobal\Caliper\entities\assignable;
 
-use IMSGlobal\Caliper\entities\DigitalResource;
-use IMSGlobal\Caliper\entities\DigitalResourceType;
-use IMSGlobal\Caliper\util\TimestampUtil;
+use \IMSGlobal\Caliper\entities;
+use \IMSGlobal\Caliper\util;
 
-class AssignableDigitalResource extends DigitalResource implements Assignable {
-    /** @var \DateTime */
+class AssignableDigitalResource extends \IMSGlobal\Caliper\entities\DigitalResource implements Assignable {
+    /** @var  \DateTime */
     private $dateToActivate;
-    /** @var \DateTime */
+    /** @var  \DateTime */
     private $dateToShow;
-    /** @var \DateTime */
+    /** @var  \DateTime */
     private $dateToStartOn;
-    /** @var \DateTime */
+    /** @var  \DateTime */
     private $dateToSubmit;
-    /** @var int */
+    /** @var  int */
     private $maxAttempts;
-    /** @var int */
+    /** @var  int */
     private $maxSubmits;
-    /** @var float */
+    /** @var  double */
     private $maxScore;
 
     public function __construct($id) {
         parent::__construct($id);
-        $this->setType(new DigitalResourceType(DigitalResourceType::ASSIGNABLE_DIGITAL_RESOURCE));
+        $this->setType(new entities\DigitalResourceType(entities\DigitalResourceType::ASSIGNABLE_DIGITAL_RESOURCE));
     }
 
     public function jsonSerialize() {
         return array_merge(parent::jsonSerialize(), [
-            'dateToActivate' => TimestampUtil::formatTimeISO8601MillisUTC($this->getDateToActivate()),
-            'dateToShow' => TimestampUtil::formatTimeISO8601MillisUTC($this->getDateToShow()),
-            'dateToStartOn' => TimestampUtil::formatTimeISO8601MillisUTC($this->getDateToStartOn()),
-            'dateToSubmit' => TimestampUtil::formatTimeISO8601MillisUTC($this->getDateToSubmit()),
+            'dateToActivate' => util\TimestampUtil::formatTimeISO8601MillisUTC($this->getDateToActivate()),
+            'dateToShow' => util\TimestampUtil::formatTimeISO8601MillisUTC($this->getDateToShow()),
+            'dateToStartOn' => util\TimestampUtil::formatTimeISO8601MillisUTC($this->getDateToStartOn()),
+            'dateToSubmit' => util\TimestampUtil::formatTimeISO8601MillisUTC($this->getDateToSubmit()),
             'maxAttempts' => $this->getMaxAttempts(),
             'maxSubmits' => $this->getMaxSubmits(),
-            'maxScore' => $this->getMaxScore(), // Fractionless float prints as int!
+            'maxScore' => $this->getMaxScore(),
         ]);
     }
 
-    /** @return \DateTime dateToActivate */
+    /** @return DateTime dateToActivate */
     public function getDateToActivate() {
         return $this->dateToActivate;
     }
 
     /**
-     * @param \DateTime $dateToActivate
+     * @param DateTime $dateToActivate
      * @return $this|AssignableDigitalResource
      */
     public function setDateToActivate(\DateTime $dateToActivate) {
@@ -52,13 +52,13 @@ class AssignableDigitalResource extends DigitalResource implements Assignable {
         return $this;
     }
 
-    /** @return \DateTime dateToShow */
+    /** @return DateTime dateToShow */
     public function getDateToShow() {
         return $this->dateToShow;
     }
 
     /**
-     * @param \DateTime $dateToShow
+     * @param DateTime $dateToShow
      * @return $this|AssignableDigitalResource
      */
     public function setDateToShow(\DateTime $dateToShow) {
@@ -66,13 +66,13 @@ class AssignableDigitalResource extends DigitalResource implements Assignable {
         return $this;
     }
 
-    /** @return \DateTime dateToStartOn */
+    /** @return DateTime dateToStartOn */
     public function getDateToStartOn() {
         return $this->dateToStartOn;
     }
 
     /**
-     * @param \DateTime $dateToStartOn
+     * @param DateTime $dateToStartOn
      * @return $this|AssignableDigitalResource
      */
     public function setDateToStartOn(\DateTime $dateToStartOn) {
@@ -80,13 +80,13 @@ class AssignableDigitalResource extends DigitalResource implements Assignable {
         return $this;
     }
 
-    /** @return \DateTime dateToSubmit */
+    /** @return DateTime dateToSubmit */
     public function getDateToSubmit() {
         return $this->dateToSubmit;
     }
 
     /**
-     * @param \DateTime $dateToSubmit
+     * @param DateTime $dateToSubmit
      * @return $this|AssignableDigitalResource
      */
     public function setDateToSubmit(\DateTime $dateToSubmit) {
@@ -130,22 +130,18 @@ class AssignableDigitalResource extends DigitalResource implements Assignable {
         return $this;
     }
 
-    /** @return float maxScore */
+    /** @return double maxScore */
     public function getMaxScore() {
         return $this->maxScore;
     }
 
     /**
-     * @param float $maxScore
+     * @param double $maxScore
      * @return $this|AssignableDigitalResource
      */
     public function setMaxScore($maxScore) {
-        if (!is_float($maxScore)) {
-            if (is_numeric($maxScore)) {
-                $maxScore = floatval($maxScore);
-            } else {
-                throw new \InvalidArgumentException(__METHOD__ . ': float expected');
-            }
+        if (!is_double($maxScore)) {
+            throw new \InvalidArgumentException(__METHOD__ . ': double expected');
         }
 
         $this->maxScore = $maxScore;

@@ -1,4 +1,5 @@
 <?php
+
 namespace IMSGlobal\Caliper\entities\response;
 
 class MultipleResponseResponse extends Response {
@@ -11,9 +12,9 @@ class MultipleResponseResponse extends Response {
     }
 
     public function jsonSerialize() {
-        return $this->removeChildEntitySameContexts(array_merge(parent::jsonSerialize(), [
+        return array_merge(parent::jsonSerialize(), [
             'values' => $this->getValues(),
-        ]));
+        ]);
     }
 
     /** @return string[] values */
@@ -23,7 +24,6 @@ class MultipleResponseResponse extends Response {
 
     /**
      * @param string|string[] $values
-     * @throws \InvalidArgumentException array of only string required
      * @return $this|MultipleResponseResponse
      */
     public function setValues($values) {

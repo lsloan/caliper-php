@@ -1,11 +1,10 @@
 <?php
+
 namespace IMSGlobal\Caliper\entities\assignable;
 
-use IMSGlobal\Caliper;
-
-class AssignableDigitalResourceType extends Caliper\util\BasicEnum implements Caliper\entities\Type {
+class AssignableDigitalResourceType extends \IMSGlobal\Caliper\util\BasicEnum implements \IMSGlobal\Caliper\entities\Type {
     const
         __default = '',
-        ASSESSMENT = 'Assessment',
-        ASSESSMENT_ITEM = 'AssessmentItem';
+        ASSESSMENT = 'http://purl.imsglobal.org/caliper/v1/Assessment',
+        ASSESSMENT_ITEM = 'http://purl.imsglobal.org/caliper/v1/AssessmentItem';
 }

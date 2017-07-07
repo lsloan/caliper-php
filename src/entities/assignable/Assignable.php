@@ -1,4 +1,5 @@
 <?php
+
 namespace IMSGlobal\Caliper\entities\assignable;
 
 interface Assignable {
