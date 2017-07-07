@@ -1,7 +1,10 @@
 phpunit = vendor/phpunit/phpunit/phpunit
 
 .PHONY: test
-.DEFAULT_GOAL = test
+.DEFAULT_GOAL = test-caliper
 
 test:\
-    ;$(phpunit) --colors --exclude-group needsWork tests
+    ;$(phpunit) --colors test/
+
+test-caliper:\
+    ;$(phpunit) --colors test/caliper/

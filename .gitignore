@@ -7,4 +7,3 @@ vendor
 # IntelliJ IDEA
 .idea
 *.iml
-test/caliper/generatedTests/*

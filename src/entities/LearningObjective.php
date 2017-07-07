@@ -1,4 +1,5 @@
 <?php
+
 namespace IMSGlobal\Caliper\entities;
 
 class LearningObjective extends Entity {

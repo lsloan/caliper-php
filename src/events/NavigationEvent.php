@@ -2,35 +2,54 @@
 
 namespace IMSGlobal\Caliper\events;
 
-use IMSGlobal\Caliper\actions;
-use IMSGlobal\Caliper\entities\DigitalResource;
+use \IMSGlobal\Caliper\entities;
+use \IMSGlobal\Caliper\actions;
 
 class NavigationEvent extends Event {
     /** @var DigitalResource */
-    private $object;
+    private $navigatedFrom;
 
-    public function __construct($id = null) {
-        parent::__construct($id);
+    public function __construct() {
+        parent::__construct();
         $this->setType(new EventType(EventType::NAVIGATION))
             ->setAction(new actions\Action(actions\Action::NAVIGATED_TO));
     }
 
-    /** @return DigitalResource object */
-    public function getObject() {
-        return $this->object;
+    public function jsonSerialize() {
+        return array_merge(parent::jsonSerialize(), [
+            'navigatedFrom' => $this->getNavigatedFrom(),
+        ]);
+    }
+
+    /** @return entities\DigitalResource navigatedFrom */
+    public function getNavigatedFrom() {
+        return $this->navigatedFrom;
     }
 
     /**
-     * @param DigitalResource $object
-     * @throws \InvalidArgumentException DigitalResource expected
-     * @return $this|AssessmentEvent
+     * @param entities\DigitalResource $navigatedFrom
+     * @return $this|NavigationEvent
      */
-    public function setObject($object) {
-        if (is_null($object) || ($object instanceof DigitalResource)) {
-            $this->object = $object;
-            return $this;
-        }
+    public function setNavigatedFrom(entities\DigitalResource $navigatedFrom) {
+        $this->navigatedFrom = $navigatedFrom;
+        return $this;
+    }
 
-        throw new \InvalidArgumentException(__METHOD__ . ': DigitalResource expected');
+    /**
+     * @deprecated
+     * @return entities\DigitalResource navigatedFrom
+     */
+    public function getFromResource() {
+        return $this->getNavigatedFrom();
+    }
+
+    /**
+     * @deprecated
+     * @param entities\DigitalResource $fromResource
+     * @return $this|NavigationEvent
+     */
+    public function setFromResource(entities\DigitalResource $fromResource) {
+        return $this->setNavigatedFrom($fromResource);
     }
 }
+

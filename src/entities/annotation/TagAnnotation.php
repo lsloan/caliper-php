@@ -1,4 +1,5 @@
 <?php
+
 namespace IMSGlobal\Caliper\entities\annotation;
 
 class TagAnnotation extends Annotation {

@@ -1,4 +1,5 @@
 <?php
+
 namespace IMSGlobal\Caliper\entities\annotation;
 
 class HighlightAnnotation extends Annotation {
@@ -10,13 +11,14 @@ class HighlightAnnotation extends Annotation {
     public function __construct($id) {
         parent::__construct($id);
         $this->setType(new AnnotationType(AnnotationType::HIGHLIGHT_ANNOTATION));
+        $this->selection = new TextPositionSelector();
     }
 
     public function jsonSerialize() {
-        return $this->removeChildEntitySameContexts(array_merge(parent::jsonSerialize(), [
+        return array_merge(parent::jsonSerialize(), [
             'selection' => $this->getSelection(),
-            'selectionText' => $this->getSelectionText(),
-        ]));
+            'selectionText' => $this->getSelectionText()
+        ]);
     }
 
     /**
@@ -30,7 +32,7 @@ class HighlightAnnotation extends Annotation {
      * @param TextPositionSelector $selection
      * @return $this|HighlightAnnotation
      */
-    public function setSelection(TextPositionSelector $selection) {
+    public function  setSelection(TextPositionSelector $selection) {
         $this->selection = $selection;
         return $this;
     }
@@ -38,13 +40,12 @@ class HighlightAnnotation extends Annotation {
     /**
      * @return string selectionText
      */
-    public function getSelectionText() {
+    public function  getSelectionText() {
         return $this->selectionText;
     }
 
     /**
      * @param string $selectionText
-     * @throws \InvalidArgumentException string required
      * @return $this|HighlightAnnotation
      */
     public function setSelectionText($selectionText) {
