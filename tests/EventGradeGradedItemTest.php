@@ -14,7 +14,7 @@ use IMSGlobal\Caliper\events\GradeEvent;
 /**
  * @requires PHP 5.6.28
  */
-class EventOutcomeGradedItemTest extends CaliperTestCase {
+class EventGradeGradedItemTest extends CaliperTestCase {
     function setUp() {
         parent::setUp();
 
