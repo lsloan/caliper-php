@@ -1,8 +1,7 @@
 <?php
-
 namespace IMSGlobal\Caliper\entities\lis;
 
-use \IMSGlobal\Caliper\entities;
+use IMSGlobal\Caliper\entities;
 
 class CourseSection extends CourseOffering {
     /** @var string */
@@ -14,9 +13,9 @@ class CourseSection extends CourseOffering {
     }
 
     public function jsonSerialize() {
-        return array_merge(parent::jsonSerialize(), [
+        return $this->removeChildEntitySameContexts(array_merge(parent::jsonSerialize(), [
             'category' => $this->getCategory(),
-        ]);
+        ]));
     }
 
     /** @return string category */

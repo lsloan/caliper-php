@@ -1,8 +1,7 @@
 <?php
-
 namespace IMSGlobal\Caliper\entities\reading;
 
-use \IMSGlobal\Caliper\entities;
+use IMSGlobal\Caliper\entities;
 
 class Frame extends entities\DigitalResource implements entities\Targetable {
     /** @var int */

@@ -1,5 +1,4 @@
 <?php
-
 namespace IMSGlobal\Caliper\entities\annotation;
 
 class BookmarkAnnotation extends Annotation {
@@ -12,13 +11,13 @@ class BookmarkAnnotation extends Annotation {
     }
 
     public function jsonSerialize() {
-        return array_merge(parent::jsonSerialize(), [
+        return $this->removeChildEntitySameContexts(array_merge(parent::jsonSerialize(), [
             'bookmarkNotes' => $this->getBookmarkNotes(),
-        ]);
+        ]));
     }
 
     /** @return string bookmarkNotes */
-    public function  getBookmarkNotes() {
+    public function getBookmarkNotes() {
         return $this->bookmarkNotes;
     }
 
@@ -26,7 +25,7 @@ class BookmarkAnnotation extends Annotation {
      * @param string $bookmarkNotes
      * @return $this|BookmarkAnnotation
      */
-    public function  setBookmarkNotes($bookmarkNotes) {
+    public function setBookmarkNotes($bookmarkNotes) {
         $this->bookmarkNotes = $bookmarkNotes;
         return $this;
     }

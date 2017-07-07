@@ -2,15 +2,15 @@
 
 namespace IMSGlobal\Caliper\entities;
 
-use \IMSGlobal\Caliper\util\ClassUtil;
-use \IMSGlobal\Caliper\context\Context;
-use \IMSGlobal\Caliper\entities;
-use \IMSGlobal\Caliper\util\TimestampUtil;
+use IMSGlobal\Caliper\context\Context;
+use IMSGlobal\Caliper\entities;
+use IMSGlobal\Caliper\util;
+use IMSGlobal\Caliper\util\ClassUtil;
 
 abstract class Entity extends ClassUtil implements \JsonSerializable, entities\schemadotorg\Thing {
     /** @var string */
     protected $id;
-    /** @var Context */
+    /** @var Context|null */
     protected $context;
     /** @var Type */
     private $type;
@@ -18,11 +18,11 @@ abstract class Entity extends ClassUtil implements \JsonSerializable, entities\s
     private $name;
     /** @var string */
     private $description;
-    /** @var string[] */
+    /** @var \array[] */
     private $extensions;
-    /** @var DateTime */
+    /** @var \DateTime */
     private $dateCreated;
-    /** @var DateTime */
+    /** @var \DateTime */
     private $dateModified;
 
     function __construct($id) {
@@ -31,16 +31,43 @@ abstract class Entity extends ClassUtil implements \JsonSerializable, entities\s
     }
 
     public function jsonSerialize() {
-        return [
-            '@id' => $this->getId(),
+        return $this->removeChildEntitySameContexts([
             '@context' => $this->getContext(),
-            '@type' => $this->getType(),
+            'id' => $this->getId(),
+            'type' => $this->getType(),
             'name' => $this->getName(),
             'description' => $this->getDescription(),
-            'extensions' => (object) $this->getExtensions(),
-            'dateCreated' => TimestampUtil::formatTimeISO8601MillisUTC($this->getDateCreated()),
-            'dateModified' => TimestampUtil::formatTimeISO8601MillisUTC($this->getDateModified()),
-        ];
+            'extensions' => $this->getExtensions(),
+            'dateCreated' => util\TimestampUtil::formatTimeISO8601MillisUTC($this->getDateCreated()),
+            'dateModified' => util\TimestampUtil::formatTimeISO8601MillisUTC($this->getDateModified()),
+        ]);
+    }
+
+    /**
+     * @param array $serializationData Object property array (from $this->jsonSerialize())
+     * @return array $serializationData with possible updates
+     */
+    protected function removeChildEntitySameContexts(array $serializationData) {
+        return parent::removeChildEntitySameContextsBase($serializationData, $this);
+    }
+
+    /** @return Context|null */
+    public function getContext() {
+        return $this->context;
+    }
+
+    /**
+     * @param Context|null $context
+     * @throws \InvalidArgumentException Context object or null required
+     * @return $this|Entity
+     */
+    public function setContext($context) {
+        if (is_null($context) || ($context instanceof Context)) {
+            $this->context = $context;
+            return $this;
+        }
+
+        throw new \InvalidArgumentException(__METHOD__ . ': instance of Context expected');
     }
 
     /** @return string id */
@@ -50,6 +77,7 @@ abstract class Entity extends ClassUtil implements \JsonSerializable, entities\s
 
     /**
      * @param string $id
+     * @throws \InvalidArgumentException string required
      * @return $this|Entity
      */
     public function setId($id) {
@@ -58,20 +86,6 @@ abstract class Entity extends ClassUtil implements \JsonSerializable, entities\s
         }
 
         $this->id = $id;
-        return $this;
-    }
-
-    /** @return Context */
-    public function getContext() {
-        return $this->context;
-    }
-
-    /**
-     * @param Context $context
-     * @return $this|Entity
-     */
-    public function setContext(Context $context) {
-        $this->context = $context;
         return $this;
     }
 
@@ -84,7 +98,7 @@ abstract class Entity extends ClassUtil implements \JsonSerializable, entities\s
      * @param Type $type
      * @return $this|Entity
      */
-    public function setType(entities\Type $type) {
+    public function setType(Type $type) {
         $this->type = $type;
         return $this;
     }
@@ -96,6 +110,7 @@ abstract class Entity extends ClassUtil implements \JsonSerializable, entities\s
 
     /**
      * @param string $name
+     * @throws \InvalidArgumentException string required
      * @return $this|Entity
      */
     public function setName($name) {
@@ -114,6 +129,7 @@ abstract class Entity extends ClassUtil implements \JsonSerializable, entities\s
 
     /**
      * @param string $description
+     * @throws \InvalidArgumentException string required
      * @return $this|Entity
      */
     public function setDescription($description) {
@@ -125,31 +141,26 @@ abstract class Entity extends ClassUtil implements \JsonSerializable, entities\s
         return $this;
     }
 
-    /** @return string[] extensions */
+    /** @return \array[]|null extensions */
     public function getExtensions() {
         return $this->extensions;
     }
 
     /**
-     * @param string|string[] $extensions
+     * @param \array[]|null $extensions An associative array
+     * @throws \InvalidArgumentException associative array expected
      * @return $this|Entity
      */
     public function setExtensions($extensions) {
-        if (!is_array($extensions)) {
-            $extensions = [$extensions];
-        }
-
-        foreach ($extensions as $anExtension) {
-            if (!is_string($anExtension)) {
-                throw new \InvalidArgumentException(__METHOD__ . ': array of strings expected');
-            }
+        if (($extensions !== null) && !util\Type::isStringKeyedArray($extensions)) {
+            throw new \InvalidArgumentException(__METHOD__ . ': associative array expected');
         }
 
         $this->extensions = $extensions;
         return $this;
     }
 
-    /** @return DateTime dateCreated */
+    /** @return \DateTime dateCreated */
     public function getDateCreated() {
         return $this->dateCreated;
     }
@@ -163,7 +174,7 @@ abstract class Entity extends ClassUtil implements \JsonSerializable, entities\s
         return $this;
     }
 
-    /** @return DateTime dateModified */
+    /** @return \DateTime dateModified */
     public function getDateModified() {
         return $this->dateModified;
     }
@@ -176,5 +187,7 @@ abstract class Entity extends ClassUtil implements \JsonSerializable, entities\s
         $this->dateModified = $dateModified;
         return $this;
     }
+
+
 }
 

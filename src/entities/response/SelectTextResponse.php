@@ -1,5 +1,4 @@
 <?php
-
 namespace IMSGlobal\Caliper\entities\response;
 
 class SelectTextResponse extends Response {

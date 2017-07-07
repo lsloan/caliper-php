@@ -1,5 +1,4 @@
 <?php
-
 namespace IMSGlobal\Caliper\entities\media;
 
 class ImageObject extends MediaObject implements \IMSGlobal\Caliper\entities\schemadotorg\ImageObject {
