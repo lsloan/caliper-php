@@ -25,45 +25,17 @@ class EntityAssessmentItemExtendedTest extends CaliperTestCase {
                 ->setIsTimeDependent(
                     false
                 )
-                ->setMaxAttempts(
-                    2
-                )
                 ->setMaxScore(
-                    5.0
+                    1.0
                 )
                 ->setMaxSubmits(
                     2
                 )
                 ->setExtensions(
                     [
-                        0 =>
-                            ([
-                                '@context' =>
-                                    ([
-                                        'id' => '@id',
-                                        'type' => '@type',
-                                        'example' => 'http://example.edu/ctx/edu',
-                                        'xsd' => 'http://www.w3.org/2001/XMLSchema#',
-                                        'itemType' =>
-                                            ([
-                                                'id' => 'example:itemType',
-                                                'type' => 'xsd:string',
-                                            ]),
-                                        'itemText' =>
-                                            ([
-                                                'id' => 'example:itemText',
-                                                'type' => 'xsd:string',
-                                            ]),
-                                        'itemCorrectResponse' =>
-                                            ([
-                                                'id' => 'example:itemCorrectResponse',
-                                                'type' => 'xsd:boolean',
-                                            ]),
-                                    ]),
-                                'itemType' => 'true/false',
-                                'itemText' => 'In Caliper event actors are limited to people only.',
-                                'itemCorrectResponse' => false,
-                            ]),
+                        'questionType' => 'Dichotomous',
+                        'questionText' => 'Is a Caliper SoftwareApplication a subtype of Caliper Agent?',
+                        'correctResponse' => 'yes'
                     ])
         );
     }
