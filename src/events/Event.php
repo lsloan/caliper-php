@@ -1,4 +1,5 @@
 <?php
+
 namespace IMSGlobal\Caliper\events;
 
 use IMSGlobal\Caliper\actions;
@@ -35,7 +36,7 @@ class Event extends util\ClassUtil implements \JsonSerializable {
     private $session;
     /** @var entities\session\LtiSession */
     private $federatedSession;
-    /** @var array[] */
+    /** @var \array[] */
     private $extensions;
     /** @var string */
     private $id;
@@ -284,29 +285,19 @@ class Event extends util\ClassUtil implements \JsonSerializable {
         return $this;
     }
 
-    /** @return \array[] */
+    /** @return \array[]|null */
     public function getExtensions() {
         return $this->extensions;
     }
 
     /**
-     * @param \array[]|null $extensions An array of associative arrays
-     * @throws \InvalidArgumentException array of associative arrays or null required
-     * @return Event
+     * @param \array[]|null $extensions An associative array
+     * @throws \InvalidArgumentException associative array expected
+     * @return $this|Event
      */
     public function setExtensions($extensions) {
-        if ($extensions !== null) {
-            if (!is_array($extensions)) {
-                $extensions = [$extensions];
-            } else {
-                $extensions = array_values($extensions);
-            }
-
-            foreach ($extensions as $anExtension) {
-                if (!util\Type::isStringKeyedArray($anExtension)) {
-                    throw new \InvalidArgumentException(__METHOD__ . ': array of associative arrays expected');
-                }
-            }
+        if (($extensions !== null) && !util\Type::isStringKeyedArray($extensions)) {
+            throw new \InvalidArgumentException(__METHOD__ . ': associative array expected');
         }
 
         $this->extensions = $extensions;
