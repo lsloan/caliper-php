@@ -130,7 +130,7 @@ class AssignableDigitalResource extends DigitalResource implements Assignable {
         return $this;
     }
 
-    /** @return double maxScore */
+    /** @return float maxScore */
     public function getMaxScore() {
         return $this->maxScore;
     }

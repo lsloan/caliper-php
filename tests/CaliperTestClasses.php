@@ -34,6 +34,9 @@ class AnnotatedReference extends DigitalResourceReference {
 class AnnotatorReference extends PersonReference {
 }
 
+class AssessmentReference extends DigitalResourceReference {
+}
+
 class AssignableReference extends DigitalResourceReference {
 }
 

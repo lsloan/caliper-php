@@ -5,13 +5,13 @@ namespace IMSGlobal\Caliper\entities\outcome;
 use IMSGlobal\Caliper\entities;
 use IMSGlobal\Caliper\entities\assignable\Attempt;
 
-class Result extends entities\Entity implements entities\Generatable {
+class Score extends entities\Entity implements entities\Generatable {
     /** @var Attempt|null */
     private $attempt;
     /** @var float */
-    private $maxResultScore;
+    private $maxScore;
     /** @var float */
-    private $resultScore;
+    private $scoreGiven;
     /** @var entities\foaf\Agent */
     private $scoredBy;
     /** @var string */
@@ -19,16 +19,16 @@ class Result extends entities\Entity implements entities\Generatable {
 
     public function __construct($id) {
         parent::__construct($id);
-        $this->setType(new entities\EntityType(entities\EntityType::RESULT));
+        $this->setType(new entities\EntityType(entities\EntityType::SCORE));
     }
 
     public function jsonSerialize() {
         return $this->removeChildEntitySameContexts(array_merge(parent::jsonSerialize(), [
             'attempt' => $this->getAttempt(),
-            'maxResultScore' => $this->getMaxResultScore(),
-            'resultScore' => $this->getResultScore(),
-            'comment' => $this->getComment(),
+            'maxScore' => $this->getMaxScore(),
+            'scoreGiven' => $this->getScoreGiven(),
             'scoredBy' => $this->getScoredBy(),
+            'comment' => $this->getComment(),
         ]));
     }
 
@@ -40,7 +40,7 @@ class Result extends entities\Entity implements entities\Generatable {
     /**
      * @param Attempt|null $attempt
      * @throws \InvalidArgumentException Attempt required
-     * @return $this|Result
+     * @return $this|Score
      */
     public function setAttempt($attempt) {
         if (is_null($attempt) || ($attempt instanceof Attempt)) {
@@ -51,41 +51,55 @@ class Result extends entities\Entity implements entities\Generatable {
         throw new \InvalidArgumentException(__METHOD__ . ': Attempt expected');
     }
 
-    /** @return float maxResultScore */
-    public function getMaxResultScore() {
-        return $this->maxResultScore;
+    /** @return float maxScore */
+    public function getMaxScore() {
+        return $this->maxScore;
     }
 
     /**
-     * @param float $maxResultScore
+     * @param float $maxScore
      * @throws \InvalidArgumentException float required
-     * @return $this|Result
+     * @return $this|Score
      */
-    public function setMaxResultScore($maxResultScore) {
-        if (!is_float($maxResultScore)) {
+    public function setMaxScore($maxScore) {
+        if (!is_float($maxScore)) {
             throw new \InvalidArgumentException(__METHOD__ . ': float expected');
         }
 
-        $this->maxResultScore = $maxResultScore;
+        $this->maxScore = $maxScore;
         return $this;
     }
 
-    /** @return float resultScore */
-    public function getResultScore() {
-        return $this->resultScore;
+    /** @return float scoreGiven */
+    public function getScoreGiven() {
+        return $this->scoreGiven;
     }
 
     /**
-     * @param float $resultScore
+     * @param float $scoreGiven
      * @throws \InvalidArgumentException float required
-     * @return $this|Result
+     * @return $this|Score
      */
-    public function setResultScore($resultScore) {
-        if (!is_float($resultScore)) {
+    public function setScoreGiven($scoreGiven) {
+        if (!is_float($scoreGiven)) {
             throw new \InvalidArgumentException(__METHOD__ . ': float expected');
         }
 
-        $this->resultScore = $resultScore;
+        $this->scoreGiven = $scoreGiven;
+        return $this;
+    }
+
+    /** @return entities\foaf\Agent scoredBy */
+    public function getScoredBy() {
+        return $this->scoredBy;
+    }
+
+    /**
+     * @param entities\foaf\Agent $scoredBy
+     * @return $this|Score
+     */
+    public function setScoredBy(entities\foaf\Agent $scoredBy) {
+        $this->scoredBy = $scoredBy;
         return $this;
     }
 
@@ -97,7 +111,7 @@ class Result extends entities\Entity implements entities\Generatable {
     /**
      * @param string $comment
      * @throws \InvalidArgumentException string required
-     * @return $this|Result
+     * @return $this|Score
      */
     public function setComment($comment) {
         if (!is_string($comment)) {
@@ -105,20 +119,6 @@ class Result extends entities\Entity implements entities\Generatable {
         }
 
         $this->comment = $comment;
-        return $this;
-    }
-
-    /** @return entities\foaf\Agent scoredBy */
-    public function getScoredBy() {
-        return $this->scoredBy;
-    }
-
-    /**
-     * @param entities\foaf\Agent $scoredBy
-     * @return $this|Result
-     */
-    public function setScoredBy(entities\foaf\Agent $scoredBy) {
-        $this->scoredBy = $scoredBy;
         return $this;
     }
 }

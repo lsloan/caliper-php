@@ -13,7 +13,7 @@ class EventType extends \IMSGlobal\Caliper\util\BasicEnum {
         MEDIA = 'MediaEvent',
         MESSAGE = 'MessageEvent',
         NAVIGATION = 'NavigationEvent',
-        OUTCOME = 'OutcomeEvent',
+        GRADE = 'GradeEvent',
         SESSION = 'SessionEvent',
         THREAD = 'ThreadEvent',
         TOOL_USE = 'ToolUseEvent',

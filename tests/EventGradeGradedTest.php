@@ -7,20 +7,19 @@ use IMSGlobal\Caliper\entities\agent\SoftwareApplication;
 use IMSGlobal\Caliper\entities\assessment\Assessment;
 use IMSGlobal\Caliper\entities\assignable\Attempt;
 use IMSGlobal\Caliper\entities\lis\CourseSection;
-use IMSGlobal\Caliper\entities\outcome\Result;
-use IMSGlobal\Caliper\events\OutcomeEvent;
-
+use IMSGlobal\Caliper\entities\outcome\Score;
+use IMSGlobal\Caliper\events\GradeEvent;
 
 /**
  * @requires PHP 5.6.28
  */
-class EventOutcomeGradedTest extends CaliperTestCase {
+class EventGradeGradedTest extends CaliperTestCase {
     function setUp() {
         parent::setUp();
 
 
         $this->setTestObject(
-            (new OutcomeEvent('urn:uuid:a50ca17f-5971-47bb-8fca-4e6e6879001d'))
+            (new GradeEvent('urn:uuid:a50ca17f-5971-47bb-8fca-4e6e6879001d'))
                 ->setActor(
                     (new SoftwareApplication('https://example.edu/autograder'))
                         ->setVersion(
@@ -55,19 +54,22 @@ class EventOutcomeGradedTest extends CaliperTestCase {
                 ->setEdApp(
                     new EdAppReference('https://example.edu'))
                 ->setGenerated(
-                    (new Result('https://example.edu/terms/201601/courses/7/sections/1/assess/1/users/554433/results/1'))
+                    (new Score('https://example.edu/terms/201601/courses/7/sections/1/assess/1/users/554433/attempts/1/scores/1'))
                         ->setAttempt(
                             new AttemptReference('https://example.edu/terms/201601/courses/7/sections/1/assess/1/users/554433/attempts/1'))
-                        ->setNormalScore(
+                        ->setMaxScore(
                             15.0
                         )
-                        ->setTotalScore(
-                            15.0
+                        ->setScoreGiven(
+                            10.0
                         )
                         ->setScoredBy(
                             new ScoredByReference('https://example.edu/autograder'))
+                        ->setComment(
+                            'auto-graded exam'
+                        )
                         ->setDateCreated(
-                            new \DateTime('2016-11-15T10:55:05.000Z'))
+                            new \DateTime('2016-11-15T10:56:00.000Z'))
                 )
                 ->setGroup(
                     (new CourseSection('https://example.edu/terms/201601/courses/7/sections/1'))
