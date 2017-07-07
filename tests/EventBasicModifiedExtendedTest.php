@@ -6,7 +6,6 @@ use IMSGlobal\Caliper\entities\agent\Person;
 use IMSGlobal\Caliper\entities\reading\Document;
 use IMSGlobal\Caliper\events\Event;
 
-
 /**
  * @requires PHP 5.6.28
  */
@@ -23,7 +22,7 @@ class EventBasicModifiedExtendedTest extends CaliperTestCase {
                 ->setAction(
                     new Action(Action::MODIFIED))
                 ->setObject(
-                    (new Document('https://example.edu/terms/201601/courses/7/sections/1/resources/123'))
+                    (new Document('https://example.edu/terms/201601/courses/7/sections/1/resources/123?version=3'))
                         ->setName(
                             'Course Syllabus'
                         )
@@ -32,33 +31,28 @@ class EventBasicModifiedExtendedTest extends CaliperTestCase {
                         ->setDateModified(
                             new \DateTime('2016-11-15T10:15:00.000Z'))
                         ->setVersion(
-                            '2'
+                            '3'
                         )
                 )
                 ->setEventTime(
                     new \DateTime('2016-11-15T10:15:00.000Z'))
-                ->setExtensions(
-                    [
-                        0 =>
-                            ([
-                                '@context' =>
-                                    ([
-                                        'id' => '@id',
-                                        'type' => '@type',
-                                        'example' => 'http://example.edu/ctx/edu/',
-                                        'previousVersion' =>
-                                            ([
-                                                '@id' => 'example:previousVersion',
-                                                '@type' => '@id',
-                                            ]),
-                                    ]),
-                                'previousVersion' =>
-                                    ([
-                                        'id' => 'https://example.edu/terms/201601/courses/7/sections/1/resources/123?version=1',
-                                        'type' => 'Document',
-                                    ]),
-                            ]),
-                    ])
+                ->setExtensions([
+                    'archive' => [
+                        [
+                            'id' => 'https://example.edu/terms/201601/courses/7/sections/1/resources/123?version=2',
+                            'type' => 'Document',
+                            'dateCreated' => '2016-11-12T07:15:00.000Z',
+                            'dateModified' => '2016-11-13T11:00:00.000Z',
+                            'version' => '2',
+                        ],
+                        [
+                            'id' => 'https://example.edu/terms/201601/courses/7/sections/1/resources/123?version=1',
+                            'type' => 'Document',
+                            'dateCreated' => '2016-11-12T07:15:00.000Z',
+                            'version' => '1',
+                        ],
+                    ],
+                ])
         );
     }
 }
