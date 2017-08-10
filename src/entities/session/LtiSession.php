@@ -5,7 +5,7 @@ use IMSGlobal\Caliper\entities;
 
 class LtiSession extends Session {
     /** @var mixed */
-    private $launchParameters = null;
+    private $messageParameters = null;
 
     public function __construct($id) {
         parent::__construct($id);
@@ -14,21 +14,21 @@ class LtiSession extends Session {
 
     public function jsonSerialize() {
         return $this->removeChildEntitySameContexts(array_merge(parent::jsonSerialize(), [
-            'launchParameters' => $this->getLaunchParameters(),
+            'messageParameters' => $this->getMessageParameters(),
         ]));
     }
 
     /** @return mixed */
-    public function getLaunchParameters() {
-        return $this->launchParameters;
+    public function getMessageParameters() {
+        return $this->messageParameters;
     }
 
     /**
-     * @param mixed $launchParameters
+     * @param mixed $messageParameters
      * @return LtiSession
      */
-    public function setLaunchParameters($launchParameters) {
-        $this->launchParameters = $launchParameters;
+    public function setMessageParameters($messageParameters) {
+        $this->messageParameters = $messageParameters;
         return $this;
     }
 
