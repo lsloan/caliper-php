@@ -32,7 +32,7 @@ class ReadingEvent extends Event {
     /**
      * @param DigitalResource $object
      * @throws \InvalidArgumentException DigitalResource expected
-     * @return $this|AssessmentEvent
+     * @return $this|ReadingEvent
      */
     public function setObject($object) {
         if (is_null($object) || ($object instanceof DigitalResource)) {

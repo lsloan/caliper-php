@@ -27,7 +27,7 @@ class GradeEvent extends Event {
     /**
      * @param Attempt $object
      * @throws \InvalidArgumentException Attempt expected
-     * @return $this|AssessmentEvent
+     * @return $this|GradeEvent
      */
     public function setObject($object) {
         if (is_null($object) || ($object instanceof Attempt)) {

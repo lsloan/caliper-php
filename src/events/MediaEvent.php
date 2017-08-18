@@ -21,7 +21,7 @@ class MediaEvent extends Event {
     /**
      * @param MediaObject $object
      * @throws \InvalidArgumentException MediaObject expected
-     * @return $this|AssessmentEvent
+     * @return $this|MediaEvent
      */
     public function setObject($object) {
         if (is_null($object) || ($object instanceof MediaObject)) {

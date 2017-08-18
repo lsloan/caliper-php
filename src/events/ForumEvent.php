@@ -21,7 +21,7 @@ class ForumEvent extends Event {
     /**
      * @param Forum $object
      * @throws \InvalidArgumentException Forum expected
-     * @return $this|AssessmentEvent
+     * @return $this|ForumEvent
      */
     public function setObject($object) {
         if (is_null($object) || ($object instanceof Forum)) {

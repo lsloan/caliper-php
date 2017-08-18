@@ -21,7 +21,7 @@ class AssignableEvent extends Event {
     /**
      * @param AssignableDigitalResource $object
      * @throws \InvalidArgumentException AssignableDigitalResource expected
-     * @return $this|AssessmentEvent
+     * @return $this|AssignableEvent
      */
     public function setObject($object) {
         if (is_null($object) || ($object instanceof AssignableDigitalResource)) {

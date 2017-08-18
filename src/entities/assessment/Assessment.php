@@ -26,7 +26,7 @@ class Assessment extends AssignableDigitalResource {
 
     /**
      * @param AssessmentItem|AssessmentItem[]|null $items
-     * @return $this|AssignableDigitalResource
+     * @return $this|Assessment
      */
     public function setItems($items) {
         if (!is_null($items)) {

@@ -21,7 +21,7 @@ class ToolUseEvent extends Event {
     /**
      * @param SoftwareApplication $object
      * @throws \InvalidArgumentException SoftwareApplication expected
-     * @return $this|AssessmentEvent
+     * @return $this|ToolUseEvent
      */
     public function setObject($object) {
         if (is_null($object) || ($object instanceof SoftwareApplication)) {
