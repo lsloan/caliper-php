@@ -21,7 +21,7 @@ class MessageEvent extends Event {
     /**
      * @param Message $object
      * @throws \InvalidArgumentException Message expected
-     * @return $this|AssessmentEvent
+     * @return $this|MessageEvent
      */
     public function setObject($object) {
         if (is_null($object) || ($object instanceof Message)) {

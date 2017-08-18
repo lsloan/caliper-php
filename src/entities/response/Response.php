@@ -79,7 +79,7 @@ abstract class Response extends entities\Entity implements entities\Generatable 
     /**
      * @param string|null $duration (ISO 8601 interval)
      * @throws \InvalidArgumentException ISO 8601 interval string required
-     * @return $this|Attempt
+     * @return $this|Response
      */
     public function setDuration($duration) {
         if (!is_null($duration)) {

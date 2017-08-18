@@ -21,7 +21,7 @@ class AssessmentItemEvent extends Event {
     /**
      * @param AssessmentItem $object
      * @throws \InvalidArgumentException AssessmentItem expected
-     * @return $this|AssessmentEvent
+     * @return $this|AssessmentItemEvent
      */
     public function setObject($object) {
         if (is_null($object) || ($object instanceof AssessmentItem)) {

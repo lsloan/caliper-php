@@ -21,7 +21,7 @@ class ThreadEvent extends Event {
     /**
      * @param Thread $object
      * @throws \InvalidArgumentException Thread expected
-     * @return $this|AssessmentEvent
+     * @return $this|ThreadEvent
      */
     public function setObject($object) {
         if (is_null($object) || ($object instanceof Thread)) {

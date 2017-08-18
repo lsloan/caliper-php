@@ -35,7 +35,7 @@ class SessionEvent extends Event {
      * @throws \InvalidArgumentException SoftwareApplication expected
      * @throws \InvalidArgumentException Session expected
      * @throws \InvalidArgumentException Action must be set before Object
-     * @return $this|AssessmentEvent
+     * @return $this|SessionEvent
      */
     public function setObject($object) {
         $action = $this->getAction();

@@ -138,7 +138,7 @@ class Options {
 
     /**
      * @param JsonInclude|null $jsonInclude
-     * @return $this
+     * @return $this|Options
      */
     public function setJsonInclude($jsonInclude = null) {
         if (!($jsonInclude instanceof JsonInclude)) {
