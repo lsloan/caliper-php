@@ -49,7 +49,7 @@ class Event extends util\ClassUtil implements \JsonSerializable {
 
     public function jsonSerialize() {
         if ($this->getId() === null) {
-            $this->setId(uniqid());
+            $this->setId('urn:uuid:' . util\UuidUtil::makeUuidV4());
         }
 
         return $this->removeChildEntitySameContexts([
