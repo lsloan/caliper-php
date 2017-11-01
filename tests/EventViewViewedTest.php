@@ -2,7 +2,9 @@
 require_once 'CaliperTestCase.php';
 
 use IMSGlobal\Caliper\actions\Action;
+use IMSGlobal\Caliper\entities\agent\Organization;
 use IMSGlobal\Caliper\entities\agent\Person;
+use IMSGlobal\Caliper\entities\agent\SoftwareApplication;
 use IMSGlobal\Caliper\entities\lis\CourseSection;
 use IMSGlobal\Caliper\entities\lis\Membership;
 use IMSGlobal\Caliper\entities\lis\Role;
@@ -43,7 +45,7 @@ class EventViewViewedTest extends CaliperTestCase {
                 ->setEventTime(
                     new \DateTime('2016-11-15T10:15:00.000Z'))
                 ->setEdApp(
-                    new EdAppReference('https://example.edu'))
+                    (new SoftwareApplication('https://example.edu'))->makeReference())
                 ->setGroup(
                     (new CourseSection('https://example.edu/terms/201601/courses/7/sections/1'))
                         ->setCourseNumber(
@@ -56,9 +58,9 @@ class EventViewViewedTest extends CaliperTestCase {
                 ->setMembership(
                     (new Membership('https://example.edu/terms/201601/courses/7/sections/1/rosters/1'))
                         ->setMember(
-                            new MemberReference('https://example.edu/users/554433'))
+                            (new Person('https://example.edu/users/554433'))->makeReference())
                         ->setOrganization(
-                            new OrganizationReference('https://example.edu/terms/201601/courses/7/sections/1'))
+                            (new Organization('https://example.edu/terms/201601/courses/7/sections/1'))->makeReference())
                         ->setRoles(
                             [new Role(Role::LEARNER)])
                         ->setStatus(

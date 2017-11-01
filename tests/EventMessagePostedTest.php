@@ -2,6 +2,7 @@
 require_once 'CaliperTestCase.php';
 
 use IMSGlobal\Caliper\actions\Action;
+use IMSGlobal\Caliper\entities\agent\Organization;
 use IMSGlobal\Caliper\entities\agent\Person;
 use IMSGlobal\Caliper\entities\agent\SoftwareApplication;
 use IMSGlobal\Caliper\entities\Forum;
@@ -76,9 +77,9 @@ class EventMessagePostedTest extends CaliperTestCase {
                 ->setMembership(
                     (new Membership('https://example.edu/terms/201601/courses/7/sections/1/rosters/1'))
                         ->setMember(
-                            new MemberReference('https://example.edu/users/554433'))
+                            (new Person('https://example.edu/users/554433'))->makeReference())
                         ->setOrganization(
-                            new OrganizationReference('https://example.edu/terms/201601/courses/7/sections/1'))
+                            (new Organization('https://example.edu/terms/201601/courses/7/sections/1'))->makeReference())
                         ->setRoles(
                             [new Role(Role::LEARNER)])
                         ->setStatus(

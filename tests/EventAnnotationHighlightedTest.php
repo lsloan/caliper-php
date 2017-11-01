@@ -2,10 +2,12 @@
 require_once 'CaliperTestCase.php';
 
 use IMSGlobal\Caliper\actions\Action;
+use IMSGlobal\Caliper\entities\agent\Organization;
 use IMSGlobal\Caliper\entities\agent\Person;
 use IMSGlobal\Caliper\entities\agent\SoftwareApplication;
 use IMSGlobal\Caliper\entities\annotation\HighlightAnnotation;
 use IMSGlobal\Caliper\entities\annotation\TextPositionSelector;
+use IMSGlobal\Caliper\entities\DigitalResource;
 use IMSGlobal\Caliper\entities\lis\CourseSection;
 use IMSGlobal\Caliper\entities\lis\Membership;
 use IMSGlobal\Caliper\entities\lis\Role;
@@ -44,9 +46,9 @@ class EventAnnotationHighlightedTest extends CaliperTestCase {
                 ->setGenerated(
                     (new HighlightAnnotation('https://example.com/users/554433/texts/imscaliperimplguide/highlights?start=2300&end=2370'))
                         ->setAnnotator(
-                            new AnnotatorReference('https://example.edu/users/554433'))
+                            (new Person('https://example.edu/users/554433'))->makeReference())
                         ->setAnnotated(
-                            new AnnotatedReference('https://example.com/#/texts/imscaliperimplguide'))
+                            (new DigitalResource('https://example.com/#/texts/imscaliperimplguide'))->makeReference())
                         ->setSelection(
                             (new TextPositionSelector())
                                 ->setStart(
@@ -85,9 +87,9 @@ class EventAnnotationHighlightedTest extends CaliperTestCase {
                 ->setMembership(
                     (new Membership('https://example.edu/terms/201601/courses/7/sections/1/rosters/1'))
                         ->setMember(
-                            new MemberReference('https://example.edu/users/554433'))
+                            (new Person('https://example.edu/users/554433'))->makeReference())
                         ->setOrganization(
-                            new OrganizationReference('https://example.edu/terms/201601/courses/7/sections/1'))
+                            (new Organization('https://example.edu/terms/201601/courses/7/sections/1'))->makeReference())
                         ->setRoles(
                             [new Role(Role::LEARNER)])
                         ->setStatus(

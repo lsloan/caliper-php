@@ -1,4 +1,5 @@
 <?php
+
 namespace IMSGlobal\Caliper\entities\annotation;
 
 use IMSGlobal\Caliper\entities\foaf\Agent;
@@ -13,7 +14,9 @@ class SharedAnnotation extends Annotation {
     }
 
     public function jsonSerialize() {
-        return $this->removeChildEntitySameContexts(array_merge(parent::jsonSerialize(), [
+        $serializedParent = parent::jsonSerialize();
+        if (!is_array($serializedParent)) return $serializedParent;
+        return $this->removeChildEntitySameContexts(array_merge($serializedParent, [
             'withAgents' => $this->getWithAgents(),
         ]));
     }

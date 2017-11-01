@@ -1,10 +1,12 @@
 <?php
 
 use IMSGlobal\Caliper\actions\Action;
+use IMSGlobal\Caliper\entities\agent\Organization;
 use IMSGlobal\Caliper\entities\agent\Person;
 use IMSGlobal\Caliper\entities\agent\SoftwareApplication;
 use IMSGlobal\Caliper\entities\assessment\Assessment;
 use IMSGlobal\Caliper\entities\assignable\Attempt;
+use IMSGlobal\Caliper\entities\DigitalResource;
 use IMSGlobal\Caliper\entities\lis\CourseSection;
 use IMSGlobal\Caliper\entities\lis\Membership;
 use IMSGlobal\Caliper\entities\lis\Role;
@@ -35,8 +37,8 @@ class EnvelopeEventSingleTest extends CaliperTestCase {
                     )
                     ->setEventTime(new \DateTime('2016-11-15T10:15:00.000Z'))
                     ->setGenerated((new Attempt('https://example.edu/terms/201601/courses/7/sections/1/assess/1/users/554433/attempts/1'))
-                        ->setAssignable(new AssignableReference('https://example.edu/terms/201601/courses/7/sections/1/assess/1'))
-                        ->setAssignee((new AssigneeReference('https://example.edu/users/554433'))
+                        ->setAssignable((new DigitalResource('https://example.edu/terms/201601/courses/7/sections/1/assess/1'))->makeReference())
+                        ->setAssignee(((new Person('https://example.edu/users/554433'))->makeReference())
                         )
                         ->setCount(1)
                         ->setDateCreated(new \DateTime('2016-11-15T10:15:00.000Z'))
@@ -48,9 +50,9 @@ class EnvelopeEventSingleTest extends CaliperTestCase {
                     )
                     ->setMembership((new Membership('https://example.edu/terms/201601/courses/7/sections/1/rosters/1'))
                         ->setDateCreated(new \DateTime('2016-08-01T06:00:00.000Z'))
-                        ->setMember((new MemberReference('https://example.edu/users/554433'))
+                        ->setMember(((new Person('https://example.edu/users/554433'))->makeReference())
                         )
-                        ->setOrganization(new OrganizationReference('https://example.edu/terms/201601/courses/7/sections/1'))
+                        ->setOrganization((new Organization('https://example.edu/terms/201601/courses/7/sections/1'))->makeReference())
                         ->setRoles(new Role(Role::LEARNER))
                         ->setStatus(new Status(Status::ACTIVE))
                     )

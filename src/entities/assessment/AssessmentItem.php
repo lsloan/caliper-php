@@ -1,4 +1,5 @@
 <?php
+
 namespace IMSGlobal\Caliper\entities\assessment;
 
 use IMSGlobal\Caliper\entities\assignable\AssignableDigitalResource;
@@ -14,7 +15,9 @@ class AssessmentItem extends AssignableDigitalResource {
     }
 
     public function jsonSerialize() {
-        return array_merge(parent::jsonSerialize(), [
+        $serializedParent = parent::jsonSerialize();
+        if (!is_array($serializedParent)) return $serializedParent;
+        return array_merge($serializedParent, [
             'isTimeDependent' => $this->getIsTimeDependent(),
         ]);
     }

@@ -2,10 +2,12 @@
 require_once 'CaliperTestCase.php';
 
 use IMSGlobal\Caliper\actions\Action;
+use IMSGlobal\Caliper\entities\agent\Organization;
 use IMSGlobal\Caliper\entities\agent\Person;
 use IMSGlobal\Caliper\entities\agent\SoftwareApplication;
 use IMSGlobal\Caliper\entities\assessment\Assessment;
 use IMSGlobal\Caliper\entities\assignable\Attempt;
+use IMSGlobal\Caliper\entities\DigitalResource;
 use IMSGlobal\Caliper\entities\lis\CourseSection;
 use IMSGlobal\Caliper\entities\lis\Membership;
 use IMSGlobal\Caliper\entities\lis\Role;
@@ -54,9 +56,9 @@ class EventAssessmentStartedTest extends CaliperTestCase {
                 ->setGenerated(
                     (new Attempt('https://example.edu/terms/201601/courses/7/sections/1/assess/1/users/554433/attempts/1'))
                         ->setAssignee(
-                            new AssigneeReference('https://example.edu/users/554433'))
+                            (new Person('https://example.edu/users/554433'))->makeReference())
                         ->setAssignable(
-                            new AssignableReference('https://example.edu/terms/201601/courses/7/sections/1/assess/1'))
+                            (new DigitalResource('https://example.edu/terms/201601/courses/7/sections/1/assess/1'))->makeReference())
                         ->setCount(
                             1
                         )
@@ -85,9 +87,9 @@ class EventAssessmentStartedTest extends CaliperTestCase {
                 ->setMembership(
                     (new Membership('https://example.edu/terms/201601/courses/7/sections/1/rosters/1'))
                         ->setMember(
-                            new MemberReference('https://example.edu/users/554433'))
+                            (new Person('https://example.edu/users/554433'))->makeReference())
                         ->setOrganization(
-                            new OrganizationReference('https://example.edu/terms/201601/courses/7/sections/1'))
+                            (new Organization('https://example.edu/terms/201601/courses/7/sections/1'))->makeReference())
                         ->setRoles(
                             [new Role(Role::LEARNER)])
                         ->setStatus(

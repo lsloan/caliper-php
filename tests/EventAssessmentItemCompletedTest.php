@@ -2,6 +2,7 @@
 require_once 'CaliperTestCase.php';
 
 use IMSGlobal\Caliper\actions\Action;
+use IMSGlobal\Caliper\entities\agent\Organization;
 use IMSGlobal\Caliper\entities\agent\Person;
 use IMSGlobal\Caliper\entities\agent\SoftwareApplication;
 use IMSGlobal\Caliper\entities\assessment\Assessment;
@@ -54,7 +55,7 @@ class EventAssessmentItemCompletedTest extends CaliperTestCase {
                         ->setAttempt(
                             (new Attempt('https://example.edu/terms/201601/courses/7/sections/1/assess/1/items/3/users/554433/attempts/1'))
                                 ->setAssignee(
-                                    new AssigneeReference('https://example.edu/users/554433'))
+                                    (new Person('https://example.edu/users/554433'))->makeReference())
                                 ->setAssignable(
                                     (new AssessmentItem('https://example.edu/terms/201601/courses/7/sections/1/assess/1/items/3'))
                                         ->setName(
@@ -65,7 +66,7 @@ class EventAssessmentItemCompletedTest extends CaliperTestCase {
                                         )
                                 )
                                 ->setIsPartOf(
-                                    new IsPartOfReference('https://example.edu/terms/201601/courses/7/sections/1/assess/1/users/554433/attempts/1'))
+                                    (new Attempt('https://example.edu/terms/201601/courses/7/sections/1/assess/1/users/554433/attempts/1'))->makeReference())
                                 ->setCount(
                                     1
                                 )
@@ -75,7 +76,6 @@ class EventAssessmentItemCompletedTest extends CaliperTestCase {
                                     new \DateTime('2016-11-15T10:15:02.000Z'))
                                 ->setEndedAtTime(
                                     new \DateTime('2016-11-15T10:15:12.000Z'))
-                        // new AttemptReference('https://example.edu/terms/201601/courses/7/sections/1/assess/1/items/3/users/554433/attempts/1')
                         )
                         ->setDateCreated(
                             new \DateTime('2016-11-15T10:15:12.000Z'))
@@ -114,9 +114,9 @@ class EventAssessmentItemCompletedTest extends CaliperTestCase {
                 ->setMembership(
                     (new Membership('https://example.edu/terms/201601/courses/7/sections/1/rosters/1'))
                         ->setMember(
-                            new MemberReference('https://example.edu/users/554433'))
+                            (new Person('https://example.edu/users/554433'))->makeReference())
                         ->setOrganization(
-                            new OrganizationReference('https://example.edu/terms/201601/courses/7/sections/1'))
+                            (new Organization('https://example.edu/terms/201601/courses/7/sections/1'))->makeReference())
                         ->setRoles(
                             [new Role(Role::LEARNER)])
                         ->setStatus(

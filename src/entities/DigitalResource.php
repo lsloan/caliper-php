@@ -1,4 +1,5 @@
 <?php
+
 namespace IMSGlobal\Caliper\entities;
 
 use IMSGlobal\Caliper\entities\foaf\Agent;
@@ -51,7 +52,9 @@ class DigitalResource extends Entity implements Referrable, Targetable, Creative
     }
 
     public function jsonSerialize() {
-        return $this->removeChildEntitySameContexts(array_merge(parent::jsonSerialize(), [
+        $serializedParent = parent::jsonSerialize();
+        if (!is_array($serializedParent)) return $serializedParent;
+        return $this->removeChildEntitySameContexts(array_merge($serializedParent, [
             'objectType' => $this->getObjectTypes(),
             'mediaType' => $this->getMediaType(),
             'creators' => $this->getCreators(),

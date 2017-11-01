@@ -1,4 +1,5 @@
 <?php
+
 namespace IMSGlobal\Caliper\entities\agent;
 
 use IMSGlobal\Caliper\entities;
@@ -14,7 +15,9 @@ class SoftwareApplication extends entities\Entity implements entities\foaf\Agent
     }
 
     public function jsonSerialize() {
-        return array_merge(parent::jsonSerialize(), [
+        $serializedParent = parent::jsonSerialize();
+        if (!is_array($serializedParent)) return $serializedParent;
+        return array_merge($serializedParent, [
             'version' => $this->getVersion(),
         ]);
     }

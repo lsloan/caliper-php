@@ -1,4 +1,5 @@
 <?php
+
 namespace IMSGlobal\Caliper\entities\annotation;
 
 use IMSGlobal\Caliper\entities\Entity;
@@ -19,7 +20,9 @@ class TextPositionSelector extends Entity implements \JsonSerializable {
     }
 
     public function jsonSerialize() {
-        return array_merge(parent::jsonSerialize(), [
+        $serializedParent = parent::jsonSerialize();
+        if (!is_array($serializedParent)) return $serializedParent;
+        return array_merge($serializedParent, [
             'id' => null, // TextPositionSelector objects don't need an ID
             'start' => $this->getStart(),
             'end' => $this->getEnd(),

@@ -1,4 +1,5 @@
 <?php
+
 namespace IMSGlobal\Caliper\entities\response;
 
 use IMSGlobal\Caliper\entities;
@@ -21,7 +22,9 @@ abstract class Response extends entities\Entity implements entities\Generatable 
     }
 
     public function jsonSerialize() {
-        return $this->removeChildEntitySameContexts(array_merge(parent::jsonSerialize(), [
+        $serializedParent = parent::jsonSerialize();
+        if (!is_array($serializedParent)) return $serializedParent;
+        return $this->removeChildEntitySameContexts(array_merge($serializedParent, [
             'attempt' => $this->getAttempt(),
             'startedAtTime' => util\TimestampUtil::formatTimeISO8601MillisUTC($this->getStartedAtTime()),
             'endedAtTime' => util\TimestampUtil::formatTimeISO8601MillisUTC($this->getEndedAtTime()),

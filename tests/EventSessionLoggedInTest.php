@@ -32,11 +32,11 @@ class EventSessionLoggedInTest extends CaliperTestCase {
                 ->setEventTime(
                     new \DateTime('2016-11-15T10:15:00.000Z'))
                 ->setEdApp(
-                    new EdAppReference('https://example.edu'))
+                    (new SoftwareApplication('https://example.edu'))->makeReference())
                 ->setSession(
                     (new Session('https://example.edu/sessions/1f6442a482de72ea6ad134943812bff564a76259'))
                         ->setUser(
-                            new UserReference('https://example.edu/users/554433'))
+                            (new Person('https://example.edu/users/554433'))->makeReference())
                         ->setDateCreated(
                             new \DateTime('2016-11-15T10:00:00.000Z'))
                         ->setStartedAtTime(

@@ -1,4 +1,5 @@
 <?php
+
 namespace IMSGlobal\Caliper\entities\assignable;
 
 use IMSGlobal\Caliper\entities\DigitalResource;
@@ -27,7 +28,9 @@ class AssignableDigitalResource extends DigitalResource implements Assignable {
     }
 
     public function jsonSerialize() {
-        return array_merge(parent::jsonSerialize(), [
+        $serializedParent = parent::jsonSerialize();
+        if (!is_array($serializedParent)) return $serializedParent;
+        return array_merge($serializedParent, [
             'dateToActivate' => TimestampUtil::formatTimeISO8601MillisUTC($this->getDateToActivate()),
             'dateToShow' => TimestampUtil::formatTimeISO8601MillisUTC($this->getDateToShow()),
             'dateToStartOn' => TimestampUtil::formatTimeISO8601MillisUTC($this->getDateToStartOn()),

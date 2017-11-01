@@ -1,4 +1,5 @@
 <?php
+
 namespace IMSGlobal\Caliper\entities\media;
 
 use IMSGlobal\Caliper\entities;
@@ -13,7 +14,9 @@ class MediaLocation extends entities\DigitalResource implements entities\Targeta
     }
 
     public function jsonSerialize() {
-        return array_merge(parent::jsonSerialize(), [
+        $serializedParent = parent::jsonSerialize();
+        if (!is_array($serializedParent)) return $serializedParent;
+        return array_merge($serializedParent, [
             'currentTime' => $this->getCurrentTime(),
         ]);
     }

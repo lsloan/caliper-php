@@ -1,4 +1,5 @@
 <?php
+
 namespace IMSGlobal\Caliper\entities\agent;
 
 use IMSGlobal\Caliper\entities;
@@ -15,7 +16,9 @@ class Organization extends entities\Entity implements entities\foaf\Agent, entit
     }
 
     public function jsonSerialize() {
-        return $this->removeChildEntitySameContexts(array_merge(parent::jsonSerialize(), [
+        $serializedParent = parent::jsonSerialize();
+        if (!is_array($serializedParent)) return $serializedParent;
+        return $this->removeChildEntitySameContexts(array_merge($serializedParent, [
             'members' => $this->getMembers(),
             'subOrganizationOf' => $this->getSubOrganizationOf(),
         ]));

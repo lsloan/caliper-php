@@ -1,4 +1,5 @@
 <?php
+
 namespace IMSGlobal\Caliper\entities\media;
 
 use IMSGlobal\Caliper\entities;
@@ -19,7 +20,9 @@ class AudioObject extends MediaObject implements entities\schemadotorg\AudioObje
     }
 
     public function jsonSerialize() {
-        return array_merge(parent::jsonSerialize(), [
+        $serializedParent = parent::jsonSerialize();
+        if (!is_array($serializedParent)) return $serializedParent;
+        return array_merge($serializedParent, [
             'volumeMin' => $this->getVolumeMin(),
             'volumeMax' => $this->getVolumeMax(),
             'volumeLevel' => $this->getVolumeLevel(),

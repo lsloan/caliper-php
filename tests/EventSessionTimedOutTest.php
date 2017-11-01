@@ -41,7 +41,7 @@ class EventSessionTimedOutTest extends CaliperTestCase {
                 ->setEventTime(
                     new \DateTime('2016-11-15T11:15:00.000Z'))
                 ->setEdApp(
-                    new EdAppReference('https://example.edu'))
+                    (new SoftwareApplication('https://example.edu'))->makeReference())
         );
     }
 }

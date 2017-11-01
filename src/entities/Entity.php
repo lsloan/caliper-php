@@ -12,6 +12,8 @@ abstract class Entity extends ClassUtil implements \JsonSerializable, entities\s
     protected $id;
     /** @var Context|null */
     protected $context;
+    /** @var bool */
+    protected $isReference = false;
     /** @var Type */
     private $type;
     /** @var string */
@@ -30,7 +32,17 @@ abstract class Entity extends ClassUtil implements \JsonSerializable, entities\s
             ->setContext(new Context(Context::CONTEXT));
     }
 
+    /**
+     * Serialize an entity object to JSON.
+     *
+     * If an entity has been marked as a reference, only its ID will be returned in the JSON.
+     *
+     * @return array|string
+     */
     public function jsonSerialize() {
+        if ($this->isReference === true)
+            return $this->id;
+
         return $this->removeChildEntitySameContexts([
             '@context' => $this->getContext(),
             'id' => $this->getId(),
@@ -188,6 +200,20 @@ abstract class Entity extends ClassUtil implements \JsonSerializable, entities\s
         return $this;
     }
 
-
+    /**
+     * Make a reference to an entity.
+     *
+     * When called on an entity object, it will clone itself and mark the clone as a reference.
+     * When the reference entity is serialized, the JSON will contain only its ID value.  By
+     * cloning the object, the reference will still be of the same type and have all the same
+     * attribute values as the original, so it will pass the same tests as the original would.
+     *
+     * @return $this|Entity
+     */
+    public function makeReference() {
+        $reference = clone $this;
+        $reference->isReference = true;
+        return $reference;
+    }
 }
 

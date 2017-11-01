@@ -1,4 +1,5 @@
 <?php
+
 namespace IMSGlobal\Caliper\entities;
 
 class Message extends DigitalResource {
@@ -15,7 +16,9 @@ class Message extends DigitalResource {
     }
 
     public function jsonSerialize() {
-        return $this->removeChildEntitySameContexts(array_merge(parent::jsonSerialize(), [
+        $serializedParent = parent::jsonSerialize();
+        if (!is_array($serializedParent)) return $serializedParent;
+        return $this->removeChildEntitySameContexts(array_merge($serializedParent, [
             'body' => $this->getBody(),
             'replyTo' => $this->getReplyTo(),
             'attachments' => $this->getAttachments(),

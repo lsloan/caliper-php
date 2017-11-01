@@ -1,4 +1,5 @@
 <?php
+
 namespace IMSGlobal\Caliper\entities\session;
 
 use IMSGlobal\Caliper\entities;
@@ -21,7 +22,9 @@ class Session extends entities\Entity implements entities\Generatable, entities\
     }
 
     public function jsonSerialize() {
-        return $this->removeChildEntitySameContexts(array_merge(parent::jsonSerialize(), [
+        $serializedParent = parent::jsonSerialize();
+        if (!is_array($serializedParent)) return $serializedParent;
+        return $this->removeChildEntitySameContexts(array_merge($serializedParent, [
             'user' => $this->getUser(),
             'startedAtTime' => util\TimestampUtil::formatTimeISO8601MillisUTC($this->getStartedAtTime()),
             'endedAtTime' => util\TimestampUtil::formatTimeISO8601MillisUTC($this->getEndedAtTime()),

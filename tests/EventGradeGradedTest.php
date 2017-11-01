@@ -52,11 +52,11 @@ class EventGradeGradedTest extends CaliperTestCase {
                 ->setEventTime(
                     new \DateTime('2016-11-15T10:57:06.000Z'))
                 ->setEdApp(
-                    new EdAppReference('https://example.edu'))
+                    (new SoftwareApplication('https://example.edu'))->makeReference())
                 ->setGenerated(
                     (new Score('https://example.edu/terms/201601/courses/7/sections/1/assess/1/users/554433/attempts/1/scores/1'))
                         ->setAttempt(
-                            new AttemptReference('https://example.edu/terms/201601/courses/7/sections/1/assess/1/users/554433/attempts/1'))
+                            (new Attempt('https://example.edu/terms/201601/courses/7/sections/1/assess/1/users/554433/attempts/1'))->makeReference())
                         ->setMaxScore(
                             15.0
                         )
@@ -64,7 +64,7 @@ class EventGradeGradedTest extends CaliperTestCase {
                             10.0
                         )
                         ->setScoredBy(
-                            new ScoredByReference('https://example.edu/autograder'))
+                            (new SoftwareApplication('https://example.edu/autograder'))->makeReference())
                         ->setComment(
                             'auto-graded exam'
                         )

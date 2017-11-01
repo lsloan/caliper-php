@@ -1,4 +1,5 @@
 <?php
+
 namespace IMSGlobal\Caliper\entities\media;
 
 use IMSGlobal\Caliper\entities;
@@ -12,7 +13,9 @@ abstract class MediaObject extends entities\DigitalResource implements entities\
     }
 
     public function jsonSerialize() {
-        return $this->removeChildEntitySameContexts(array_merge(parent::jsonSerialize(), [
+        $serializedParent = parent::jsonSerialize();
+        if (!is_array($serializedParent)) return $serializedParent;
+        return $this->removeChildEntitySameContexts(array_merge($serializedParent, [
             'duration' => $this->getDuration(),
         ]));
     }

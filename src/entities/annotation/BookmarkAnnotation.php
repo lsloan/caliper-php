@@ -1,4 +1,5 @@
 <?php
+
 namespace IMSGlobal\Caliper\entities\annotation;
 
 class BookmarkAnnotation extends Annotation {
@@ -11,7 +12,9 @@ class BookmarkAnnotation extends Annotation {
     }
 
     public function jsonSerialize() {
-        return $this->removeChildEntitySameContexts(array_merge(parent::jsonSerialize(), [
+        $serializedParent = parent::jsonSerialize();
+        if (!is_array($serializedParent)) return $serializedParent;
+        return $this->removeChildEntitySameContexts(array_merge($serializedParent, [
             'bookmarkNotes' => $this->getBookmarkNotes(),
         ]));
     }

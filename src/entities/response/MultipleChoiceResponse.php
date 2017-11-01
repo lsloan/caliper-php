@@ -1,4 +1,5 @@
 <?php
+
 namespace IMSGlobal\Caliper\entities\response;
 
 class MultipleChoiceResponse extends Response {
@@ -11,7 +12,9 @@ class MultipleChoiceResponse extends Response {
     }
 
     public function jsonSerialize() {
-        return $this->removeChildEntitySameContexts(array_merge(parent::jsonSerialize(), [
+        $serializedParent = parent::jsonSerialize();
+        if (!is_array($serializedParent)) return $serializedParent;
+        return $this->removeChildEntitySameContexts(array_merge($serializedParent, [
             'value' => $this->getValue(),
         ]));
     }

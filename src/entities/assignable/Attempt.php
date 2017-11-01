@@ -1,4 +1,5 @@
 <?php
+
 namespace IMSGlobal\Caliper\entities\assignable;
 
 use IMSGlobal\Caliper\entities;
@@ -28,7 +29,9 @@ class Attempt extends entities\Entity implements entities\Generatable {
     }
 
     public function jsonSerialize() {
-        return $this->removeChildEntitySameContexts(array_merge(parent::jsonSerialize(), [
+        $serializedParent = parent::jsonSerialize();
+        if (!is_array($serializedParent)) return $serializedParent;
+        return $this->removeChildEntitySameContexts(array_merge($serializedParent, [
             'assignable' => $this->getAssignable(),
             'assignee' => $this->getAssignee(),
             'isPartOf' => $this->getIsPartOf(),

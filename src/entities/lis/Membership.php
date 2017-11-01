@@ -1,4 +1,5 @@
 <?php
+
 namespace IMSGlobal\Caliper\entities\lis;
 
 use IMSGlobal\Caliper\entities;
@@ -19,7 +20,9 @@ class Membership extends entities\Entity implements entities\w3c\Membership {
     }
 
     public function jsonSerialize() {
-        return $this->removeChildEntitySameContexts(array_merge(parent::jsonSerialize(), [
+        $serializedParent = parent::jsonSerialize();
+        if (!is_array($serializedParent)) return $serializedParent;
+        return $this->removeChildEntitySameContexts(array_merge($serializedParent, [
             'member' => $this->getMember(),
             'organization' => $this->getOrganization(),
             'roles' => $this->getRoles(),

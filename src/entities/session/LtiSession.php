@@ -1,4 +1,5 @@
 <?php
+
 namespace IMSGlobal\Caliper\entities\session;
 
 use IMSGlobal\Caliper\entities;
@@ -13,7 +14,9 @@ class LtiSession extends Session {
     }
 
     public function jsonSerialize() {
-        return $this->removeChildEntitySameContexts(array_merge(parent::jsonSerialize(), [
+        $serializedParent = parent::jsonSerialize();
+        if (!is_array($serializedParent)) return $serializedParent;
+        return $this->removeChildEntitySameContexts(array_merge($serializedParent, [
             'messageParameters' => $this->getMessageParameters(),
         ]));
     }

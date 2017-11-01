@@ -1,4 +1,5 @@
 <?php
+
 namespace IMSGlobal\Caliper\entities\assessment;
 
 use IMSGlobal\Caliper\entities\assignable\AssignableDigitalResource;
@@ -14,7 +15,9 @@ class Assessment extends AssignableDigitalResource {
     }
 
     public function jsonSerialize() {
-        return $this->removeChildEntitySameContexts(array_merge(parent::jsonSerialize(), [
+        $serializedParent = parent::jsonSerialize();
+        if (!is_array($serializedParent)) return $serializedParent;
+        return $this->removeChildEntitySameContexts(array_merge($serializedParent, [
             'items' => $this->getItems(),
         ]));
     }

@@ -2,7 +2,9 @@
 require_once 'CaliperTestCase.php';
 
 use IMSGlobal\Caliper\actions\Action;
+use IMSGlobal\Caliper\entities\agent\Organization;
 use IMSGlobal\Caliper\entities\agent\Person;
+use IMSGlobal\Caliper\entities\agent\SoftwareApplication;
 use IMSGlobal\Caliper\entities\lis\CourseSection;
 use IMSGlobal\Caliper\entities\lis\Membership;
 use IMSGlobal\Caliper\entities\lis\Role;
@@ -42,7 +44,7 @@ class EventViewViewedFedSessionTest extends CaliperTestCase {
                 ->setEventTime(
                     new \DateTime('2016-11-15T10:20:00.000Z'))
                 ->setEdApp(
-                    new EdAppReference('https://example.com'))
+                    (new SoftwareApplication('https://example.com'))->makeReference())
                 ->setGroup(
                     (new CourseSection('https://example.edu/terms/201601/courses/7/sections/1'))
                         ->setExtensions([
@@ -52,9 +54,9 @@ class EventViewViewedFedSessionTest extends CaliperTestCase {
                 ->setMembership(
                     (new Membership('https://example.edu/terms/201601/courses/7/sections/1/rosters/1'))
                         ->setMember(
-                            new MemberReference('https://example.edu/users/554433'))
+                            (new Person('https://example.edu/users/554433'))->makeReference())
                         ->setOrganization(
-                            new OrganizationReference('https://example.edu/terms/201601/courses/7/sections/1'))
+                            (new Organization('https://example.edu/terms/201601/courses/7/sections/1'))->makeReference())
                         ->setRoles(
                             [new Role(Role::LEARNER)])
                         ->setStatus(
@@ -72,7 +74,7 @@ class EventViewViewedFedSessionTest extends CaliperTestCase {
                 ->setFederatedSession(
                     (new LtiSession('urn:uuid:1c519ff7-3dfa-4764-be48-d2fb35a2925a'))
                         ->setUser(
-                            new UserReference('https://example.edu/users/554433'))
+                            (new Person('https://example.edu/users/554433'))->makeReference())
                         ->setMessageParameters(
                             [
                                 'context_id' => '4f1a161f-59c3-43e5-be37-445ad09e3f76',
