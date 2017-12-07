@@ -34,11 +34,13 @@ abstract class MediaObject extends entities\DigitalResource implements entities\
         if (!is_null($duration)) {
             $duration = strval($duration);
 
-            try {
-                $_ = new \DateInterval($duration);
-            } catch (\Exception $exception) {
-                throw new \InvalidArgumentException(__METHOD__ . ': ISO 8601 interval string expected');
-            }
+            // TODO: Re-enable after an ISO 8601 compliant interval validator is available.
+            // A DateInterval() bug disallows fractions. (https://bugs.php.net/bug.php?id=53831)
+            // try {
+            //     $_ = new \DateInterval($duration);
+            // } catch (\Exception $exception) {
+            //     throw new \InvalidArgumentException(__METHOD__ . ': ISO 8601 interval string expected');
+            // }
         }
 
         $this->duration = $duration;
