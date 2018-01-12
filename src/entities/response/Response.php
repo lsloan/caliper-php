@@ -2,15 +2,12 @@
 
 namespace IMSGlobal\Caliper\entities\response;
 
-use \IMSGlobal\Caliper\entities;
-use \IMSGlobal\Caliper\util;
+use IMSGlobal\Caliper\entities;
+use IMSGlobal\Caliper\entities\assignable\Attempt;
+use IMSGlobal\Caliper\util;
 
 abstract class Response extends entities\Entity implements entities\Generatable {
-    /** @var entities\DigitalResource */
-    private $assignable;
-    /** @var entities\\foaf\Agent */
-    private $actor;
-    /** @var entities\assignable\Attempt */
+    /** @var Attempt */
     private $attempt;
     /** @var \DateTime */
     private $startedAtTime;
@@ -25,46 +22,14 @@ abstract class Response extends entities\Entity implements entities\Generatable 
     }
 
     public function jsonSerialize() {
-        return array_merge(parent::jsonSerialize(), [
-            'actor' => (!is_null($this->getActor()))
-                ? $this->getActor()->getId()
-                : null,
-            'assignable' => (!is_null($this->getAssignable()))
-                ? $this->getAssignable()->getId()
-                : null,
+        $serializedParent = parent::jsonSerialize();
+        if (!is_array($serializedParent)) return $serializedParent;
+        return $this->removeChildEntitySameContexts(array_merge($serializedParent, [
             'attempt' => $this->getAttempt(),
-            'duration' => $this->getDuration(),
-            'endedAtTime' => util\TimestampUtil::formatTimeISO8601MillisUTC($this->getEndedAtTime()),
             'startedAtTime' => util\TimestampUtil::formatTimeISO8601MillisUTC($this->getStartedAtTime()),
-        ]);
-    }
-
-    /** @return entities\DigitalResource assignable */
-    public function getAssignable() {
-        return $this->assignable;
-    }
-
-    /**
-     * @param entities\DigitalResource $assignable
-     * @return $this|Response
-     */
-    public function setAssignable(entities\DigitalResource $assignable) {
-        $this->assignable = $assignable;
-        return $this;
-    }
-
-    /** @return entities\foaf\Agent actor */
-    public function getActor() {
-        return $this->actor;
-    }
-
-    /**
-     * @param entities\foaf\Agent $actor
-     * @return $this|Response
-     */
-    public function setActor(entities\foaf\Agent $actor) {
-        $this->actor = $actor;
-        return $this;
+            'endedAtTime' => util\TimestampUtil::formatTimeISO8601MillisUTC($this->getEndedAtTime()),
+            'duration' => $this->getDuration(),
+        ]));
     }
 
     /** @return Attempt attempt */
@@ -73,10 +38,10 @@ abstract class Response extends entities\Entity implements entities\Generatable 
     }
 
     /**
-     * @param entities\assignable\Attempt $attempt
+     * @param Attempt $attempt
      * @return $this|Response
      */
-    public function setAttempt(entities\assignable\Attempt $attempt) {
+    public function setAttempt(Attempt $attempt) {
         $this->attempt = $attempt;
         return $this;
     }
@@ -109,22 +74,30 @@ abstract class Response extends entities\Entity implements entities\Generatable 
         return $this;
     }
 
-    /** @return string duration */
+    /** @return string|null duration */
     public function getDuration() {
         return $this->duration;
     }
 
     /**
-     * @param string $duration
+     * @param string|null $duration (ISO 8601 interval)
+     * @throws \InvalidArgumentException ISO 8601 interval string required
      * @return $this|Response
      */
     public function setDuration($duration) {
-        if (!is_string($duration)) {
-            throw new \InvalidArgumentException(__METHOD__ . ': string expected');
+        if (!is_null($duration)) {
+            $duration = strval($duration);
+
+            // TODO: Re-enable after an ISO 8601 compliant interval validator is available.
+            // A DateInterval() bug disallows fractions. (https://bugs.php.net/bug.php?id=53831)
+            // try {
+            //     @$_ = new \DateInterval($duration);
+            // } catch (\Exception $exception) {
+            //     throw new \InvalidArgumentException(__METHOD__ . ': ISO 8601 interval string expected');
+            // }
         }
 
         $this->duration = $duration;
         return $this;
     }
-
 }

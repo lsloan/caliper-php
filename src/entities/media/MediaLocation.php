@@ -2,10 +2,10 @@
 
 namespace IMSGlobal\Caliper\entities\media;
 
-use \IMSGlobal\Caliper\entities;
+use IMSGlobal\Caliper\entities;
 
 class MediaLocation extends entities\DigitalResource implements entities\Targetable {
-    /** @var long (seconds) */
+    /** @var string|null ISO 8601 interval */
     private $currentTime;
 
     public function __construct($id) {
@@ -14,23 +14,34 @@ class MediaLocation extends entities\DigitalResource implements entities\Targeta
     }
 
     public function jsonSerialize() {
-        return array_merge(parent::jsonSerialize(), [
+        $serializedParent = parent::jsonSerialize();
+        if (!is_array($serializedParent)) return $serializedParent;
+        return array_merge($serializedParent, [
             'currentTime' => $this->getCurrentTime(),
         ]);
     }
 
-    /** @return long currentTime (seconds) */
+    /** @return string|null duration (ISO 8601 interval) */
     public function getCurrentTime() {
         return $this->currentTime;
     }
 
     /**
-     * @param long $currentTime (seconds)
+     * @param string|null $currentTime (ISO 8601 interval)
+     * @throws \InvalidArgumentException ISO 8601 interval string required
      * @return $this|MediaLocation
      */
     public function setCurrentTime($currentTime) {
-        if (!is_long($currentTime)) {
-            throw new \InvalidArgumentException(__METHOD__ . ': long expected');
+        if (!is_null($currentTime)) {
+            $currentTime = strval($currentTime);
+
+            // TODO: Re-enable after an ISO 8601 compliant interval validator is available.
+            // A DateInterval() bug disallows fractions. (https://bugs.php.net/bug.php?id=53831)
+            // try {
+            //     $_ = new \DateInterval($currentTime);
+            // } catch (\Exception $exception) {
+            //     throw new \InvalidArgumentException(__METHOD__ . ': ISO 8601 interval string expected (' . strval($currentTime) . ')');
+            // }
         }
 
         $this->currentTime = $currentTime;

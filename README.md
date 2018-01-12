@@ -107,8 +107,9 @@ A very special thank you to each of the developers that contributed to this proj
 * Prashant Nayak, Intellify Learning
 * balachandiran.v / Yoganand-htc
 * Lance E Sloan (lsloan at umich dot edu), University of Michigan
+* Stephen P Vickers, SPV Software Products
 
-©2016 IMS Global Learning Consortium, Inc. All Rights Reserved.
+Copyright © 2018 IMS Global Learning Consortium, Inc. All Rights Reserved.  
 Trademark Information - http://www.imsglobal.org/copyright.html
 
 For license information contact, info@imsglobal.org and read the LICENSE file contained in the repository.

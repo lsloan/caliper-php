@@ -12,13 +12,15 @@ class BookmarkAnnotation extends Annotation {
     }
 
     public function jsonSerialize() {
-        return array_merge(parent::jsonSerialize(), [
+        $serializedParent = parent::jsonSerialize();
+        if (!is_array($serializedParent)) return $serializedParent;
+        return $this->removeChildEntitySameContexts(array_merge($serializedParent, [
             'bookmarkNotes' => $this->getBookmarkNotes(),
-        ]);
+        ]));
     }
 
     /** @return string bookmarkNotes */
-    public function  getBookmarkNotes() {
+    public function getBookmarkNotes() {
         return $this->bookmarkNotes;
     }
 
@@ -26,7 +28,7 @@ class BookmarkAnnotation extends Annotation {
      * @param string $bookmarkNotes
      * @return $this|BookmarkAnnotation
      */
-    public function  setBookmarkNotes($bookmarkNotes) {
+    public function setBookmarkNotes($bookmarkNotes) {
         $this->bookmarkNotes = $bookmarkNotes;
         return $this;
     }

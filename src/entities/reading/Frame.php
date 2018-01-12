@@ -2,7 +2,7 @@
 
 namespace IMSGlobal\Caliper\entities\reading;
 
-use \IMSGlobal\Caliper\entities;
+use IMSGlobal\Caliper\entities;
 
 class Frame extends entities\DigitalResource implements entities\Targetable {
     /** @var int */
@@ -14,7 +14,9 @@ class Frame extends entities\DigitalResource implements entities\Targetable {
     }
 
     public function jsonSerialize() {
-        return array_merge(parent::jsonSerialize(), [
+        $serializedParent = parent::jsonSerialize();
+        if (!is_array($serializedParent)) return $serializedParent;
+        return array_merge($serializedParent, [
             'index' => $this->getIndex(),
         ]);
     }

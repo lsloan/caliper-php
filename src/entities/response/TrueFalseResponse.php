@@ -12,7 +12,9 @@ class TrueFalseResponse extends Response {
     }
 
     public function jsonSerialize() {
-        return array_merge(parent::jsonSerialize(), [
+        $serializedParent = parent::jsonSerialize();
+        if (!is_array($serializedParent)) return $serializedParent;
+        return array_merge($serializedParent, [
             'value' => $this->getValue(),
         ]);
     }

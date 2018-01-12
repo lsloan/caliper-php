@@ -2,7 +2,9 @@
 
 namespace IMSGlobal\Caliper\entities;
 
-use \IMSGlobal\Caliper\util\TimestampUtil;
+use IMSGlobal\Caliper\entities\foaf\Agent;
+use IMSGlobal\Caliper\entities\schemadotorg\CreativeWork;
+use IMSGlobal\Caliper\util\TimestampUtil;
 
 /**
  *         Caliper representation of a CreativeWork
@@ -23,42 +25,59 @@ use \IMSGlobal\Caliper\util\TimestampUtil;
  *         as Scheme and Lisp
  *
  */
-class DigitalResource extends Entity implements schemadotorg\CreativeWork, Targetable {
-    /** @var string[] */
+class DigitalResource extends Entity implements Referrable, Targetable, CreativeWork {
+    /**
+     * @deprecated 1.2 Redundant.  See "@type".
+     * @var string[]
+     */
     private $objectTypes = [];
+    /** @var string */
+    private $mediaType;
+    /** @var Agent[] */
+    private $creators = [];
     /** @var LearningObjective[] */
-    private $alignedLearningObjectives = [];
+    private $learningObjectives = [];
     /** @var string[] */
     private $keywords = [];
-    /** @var CreativeWork */
+    /** @var Entity|null */
     private $isPartOf;
-    /** @var DateTime */
+    /** @var \DateTime */
     private $datePublished;
     /** @var string */
     private $version;
 
     public function __construct($id) {
         parent::__construct($id);
+        $this->setType(new EntityType(EntityType::DIGITAL_RESOURCE));
     }
 
     public function jsonSerialize() {
-        return array_merge(parent::jsonSerialize(), [
+        $serializedParent = parent::jsonSerialize();
+        if (!is_array($serializedParent)) return $serializedParent;
+        return $this->removeChildEntitySameContexts(array_merge($serializedParent, [
             'objectType' => $this->getObjectTypes(),
-            'alignedLearningObjective' => $this->getAlignedLearningObjectives(),
+            'mediaType' => $this->getMediaType(),
+            'creators' => $this->getCreators(),
+            'learningObjectives' => $this->getLearningObjectives(),
             'keywords' => $this->getKeywords(),
             'isPartOf' => $this->getIsPartOf(),
             'datePublished' => TimestampUtil::formatTimeISO8601MillisUTC($this->getDatePublished()),
             'version' => $this->getVersion(),
-        ]);
+        ]));
     }
 
-    /** @return string[] objectTypes */
+    /**
+     * @deprecated 1.2 Redundant.  See "@type".
+     * @return string[] objectTypes
+     */
     public function getObjectTypes() {
         return $this->objectTypes;
     }
 
     /**
+     * @deprecated 1.2 Redundant.  See "@type".
      * @param string|string[] $objectTypes
+     * @throws \InvalidArgumentException array must contain only strings
      * @return $this|DigitalResource
      */
     public function setObjectTypes($objectTypes) {
@@ -72,42 +91,91 @@ class DigitalResource extends Entity implements schemadotorg\CreativeWork, Targe
             }
         }
 
-        $this->objectType = $objectTypes;
+        $this->objectTypes = $objectTypes;
         return $this;
     }
 
-    /** @return LearningObjective[] alignedLearningObjectives */
-    public function  getAlignedLearningObjectives() {
-        return $this->alignedLearningObjectives;
+    /** @return string mediaType */
+    public function getMediaType() {
+        return $this->mediaType;
     }
 
     /**
-     * @param LearningObjective|LearningObjective[] $alignedLearningObjectives
+     * @param string $mediaType
+     * @throws \InvalidArgumentException string required
      * @return $this|DigitalResource
      */
-    public function setAlignedLearningObjectives($alignedLearningObjectives) {
-        if (!is_array($alignedLearningObjectives)) {
-            $alignedLearningObjectives = [$alignedLearningObjectives];
+    public function setMediaType($mediaType) {
+        if (!is_string($mediaType)) {
+            throw new \InvalidArgumentException(__METHOD__ . ': string expected');
         }
 
-        foreach ($alignedLearningObjectives as $anAlignedLearningObjective) {
-            if (!($anAlignedLearningObjective instanceof LearningObjective)) {
+        $this->mediaType = strval($mediaType);
+        return $this;
+    }
+
+    /**
+     * @return Agent[]
+     */
+    public function getCreators() {
+        return $this->creators;
+    }
+
+    /**
+     * @param Agent[] $creators
+     * @throws \InvalidArgumentException array of Agent required
+     * @return $this|DigitalResource
+     */
+    public function setCreators($creators) {
+        if (!is_array($creators)) {
+            $creators = [$creators];
+        }
+
+        foreach ($creators as $aCreator) {
+            if (!($aCreator instanceof Agent)) {
+                // Using `Agent::className()` here is tricky.  Using static string for expediency.
                 throw new \InvalidArgumentException(
-                    __METHOD__ . ': array of ' . LearningObjective::className() . ' expected');
+                    __METHOD__ . ': array of Agent expected');
             }
         }
 
-        $this->alignedLearningObjectives = $alignedLearningObjectives;
+        $this->creators = $creators;
+        return $this;
+    }
+
+    /** @return LearningObjective[] learningObjectives */
+    public function getLearningObjectives() {
+        return $this->learningObjectives;
+    }
+
+    /**
+     * @param LearningObjective|LearningObjective[] $learningObjectives
+     * @throws \InvalidArgumentException array must contain only strings
+     * @return $this|DigitalResource
+     */
+    public function setLearningObjectives($learningObjectives) {
+        if (!is_array($learningObjectives)) {
+            $learningObjectives = [$learningObjectives];
+        }
+
+        foreach ($learningObjectives as $aLearningObjective) {
+            if (!($aLearningObjective instanceof LearningObjective)) {
+                throw new \InvalidArgumentException(__METHOD__ . ': array of LearningObjective expected');
+            }
+        }
+
+        $this->learningObjectives = $learningObjectives;
         return $this;
     }
 
     /** @return string[] keywords */
-    public function  getKeywords() {
+    public function getKeywords() {
         return $this->keywords;
     }
 
     /**
      * @param string|string[] $keywords
+     * @throws \InvalidArgumentException array must contain only strings
      * @return $this|DigitalResource
      */
     public function setKeywords($keywords) {
@@ -125,16 +193,16 @@ class DigitalResource extends Entity implements schemadotorg\CreativeWork, Targe
         return $this;
     }
 
-    /** @return schemadotorg\CreativeWork isPartOf */
+    /** @return Entity|null isPartOf */
     public function getIsPartOf() {
         return $this->isPartOf;
     }
 
     /**
-     * @param schemadotorg\CreativeWork $isPartOf
+     * @param Entity|null $isPartOf
      * @return $this|DigitalResource
      */
-    public function setIsPartOf(schemadotorg\CreativeWork $isPartOf) {
+    public function setIsPartOf(Entity $isPartOf) {
         $this->isPartOf = $isPartOf;
         return $this;
     }
@@ -162,6 +230,7 @@ class DigitalResource extends Entity implements schemadotorg\CreativeWork, Targe
 
     /**
      * @param string $version
+     * @throws \InvalidArgumentException string required
      * @return $this|DigitalResource
      */
     public function setVersion($version) {
@@ -173,4 +242,3 @@ class DigitalResource extends Entity implements schemadotorg\CreativeWork, Targe
         return $this;
     }
 }
-
