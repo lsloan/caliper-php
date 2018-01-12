@@ -1,4 +1,5 @@
 <?php
+
 namespace IMSGlobal\Caliper\util;
 
 class TimestampUtil {
@@ -21,15 +22,25 @@ class TimestampUtil {
     }
 
     /**
-     * Instantiate a DateTime object for the current time, including fractional seconds.
+     * Instantiate a DateTime object which includes fractional seconds, based on the current time
+     * or a specific floating point epoch timestamp.
      *
      * By default, PHP doesn't include fractional seconds in DateTime objects that were
      * instantiated without a timestamp argument.  A few other functions must be used together as
      * a workaround.
      *
+     * @param float|null $timestampWithFraction
+     * @param int $precision
      * @return \DateTime timestamp
      */
-    static function getTimeWithMicroseconds() {
-        return \DateTime::createFromFormat('U.u', number_format(microtime($returnFloat = true), 6, '.', ''));
+    static function makeDateTimeWithSecondsFraction($timestampWithFraction = null, $precision = 3) {
+        if (!is_null($timestampWithFraction)) {
+            $timestampWithFraction = floatval($timestampWithFraction);
+        } else {
+            $timestampWithFraction = microtime($returnFloat = true);
+        }
+
+        return \DateTime::createFromFormat('U.u',
+            number_format($timestampWithFraction, $precision, '.', ''));
     }
 }
