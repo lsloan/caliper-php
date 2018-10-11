@@ -52,7 +52,18 @@ class ClassUtil {
             if ($value instanceof \JsonSerializable) {
                 $value = $value->jsonSerialize();
                 if (is_array($value) && array_key_exists($contextProperty, $value)) {
-                    if ($value[$contextProperty] == $parent->getContext()) {
+                    if (is_array($value[$contextProperty]) && count($value[$contextProperty]) > 1) {
+                        // inner object has array of contexts - not trying to thin
+                        continue;
+                    } elseif (is_array($value[$contextProperty]) && count($value[$contextProperty]) === 1) {
+                        $comparableContext = array_pop($value[$contextProperty]);
+                    } else {
+                        $comparableContext = $value[$contextProperty];
+                    }
+                    $parentContext = $parent->getContext()->getValue();
+                    if (is_string($parentContext) && $comparableContext == $parent->getContext()) {
+                        $value[$contextProperty] = null;
+                    } elseif (is_array($parentContext) && in_array($comparableContext, $parentContext)) {
                         $value[$contextProperty] = null;
                     }
                 }
