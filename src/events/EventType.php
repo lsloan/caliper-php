@@ -16,6 +16,7 @@ class EventType extends \IMSGlobal\Caliper\util\BasicEnum {
         GRADE = 'GradeEvent',
         SESSION = 'SessionEvent',
         THREAD = 'ThreadEvent',
+        TOOL_LAUNCH = 'ToolLaunchEvent',
         TOOL_USE = 'ToolUseEvent',
         VIEW = 'ViewEvent';
 }
