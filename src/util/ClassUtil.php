@@ -3,6 +3,7 @@ namespace IMSGlobal\Caliper\util;
 
 use IMSGlobal\Caliper\entities\Entity;
 use IMSGlobal\Caliper\events\Event;
+use IMSGlobal\Caliper\context;
 
 /**
  * Class ClassUtil
@@ -47,6 +48,14 @@ class ClassUtil {
      */
     protected function removeChildEntitySameContextsBase(array $serializationData, $parent) {
         $contextProperty = $parent->getContext()->getPropertyName();
+        $parentContext = $parent->getContext()->getValue();
+        $defaultContext = new context\Context(context\Context::CONTEXT);
+        $removableContexts = [$defaultContext];
+        if (is_string($parentContext)) {
+            $removableContexts []= $parentContext;
+        } elseif (is_array($parentContext)) {
+            array_merge($removableContexts, $parentContext);
+        }
 
         foreach ($serializationData as &$value) {
             if ($value instanceof \JsonSerializable) {
@@ -60,10 +69,8 @@ class ClassUtil {
                     } else {
                         $comparableContext = $value[$contextProperty];
                     }
-                    $parentContext = $parent->getContext()->getValue();
-                    if (is_string($parentContext) && $comparableContext == $parent->getContext()) {
-                        $value[$contextProperty] = null;
-                    } elseif (is_array($parentContext) && in_array($comparableContext, $parentContext)) {
+
+                    if (in_array($comparableContext, $removableContexts)) {
                         $value[$contextProperty] = null;
                     }
                 }
