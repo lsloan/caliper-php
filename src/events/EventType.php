@@ -14,6 +14,7 @@ class EventType extends \IMSGlobal\Caliper\util\BasicEnum {
         MESSAGE = 'MessageEvent',
         NAVIGATION = 'NavigationEvent',
         GRADE = 'GradeEvent',
+        RESOURCE_MANAGEMENT = 'ResourceManagementEvent',
         SEARCH = 'SearchEvent',
         SESSION = 'SessionEvent',
         THREAD = 'ThreadEvent',
