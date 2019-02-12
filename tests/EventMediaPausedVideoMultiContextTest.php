@@ -17,7 +17,6 @@ use IMSGlobal\Caliper\events\MediaEvent;
 
 class CustomContext extends Context {
     const CONTEXT = array('https://some.domain.com/caliper/ctx/v1p1', 'http://purl.imsglobal.org/ctx/caliper/v1p1');
-//  const CONTEXT = 'http://purl.imsglobal.org/ctx/caliper/v1p1';
 }
 
 /**
