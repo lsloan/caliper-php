@@ -55,7 +55,7 @@ class ClassUtil {
                     if (is_array($value[$contextProperty]) && count($value[$contextProperty]) > 1) {
                         // inner object has array of contexts - not trying to thin
                         continue;
-                    } elseif (is_array($value[$contextProperty]) && count($value[$contextProperty]) === 1) {
+                    } elseif (is_array($value[$contextProperty]) && count($value[$contextProperty]) == 1) {
                         $comparableContext = array_pop($value[$contextProperty]);
                     } else {
                         $comparableContext = $value[$contextProperty];
