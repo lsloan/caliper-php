@@ -56,4 +56,11 @@ abstract class Requestor {
 
         return json_encode($dataForEncoding, $options->getJsonEncodeOptions());
     }
+
+    /**
+     * @param \IMSGlobal\Caliper\Sensor $sensor
+     * @param Entity|Event|Entity[]|Event[] $items
+     * @return bool success
+     */
+    abstract function send(\IMSGlobal\Caliper\Sensor $sensor, $items);
 }
