@@ -58,7 +58,7 @@ class Client {
             }
         }
 
-        (new HttpRequestor($this->getOptions()))
+        $this->getRequestor(true)
             ->send($sensor, $events);
     }
 
@@ -95,7 +95,7 @@ class Client {
             }
         }
 
-        (new HttpRequestor($this->getOptions()))
+        $this->getRequestor(true)
             ->send($sensor, $entities);
     }
 
