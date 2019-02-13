@@ -62,6 +62,29 @@ class Client {
             ->send($sensor, $events);
     }
 
+    /**
+     * Return the current Requestor.  If `$initializeIfNull` is `true` and no requestor
+     * is already set, initialize it with an instance of `HttpRequestor` using the
+     * current options.
+     *
+     * @return Requestor
+     */
+    public function getRequestor($initializeIfNull = false) {
+        if (($initializeIfNull === true) && is_null($this->requestor)) {
+            $this->requestor = new HttpRequestor($this->getOptions());
+        }
+        return $this->requestor;
+    }
+
+    /**
+     * @param Requestor $requestor
+     * @return $this|Client
+     */
+    public function setRequestor($requestor) {
+        $this->requestor = $requestor;
+        return $this;
+    }
+
     /** @return Options options */
     public function getOptions() {
         return $this->options;
@@ -97,28 +120,5 @@ class Client {
 
         $this->getRequestor(true)
             ->send($sensor, $entities);
-    }
-
-    /**
-     * Return the current Requestor.  If `$initializeIfNull` is `true` and no requestor
-     * is already set, initialize it with an instance of `HttpRequestor` using the
-     * current options.
-     *
-     * @return Requestor
-     */
-    public function getRequestor($initializeIfNull = false) {
-        if (($initializeIfNull === true) && is_null($this->requestor)) {
-            $this->requestor = new HttpRequestor($this->getOptions());
-        }
-        return $this->requestor;
-    }
-
-    /**
-     * @param Requestor $requestor
-     * @return $this|Client
-     */
-    public function setRequestor($requestor) {
-        $this->requestor = $requestor;
-        return $this;
     }
 }

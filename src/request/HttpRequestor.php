@@ -1,4 +1,5 @@
 <?php
+
 namespace IMSGlobal\Caliper\request;
 
 use IMSGlobal\Caliper\entities\Entity;
